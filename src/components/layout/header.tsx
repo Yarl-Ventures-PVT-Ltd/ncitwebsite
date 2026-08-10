@@ -8,7 +8,7 @@ import NcitLogo from '@/components/ui/ncit-logo';
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const navItems = ['About', 'What We Do', 'Membership', 'Ecosystem', 'Invest', 'Insights'];
+  const navItems = ['Home', 'About', 'What We Do', 'Membership', 'Ecosystem', 'Invest', 'Insights'];
 
   return (
     <header className="sticky top-0 z-50 w-full glass-header bg-white/80 backdrop-blur-xl border-b border-white/20">
@@ -24,7 +24,7 @@ export default function Header() {
           {navItems.map((item) => (
             <Link 
               key={item}
-              href={`/${item.toLowerCase().replace(/ /g, '-')}`} 
+              href={item === 'Home' ? '/' : `/${item.toLowerCase().replace(/ /g, '-')}`} 
               className="text-sm font-medium text-ncit-ink/80 hover:text-ncit-blue transition-colors relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-ncit-blue after:transition-all hover:after:w-full pb-1"
             >
               {item}
@@ -61,7 +61,7 @@ export default function Header() {
               {navItems.map((item) => (
                 <Link 
                   key={item}
-                  href={`/${item.toLowerCase().replace(/ /g, '-')}`} 
+                  href={item === 'Home' ? '/' : `/${item.toLowerCase().replace(/ /g, '-')}`} 
                   onClick={() => setMobileMenuOpen(false)}
                   className="text-lg font-bold text-ncit-ink hover:text-ncit-blue transition-colors py-2 border-b border-ncit-ink/5"
                 >
