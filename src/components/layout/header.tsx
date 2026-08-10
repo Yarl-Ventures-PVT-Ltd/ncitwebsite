@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { Globe, Search, User, Menu, X } from 'lucide-react';
+import { Search, Menu, X } from 'lucide-react';
 import NcitLogo from '@/components/ui/ncit-logo';
 
 export default function Header() {
@@ -34,19 +34,14 @@ export default function Header() {
 
         {/* Utility Actions & Mobile Toggle */}
         <div className="flex items-center gap-2 sm:gap-4">
-          <button className="hidden sm:flex text-ncit-ink/70 hover:text-ncit-blue hover:bg-white/50 rounded-full transition-all p-2.5" aria-label="Language">
-            <Globe className="h-5 w-5" />
-          </button>
           <button className="text-ncit-ink/70 hover:text-ncit-blue hover:bg-white/50 rounded-full transition-all p-2.5" aria-label="Search">
             <Search className="h-5 w-5" />
           </button>
-          <Link href="/login" className="hidden lg:flex items-center gap-2 text-sm font-medium text-ncit-ink/80 hover:text-ncit-blue transition-colors px-2">
-            <User className="h-4 w-4" />
-            <span>Member Login</span>
+          <Link href="/portal" className="hidden sm:inline-flex">
+            <Button className="bg-ncit-ink hover:bg-ncit-blue text-white rounded-full px-6 shadow-md hover:shadow-lg transition-all">
+              Member Portal
+            </Button>
           </Link>
-          <Button className="bg-ncit-ink hover:bg-ncit-blue text-white rounded-full px-6 shadow-md hover:shadow-lg transition-all hidden sm:inline-flex">
-            Member Portal
-          </Button>
           
           {/* Mobile Menu Toggle */}
           <button 
@@ -76,17 +71,11 @@ export default function Header() {
             </nav>
             
             <div className="flex flex-col gap-4 mt-4 pt-4 border-t border-ncit-ink/10">
-              <Link href="/login" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2 text-lg font-bold text-ncit-ink hover:text-ncit-blue transition-colors py-2">
-                <User className="h-5 w-5" />
-                <span>Member Login</span>
+              <Link href="/portal" onClick={() => setMobileMenuOpen(false)}>
+                <Button className="w-full bg-ncit-blue text-white rounded-xl h-12 text-lg shadow-md">
+                  Member Portal
+                </Button>
               </Link>
-              <Button className="w-full bg-ncit-blue text-white rounded-xl h-12 text-lg shadow-md">
-                Member Portal
-              </Button>
-              <Button variant="outline" className="w-full border-ncit-ink/20 text-ncit-ink rounded-xl h-12 text-lg">
-                <Globe className="h-5 w-5 mr-2" />
-                Change Language
-              </Button>
             </div>
           </div>
         </div>
