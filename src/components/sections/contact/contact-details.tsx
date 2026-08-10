@@ -54,7 +54,7 @@ export default function ContactDetails() {
                   </div>
                   <div>
                     <h3 className="font-bold text-ncit-ink mb-1">Call Us</h3>
-                    <p className="text-sm text-ncit-ink/70 mb-2">Main Office: <a href="tel:+94772222559" className="text-ncit-blue hover:underline">+94 77 222 2559</a></p>
+                    <p className="text-sm text-ncit-ink/70 mb-2">Main Office: <a href="tel:+94770869328" className="text-ncit-blue hover:underline">+94 77 086 9328</a></p>
                     <div className="inline-flex items-center gap-1.5 text-xs font-medium bg-emerald-50 text-emerald-700 px-2.5 py-1 rounded-full">
                       <Clock className="w-3.5 h-3.5" />
                       Mon - Fri, 9:00 AM - 5:00 PM (LKT)
@@ -66,13 +66,13 @@ export default function ContactDetails() {
               <div className="mt-12 pt-8 border-t border-gray-200">
                 <h3 className="font-bold text-ncit-ink mb-4">Connect on Social</h3>
                 <div className="flex items-center gap-4">
-                  <Link href="https://linkedin.com/company/ncit" target="_blank" className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-ncit-ink/60 hover:text-white hover:bg-[#0A66C2] shadow-sm transition-all">
+                  <Link href="https://www.linkedin.com/company/ncitsl/" target="_blank" className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-ncit-ink/60 hover:text-white hover:bg-[#0A66C2] shadow-sm transition-all">
                     <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
                   </Link>
-                  <Link href="https://facebook.com/ncit" target="_blank" className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-ncit-ink/60 hover:text-white hover:bg-[#1877F2] shadow-sm transition-all">
+                  <Link href="https://www.facebook.com/NCITLK/" target="_blank" className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-ncit-ink/60 hover:text-white hover:bg-[#1877F2] shadow-sm transition-all">
                     <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/></svg>
                   </Link>
-                  <Link href="#" className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-ncit-ink/60 hover:text-white hover:bg-[#25D366] shadow-sm transition-all">
+                  <Link href="https://wa.me/94770869328" target="_blank" className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-ncit-ink/60 hover:text-white hover:bg-[#25D366] shadow-sm transition-all">
                     <MessageCircle className="w-4 h-4" />
                   </Link>
                 </div>
