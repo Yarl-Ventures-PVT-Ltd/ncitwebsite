@@ -8,7 +8,7 @@ import NcitLogo from '@/components/ui/ncit-logo';
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const navItems = ['About', 'What We Do', 'Ecosystem', 'Invest', 'Insights'];
+  const navItems = ['About', 'What We Do', 'Membership', 'Ecosystem', 'Invest', 'Insights'];
 
   return (
     <header className="sticky top-0 z-50 w-full glass-header bg-white/80 backdrop-blur-xl border-b border-white/20">

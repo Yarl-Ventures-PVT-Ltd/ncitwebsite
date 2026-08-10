@@ -38,31 +38,32 @@ export default function Footer() {
           <div>
             <h4 className="text-white font-medium mb-6 font-heading">About NCIT</h4>
             <ul className="space-y-4 text-sm text-white/60">
-              <li><Link href="/about" className="hover:text-white transition-colors">Our Story</Link></li>
-              <li><Link href="/leadership" className="hover:text-white transition-colors">Leadership & Governance</Link></li>
-              <li><Link href="/what-we-do" className="hover:text-white transition-colors">What We Do</Link></li>
+              <li><Link href="/about/history" className="hover:text-white transition-colors">Our History</Link></li>
+              <li><Link href="/about/governance" className="hover:text-white transition-colors">Governance & Documents</Link></li>
+              <li><Link href="/what-we-do/advocacy" className="hover:text-white transition-colors">Advocacy & Policy</Link></li>
+              <li><Link href="/what-we-do/market-access" className="hover:text-white transition-colors">Business & Market Access</Link></li>
               <li><Link href="/contact" className="hover:text-white transition-colors">Contact Us</Link></li>
             </ul>
           </div>
 
-          {/* Ecosystem Links */}
+          {/* Ecosystem & Membership Links */}
           <div>
-            <h4 className="text-white font-medium mb-6 font-heading">Ecosystem</h4>
+            <h4 className="text-white font-medium mb-6 font-heading">Membership</h4>
             <ul className="space-y-4 text-sm text-white/60">
-              <li><Link href="/directory" className="hover:text-white transition-colors">Member Directory</Link></li>
-              <li><Link href="/startups" className="hover:text-white transition-colors">Startups</Link></li>
-              <li><Link href="/invest" className="hover:text-white transition-colors">Invest in the North</Link></li>
-              <li><Link href="/events" className="hover:text-white transition-colors">Events & Insights</Link></li>
+              <li><Link href="/membership" className="hover:text-white transition-colors">Membership Overview</Link></li>
+              <li><Link href="/membership/benefits" className="hover:text-white transition-colors">Member Benefits</Link></li>
+              <li><Link href="/membership/apply" className="hover:text-white transition-colors">Apply Now</Link></li>
+              <li><Link href="/members" className="hover:text-white transition-colors">Member Directory</Link></li>
             </ul>
           </div>
 
-          {/* Legal Links */}
+          {/* Quick Links */}
           <div>
-            <h4 className="text-white font-medium mb-6 font-heading">Legal</h4>
+            <h4 className="text-white font-medium mb-6 font-heading">Ecosystem</h4>
             <ul className="space-y-4 text-sm text-white/60">
-              <li><Link href="/bylaws" className="hover:text-white transition-colors">Bylaws</Link></li>
-              <li><Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link></li>
-              <li><Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link></li>
+              <li><Link href="/insights" className="hover:text-white transition-colors">Insights & News</Link></li>
+              <li><Link href="/invest" className="hover:text-white transition-colors">Invest in the North</Link></li>
+              <li><Link href="/ecosystem" className="hover:text-white transition-colors">The Tech Ecosystem</Link></li>
             </ul>
           </div>
         </div>
