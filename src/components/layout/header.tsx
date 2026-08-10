@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { Search, Menu, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import NcitLogo from '@/components/ui/ncit-logo';
 
 export default function Header() {
@@ -34,9 +34,6 @@ export default function Header() {
 
         {/* Utility Actions & Mobile Toggle */}
         <div className="flex items-center gap-2 sm:gap-4">
-          <button className="text-ncit-ink/70 hover:text-ncit-blue hover:bg-white/50 rounded-full transition-all p-2.5" aria-label="Search">
-            <Search className="h-5 w-5" />
-          </button>
           <Link href="/portal" className="hidden sm:inline-flex">
             <Button className="bg-ncit-ink hover:bg-ncit-blue text-white rounded-full px-6 shadow-md hover:shadow-lg transition-all">
               Member Portal
