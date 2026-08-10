@@ -1,5 +1,6 @@
 "use client";
 
+import { Fragment } from "react";
 import { Check, Minus } from "lucide-react";
 
 const categories = [
@@ -78,7 +79,7 @@ export default function BenefitMatrix() {
             </thead>
             <tbody>
               {features.map((group, groupIdx) => (
-                <optgroup key={groupIdx} className="contents">
+                <Fragment key={groupIdx}>
                   <tr>
                     <td 
                       colSpan={8} 
@@ -107,7 +108,7 @@ export default function BenefitMatrix() {
                       ))}
                     </tr>
                   ))}
-                </optgroup>
+                </Fragment>
               ))}
             </tbody>
           </table>

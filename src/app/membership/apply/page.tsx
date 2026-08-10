@@ -1,6 +1,5 @@
 import { Metadata } from "next";
-import ApplyHero from "@/components/sections/membership/apply-hero";
-import ApplicationWizard from "@/components/sections/membership/application-wizard";
+import MaintenanceScreen from "@/components/ui/maintenance-screen";
 
 export const metadata: Metadata = {
   title: "Apply for Membership | NCIT",
@@ -9,9 +8,9 @@ export const metadata: Metadata = {
 
 export default function ApplyPage() {
   return (
-    <>
-      <ApplyHero />
-      <ApplicationWizard />
-    </>
+    <MaintenanceScreen 
+      title="Application Portal Coming Soon" 
+      description="We are finalizing our new secure membership application system. In the meantime, please contact the Secretariat for application forms."
+    />
   );
 }
