@@ -1,16 +1,15 @@
-import { Metadata } from "next";
 import MaintenanceScreen from "@/components/ui/maintenance-screen";
 
-export const metadata: Metadata = {
-  title: "Apply for Membership | NCIT",
-  description: "Complete your NCIT membership application online.",
+export const metadata = {
+  title: 'Apply for Membership | NCIT',
+  description: 'Apply for Northern Chamber of Information Technology membership.',
 };
 
 export default function ApplyPage() {
   return (
     <MaintenanceScreen 
-      title="Application Portal Coming Soon" 
-      description="We are finalizing our new secure membership application system. In the meantime, please contact the Secretariat for application forms."
+      title="Application System Update" 
+      description="We are currently upgrading our membership application portal to streamline the onboarding process. Please check back soon or contact us directly if you need immediate assistance." 
     />
   );
 }

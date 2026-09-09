@@ -1,16 +1,15 @@
-import { Metadata } from "next";
 import MaintenanceScreen from "@/components/ui/maintenance-screen";
 
-export const metadata: Metadata = {
-  title: "Member Portal | NCIT",
-  description: "Access the NCIT Member Portal.",
+export const metadata = {
+  title: 'Member Portal | NCIT',
+  description: 'Login to the Northern Chamber of Information Technology member portal.',
 };
 
 export default function PortalPage() {
   return (
     <MaintenanceScreen 
-      title="Member Portal Coming Soon" 
-      description="We are building a new digital experience for our members. The portal will launch soon with new networking and resource features."
+      title="Member Portal Update" 
+      description="We are currently upgrading our member portal to provide you with enhanced features and a better user experience. Please check back soon." 
     />
   );
 }
