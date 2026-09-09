@@ -36,7 +36,13 @@ export default function NewsletterSignup() {
             <div className="md:w-1/2 w-full">
               <form onSubmit={(e) => e.preventDefault()} className="space-y-4">
                 <div>
+                  <label htmlFor="newsletter-email" className="sr-only">
+                    Work email address
+                  </label>
                   <input 
+                    id="newsletter-email"
+                    name="email"
+                    autoComplete="email"
                     type="email" 
                     placeholder="Enter your work email" 
                     className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-ncit-blue/50 focus:border-ncit-blue transition-all"

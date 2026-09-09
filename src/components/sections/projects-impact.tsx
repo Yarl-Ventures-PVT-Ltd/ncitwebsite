@@ -70,8 +70,12 @@ export default function ProjectsImpact() {
                   <span className="text-sm font-semibold tracking-wider uppercase text-ncit-ink/50">
                     {project.category}
                   </span>
-                  <Link href="/what-we-do/projects" className="p-2 bg-white/50 rounded-full hover:bg-ncit-blue hover:text-white transition-colors text-ncit-ink">
-                    <ArrowUpRight className="w-5 h-5" />
+                  <Link
+                    href="/what-we-do/projects"
+                    aria-label={`Read more about ${project.title}`}
+                    className="p-2 bg-white/50 rounded-full hover:bg-ncit-blue hover:text-white transition-colors text-ncit-ink"
+                  >
+                    <ArrowUpRight className="w-5 h-5" aria-hidden="true" />
                   </Link>
                 </div>
                 
