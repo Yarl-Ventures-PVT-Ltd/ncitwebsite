@@ -14,34 +14,34 @@ const resourceCategories = [
     title: "Membership Documents",
     icon: <FileText className="w-6 h-6 text-ncit-blue" />,
     items: [
-      { name: "NCIT Membership Form (English)", date: "Mar 2017", link: "https://www.ncit.lk/wp-content/uploads/2017/03/NCIT_Membership_Form.pdf", type: "PDF" },
-      { name: "NCIT Membership Form (Tamil)", date: "Mar 2017", link: "https://www.ncit.lk/wp-content/uploads/2017/03/NCIT_membership_tamil.pdf", type: "PDF" },
-      { name: "ITSME Notice", date: "Feb 2019", link: "https://www.ncit.lk/wp-content/uploads/2019/02/ITSMENotice.pdf", type: "PDF" },
+      { name: "NCIT Membership Form (English)", date: "Mar 2017", link: "/wp-content/uploads/2017/03/NCIT_Membership_Form.pdf", type: "PDF" },
+      { name: "NCIT Membership Form (Tamil)", date: "Mar 2017", link: "/wp-content/uploads/2017/03/NCIT_membership_tamil.pdf", type: "PDF" },
+      { name: "ITSME Notice", date: "Feb 2019", link: "/wp-content/uploads/2019/02/ITSMENotice.pdf", type: "PDF" },
     ]
   },
   {
     title: "Project Proposals & Formats",
     icon: <FileArchive className="w-6 h-6 text-ncit-blue" />,
     items: [
-      { name: "Project Proposal Format - ASSET ICT Zone 1", date: "May 2018", link: "https://www.ncit.lk/wp-content/uploads/2018/05/Format-Project-Proposal-ASSET-ICT-Zone1.docx", type: "DOCX" },
-      { name: "Project Proposal Format - ASSET ICT Zone 2", date: "May 2018", link: "https://www.ncit.lk/wp-content/uploads/2018/05/Format-Project-Proposal-ASSET-ICT-Zone2.docx", type: "DOCX" },
+      { name: "Project Proposal Format - ASSET ICT Zone 1", date: "May 2018", link: "/wp-content/uploads/2018/05/Format-Project-Proposal-ASSET-ICT-Zone1.docx", type: "DOCX" },
+      { name: "Project Proposal Format - ASSET ICT Zone 2", date: "May 2018", link: "/wp-content/uploads/2018/05/Format-Project-Proposal-ASSET-ICT-Zone2.docx", type: "DOCX" },
     ]
   },
   {
     title: "Newsletters & Brochures",
     icon: <Newspaper className="w-6 h-6 text-ncit-blue" />,
     items: [
-      { name: "NCIT Newsletter", date: "Jan 2017", link: "https://www.ncit.lk/wp-content/uploads/2017/01/News-letter.pdf", type: "PDF" },
-      { name: "NCIT General Brochure", date: "Jun 2016", link: "https://www.ncit.lk/wp-content/uploads/2016/06/brocher.pdf", type: "PDF" },
+      { name: "NCIT Newsletter", date: "Jan 2017", link: "/wp-content/uploads/2017/01/News-letter.pdf", type: "PDF" },
+      { name: "NCIT General Brochure", date: "Jun 2016", link: "/wp-content/uploads/2016/06/brocher.pdf", type: "PDF" },
     ]
   },
   {
     title: "Speeches & Presentations",
     icon: <Mic className="w-6 h-6 text-ncit-blue" />,
     items: [
-      { name: "Nextwork 2020 - Angajan Speech", date: "Feb 2020", link: "https://www.ncit.lk/wp-content/uploads/2020/02/Nextwork2020-angajanSpeech.pdf", type: "PDF" },
-      { name: "NextWork 2020 - Thavaruban Speech", date: "Feb 2020", link: "https://www.ncit.lk/wp-content/uploads/2020/02/NextWork2020ThavarubanSpeech.pdf", type: "PDF" },
-      { name: "Thavaruban Speech", date: "Jun 2018", link: "https://www.ncit.lk/wp-content/uploads/2018/06/Thavaruban-Speach26062018.pdf", type: "PDF" },
+      { name: "Nextwork 2020 - Angajan Speech", date: "Feb 2020", link: "/wp-content/uploads/2020/02/Nextwork2020-angajanSpeech.pdf", type: "PDF" },
+      { name: "NextWork 2020 - Thavaruban Speech", date: "Feb 2020", link: "/wp-content/uploads/2020/02/NextWork2020ThavarubanSpeech.pdf", type: "PDF" },
+      { name: "Thavaruban Speech", date: "Jun 2018", link: "/wp-content/uploads/2018/06/Thavaruban-Speach26062018.pdf", type: "PDF" },
     ]
   }
 ];

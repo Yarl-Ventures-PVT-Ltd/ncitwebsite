@@ -18,12 +18,12 @@ const facilities = [
 ];
 
 const gallery = [
-  "https://www.ncit.lk/wp-content/uploads/2018/06/IMG-20180406-WA0017-180x300.jpg",
-  "https://www.ncit.lk/wp-content/uploads/2018/06/IMG-20180427-WA0013-180x300.jpg",
-  "https://www.ncit.lk/wp-content/uploads/2018/06/IMG-20180531-WA0004-300x225.jpg",
-  "https://www.ncit.lk/wp-content/uploads/2018/06/IMG-20180531-WA0005-300x225.jpg",
-  "https://www.ncit.lk/wp-content/uploads/2018/06/IMG-20180531-WA0006-300x225.jpg",
-  "https://www.ncit.lk/wp-content/uploads/2018/06/IMG-20180531-WA0009-300x225.jpg",
+  "/wp-content/uploads/2018/06/IMG-20180406-WA0017-180x300.jpg",
+  "/wp-content/uploads/2018/06/IMG-20180427-WA0013-180x300.jpg",
+  "/wp-content/uploads/2018/06/IMG-20180531-WA0004-300x225.jpg",
+  "/wp-content/uploads/2018/06/IMG-20180531-WA0005-300x225.jpg",
+  "/wp-content/uploads/2018/06/IMG-20180531-WA0006-300x225.jpg",
+  "/wp-content/uploads/2018/06/IMG-20180531-WA0009-300x225.jpg",
 ];
 
 export default function IncubationCenterPage() {
