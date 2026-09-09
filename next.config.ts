@@ -20,11 +20,11 @@ import type { NextConfig } from "next";
 const legacyRedirects = [
   {
     source: "/107-2",
-    destination: "/insights/107-2"
+    destination: "/insights/startup-weekend-jaffna-winning-ideas"
   },
   {
     source: "/345-2",
-    destination: "/insights/345-2"
+    destination: "/insights/digital-transformation-workshop-batticaloa-2017"
   },
   {
     source: "/a-new-chapter-begins-for-the-northern-ict-industry",
@@ -485,6 +485,12 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       ...legacyRedirects.map((r) => ({ ...r, permanent: true })),
+
+      // Two posts kept the WordPress post-id slugs they were published under.
+      // One of them is the longest article on the site, so it had the worst URL
+      // of the lot. Renamed, with the old article paths redirected.
+      { source: "/insights/107-2", destination: "/insights/startup-weekend-jaffna-winning-ideas", permanent: true },
+      { source: "/insights/345-2", destination: "/insights/digital-transformation-workshop-batticaloa-2017", permanent: true },
 
       // WordPress taxonomy and pagination. These listed posts; the insights
       // index is the equivalent.

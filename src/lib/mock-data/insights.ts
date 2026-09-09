@@ -589,7 +589,7 @@ export const mockInsights: InsightArticle[] = [
   },
   {
     id: "35",
-    slug: "345-2",
+    slug: "digital-transformation-workshop-batticaloa-2017",
     title: "Digital Transformation Workshop and Exhibition, Batticaloa 2017",
     seoTitle: "Digital Transformation Workshop, Batticaloa 2017",
     excerpt: "Digital Transformation Workshop and Exhibition that was held on 26th October 2017 in collaboration with World University Service of Canada (WUSC), ICT Agen",
@@ -932,7 +932,7 @@ export const mockInsights: InsightArticle[] = [
   },
   {
     id: "56",
-    slug: "107-2",
+    slug: "startup-weekend-jaffna-winning-ideas",
     title: "Startup Weekend Jaffna: The Winning Startup Ideas",
     seoTitle: "Startup Weekend Jaffna: Winning Ideas",
     excerpt: "Startup Weekend is a global network of passionate leaders and entrepreneurs on a mission to inspire, educate, and empower individuals, teams and communities.",
