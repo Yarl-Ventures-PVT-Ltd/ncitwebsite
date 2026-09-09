@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { getAllArticles } from "@/lib/mock-data/insights";
 import { SITE, absoluteUrl, breadcrumbSchema, jsonLd } from "@/lib/seo";
+import { ALL_ARCHIVE_IMAGES } from "@/lib/archive-images";
 import { Camera } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -28,7 +29,7 @@ export const metadata: Metadata = {
 };
 
 interface GalleryEvent {
-  slug: string;
+  slug: string | null;
   title: string;
   date: string;
   category: string;
@@ -39,12 +40,21 @@ interface GalleryEvent {
  * Every photograph the chamber has published, grouped by the event it came
  * from. The old site scattered these across individual posts, so there was no
  * single place to see the chamber's history.
+ *
+ * Images that belong to no surviving article still appear, under an archive
+ * heading, so nothing carried over from the old site is stranded with no page
+ * that shows it.
  */
-function buildGallery(): GalleryEvent[] {
+function buildGallery(): { events: GalleryEvent[]; archive: string[] } {
   const events: GalleryEvent[] = [];
+  const claimed = new Set<string>();
 
   for (const article of getAllArticles()) {
     const found = new Set<string>();
+
+    // The hero counts as part of the event's photographs.
+    if (article.imageUrl?.startsWith("/wp-content/")) found.add(article.imageUrl);
+
     for (const match of article.content.matchAll(/<img[^>]+src="([^"]+)"/g)) {
       const src = match[1];
       if (!src.startsWith("/wp-content/")) continue;
@@ -52,6 +62,7 @@ function buildGallery(): GalleryEvent[] {
       found.add(src);
     }
     if (found.size === 0) continue;
+    found.forEach((f) => claimed.add(f));
     events.push({
       slug: article.slug,
       title: article.title,
@@ -61,12 +72,15 @@ function buildGallery(): GalleryEvent[] {
     });
   }
 
-  return events;
+  // Anything in the archive that no article references.
+  const archive = ALL_ARCHIVE_IMAGES.filter((src) => !claimed.has(src));
+
+  return { events, archive };
 }
 
 export default function GalleryPage() {
-  const events = buildGallery();
-  const totalImages = events.reduce((sum, e) => sum + e.images.length, 0);
+  const { events, archive } = buildGallery();
+  const totalImages = events.reduce((sum, e) => sum + e.images.length, 0) + archive.length;
 
   const breadcrumb = breadcrumbSchema([
     { name: "Home", path: "/" },
@@ -158,6 +172,40 @@ export default function GalleryPage() {
             </div>
           </section>
         ))}
+
+        {archive.length > 0 && (
+          <section className="mb-16">
+            <div className="flex flex-wrap items-baseline justify-between gap-3 mb-6 border-b border-slate-200 pb-3">
+              <h2 className="font-heading text-2xl font-bold text-ncit-ink">
+                Chamber Archive
+              </h2>
+              <span className="text-sm text-slate-500">
+                {archive.length} photographs
+              </span>
+            </div>
+            <p className="text-ncit-ink/60 text-sm mb-6 max-w-2xl">
+              Photographs carried over from the previous NCIT website that are not
+              attached to a surviving article.
+            </p>
+
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {archive.map((src, i) => (
+                <div
+                  key={src}
+                  className="block overflow-hidden rounded-lg bg-slate-100 aspect-4/3 relative"
+                >
+                  <Image
+                    src={src}
+                    alt={`NCIT archive photograph ${i + 1} - Jaffna, Northern Province, Sri Lanka`}
+                    fill
+                    sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                    className="object-cover"
+                  />
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
       </div>
     </div>
   );

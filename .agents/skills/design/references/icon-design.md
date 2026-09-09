@@ -41,7 +41,7 @@ python3 ~/.claude/skills/design/scripts/icon/generate.py --list-categories
 ## CLI Options
 
 | Option | Description | Default |
-|--------|-------------|---------|
+| -------- | ------------- | --------- |
 | `--prompt, -p` | Icon description | required |
 | `--name, -n` | Icon name (for filename) | - |
 | `--style, -s` | Icon style (15 options) | - |
@@ -57,7 +57,7 @@ python3 ~/.claude/skills/design/scripts/icon/generate.py --list-categories
 ## Available Styles
 
 | Style | Stroke | Fill | Best For |
-|-------|--------|------|----------|
+| ------- | -------- | ------ | ---------- |
 | outlined | 2px | none | UI interfaces, web apps |
 | filled | 0 | solid | Mobile apps, nav bars |
 | duotone | 0 | dual | Marketing, landing pages |
@@ -77,7 +77,7 @@ python3 ~/.claude/skills/design/scripts/icon/generate.py --list-categories
 ## Icon Categories
 
 | Category | Icons |
-|----------|-------|
+| ---------- | ------- |
 | navigation | arrows, menus, home, chevrons |
 | action | edit, delete, save, download, upload |
 | communication | email, chat, phone, notification |
@@ -103,7 +103,7 @@ python3 ~/.claude/skills/design/scripts/icon/generate.py --list-categories
 ## Model
 
 - **gemini-3.1-pro-preview**: Best thinking, token efficiency, factual consistency
-- Text-only output (SVG is XML text) — no image generation API needed
+- Text-only output (SVG is XML text) - no image generation API needed
 - Supports structured output for consistent SVG formatting
 
 ## Workflow

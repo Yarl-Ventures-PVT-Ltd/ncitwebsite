@@ -80,7 +80,7 @@ export default function DistrictMap() {
 
         <div className="flex flex-wrap justify-center gap-6">
           {districts.map((district) => (
-            <Link href={`/ecosystem/${district.name.toLowerCase()}`} key={district.name} className="block w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(20%-19.2px)]">
+            <Link href="/ecosystem" key={district.name} className="block w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(20%-19.2px)]">
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}

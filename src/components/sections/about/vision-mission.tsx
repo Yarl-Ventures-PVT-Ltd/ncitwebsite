@@ -8,10 +8,10 @@ export default function VisionMission() {
     <section className="py-24 bg-ncit-ink text-white relative overflow-hidden">
       {/* Subtle Background pattern */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-[size:24px_24px]" />
-      
+
       <div className="container relative z-10 mx-auto px-4 md:px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-24">
-          
+
           {/* Vision */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -26,7 +26,7 @@ export default function VisionMission() {
             <h2 className="text-3xl font-bold mb-4 tracking-tight">Our Vision</h2>
             <div className="w-12 h-1 bg-ncit-blue rounded-full mb-6"></div>
             <p className="text-xl md:text-2xl font-light leading-relaxed text-white/90">
-              To position Northern Sri Lanka as a globally connected, trusted and competitive technology region — creating opportunity, investment and digital prosperity from the North to the world.
+              To position Northern Sri Lanka as a globally connected, trusted and competitive technology region - creating opportunity, investment and digital prosperity from the North to the world.
             </p>
           </motion.div>
 

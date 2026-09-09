@@ -32,7 +32,7 @@ const services = [
     title: "Capacity Building",
     description: "Organizing workshops, seminars, and training programs to upskill IT professionals and entrepreneurs.",
     icon: <BookOpen className="w-8 h-8 text-ncit-blue" />,
-    link: "/projects"
+    link: "/what-we-do/projects"
   },
   {
     title: "Industry Events",

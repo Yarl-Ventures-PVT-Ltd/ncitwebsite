@@ -4,11 +4,11 @@ Since NCIT  declared on 08th March 2018 (International Women’s Day),NCIT goin
 
 This chapter offer members the opportunity to grow their personal and professional networks through  events and the sharing of relevant, inspiring content and profiles.Women were traditionally underrepresented; therefore, we need to reinforce their role in the international ICT market. Our Women Chapter will Empowering women who lives in North part of Srilanka  through ICT  : **[Apply Here](https://docs.google.com/forms/d/e/1FAIpQLScSv1MMQPU-xO1EjQlI5UqiL6moRCEdn2oiNhciQCeaLND7OA/viewform)**
 
-———————————-
+------------
 
 **மகளிர் பிரிவு\- NCIT**
 
-———————————-
+------------
 
 வடக்கு தகவல் தொழில்நுட்ப சம்மேளத்தின் மகளிர் பிரிவினை ஆரம்பிப்பதற்கு  01.03.2018 இல் அறிவிக்கப்பட்டதற்கிணங்க. இப்பிரிவுக்கான உறுப்பினர் விண்ணப்பங்கள் கோரப்பட்டுள்ளது. இந்த பெண்கள் பிரிவு விரைவில் உத்தியோக பூர்வமாக ஆரம்பித்து வைக்கப்படும்
 

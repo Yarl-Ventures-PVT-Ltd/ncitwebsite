@@ -5,11 +5,11 @@ import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 const districtData = [
-  { name: "Jaffna", desc: "The historical and cultural hub with a dense concentration of startups and educational institutions.", link: "/ecosystem/jaffna" },
-  { name: "Kilinochchi", desc: "An emerging center for agri-tech and sustainable engineering innovation.", link: "/ecosystem/kilinochchi" },
-  { name: "Mannar", desc: "Growing potential in renewable energy tech and coastal digital connectivity.", link: "/ecosystem/mannar" },
-  { name: "Mullaitivu", desc: "Developing digital infrastructure to support regional economic empowerment.", link: "/ecosystem/mullaitivu" },
-  { name: "Vavuniya", desc: "A strategic logistical and technology gateway connecting the North to the rest of the country.", link: "/ecosystem/vavuniya" },
+  { name: "Jaffna", desc: "The historical and cultural hub with a dense concentration of startups and educational institutions.", link: "/ecosystem" },
+  { name: "Kilinochchi", desc: "An emerging center for agri-tech and sustainable engineering innovation.", link: "/ecosystem" },
+  { name: "Mannar", desc: "Growing potential in renewable energy tech and coastal digital connectivity.", link: "/ecosystem" },
+  { name: "Mullaitivu", desc: "Developing digital infrastructure to support regional economic empowerment.", link: "/ecosystem" },
+  { name: "Vavuniya", desc: "A strategic logistical and technology gateway connecting the North to the rest of the country.", link: "/ecosystem" },
 ];
 
 export default function DistrictCards() {

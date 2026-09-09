@@ -46,7 +46,7 @@ Every day, your local chamber receives calls from individuals and businesses loo
 
 **12) Chamber events and programs.**
 
-Chamber events and programs provide members with great opportunities to get to know new people and expand their prospect base. Chamber events are innovative and fun ways to help members meet potential customers, clients and vendors— and generate new business leads.
+Chamber events and programs provide members with great opportunities to get to know new people and expand their prospect base. Chamber events are innovative and fun ways to help members meet potential customers, clients and vendors- and generate new business leads.
 
 **13) Promotion and publicity.**
 

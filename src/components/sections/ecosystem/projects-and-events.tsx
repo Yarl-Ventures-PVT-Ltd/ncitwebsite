@@ -55,7 +55,7 @@ export default function ProjectsAndEvents() {
             viewport={{ once: true }}
           >
             <Link 
-              href="/insights/projects" 
+              href="/what-we-do/projects" 
               className="px-6 py-3 rounded-full border border-gray-200 text-ncit-ink font-medium hover:bg-ncit-cloud transition-colors"
             >
               View All Initiatives

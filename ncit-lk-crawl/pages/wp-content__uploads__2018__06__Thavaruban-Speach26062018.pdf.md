@@ -1,6 +1,6 @@
 ## Speech by T.Thavaruban, Chairman NCIT on 26.06.2018 @Jaffna
 
-## Good evening to All!
+## Good evening to All
 
 I am very proud to welcome you all to this Unforgettable event happening in this evening. Northern chamber of information technology takes its milestone step in its road map today. I welcome our Chief Guest Prof Rohan Samarajeiva, Chairman of ICTA Srilanka. On behalf of NCIT, I would like to thank him to come here by accepting our Invitation .In this case I should thank to Sachindra to make it possible.
 
@@ -32,7 +32,7 @@ Our main Objectives is
 
 -Provide incubation programs that nurture and help grow new businesses by offering expertise, professional guidance, and services – including access to space,
 
-business planning, education and training, and legal advice, among others — throughout the phases of the startup development.
+business planning, education and training, and legal advice, among others - throughout the phases of the startup development.
 
 This space is projected to grow in size and will focus on incubating businesses related to Social Innovation, FinTech, Health, IT, etc.
 
@@ -50,6 +50,6 @@ We already work with ICT national bodies and other NPOs specially with ICTA and 
 
 I would like to thank to you all for this opportunity and patient to deliver my speech
 
-## Make this region better.
+## Make this region better
 
-## Thank you.
+## Thank you

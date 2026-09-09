@@ -70,7 +70,7 @@ export default function ProjectsImpact() {
                   <span className="text-sm font-semibold tracking-wider uppercase text-ncit-ink/50">
                     {project.category}
                   </span>
-                  <Link href={`/projects/${project.id}`} className="p-2 bg-white/50 rounded-full hover:bg-ncit-blue hover:text-white transition-colors text-ncit-ink">
+                  <Link href="/what-we-do/projects" className="p-2 bg-white/50 rounded-full hover:bg-ncit-blue hover:text-white transition-colors text-ncit-ink">
                     <ArrowUpRight className="w-5 h-5" />
                   </Link>
                 </div>

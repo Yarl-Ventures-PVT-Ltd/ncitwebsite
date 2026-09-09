@@ -26,7 +26,7 @@ Unified design skill: brand, tokens, UI, logo, CIP, slides, banners, social phot
 ## Sub-skill Routing
 
 | Task | Sub-skill | Details |
-|------|-----------|---------|
+| ------ | ----------- | --------- |
 | Brand identity, voice, assets | `brand` | External skill |
 | Tokens, specs, CSS vars | `design-system` | External skill |
 | shadcn/ui, Tailwind, code | `ui-styling` | External skill |
@@ -122,7 +122,7 @@ Load `references/slides-create.md` for the creation workflow.
 ### Slides: Knowledge Base
 
 | Topic | File |
-|-------|------|
+| ------- | ------ |
 | Creation Guide | `references/slides-create.md` |
 | Layout Patterns | `references/slides-layout-patterns.md` |
 | HTML Template | `references/slides-html-template.md` |
@@ -137,16 +137,16 @@ Load `references/banner-sizes-and-styles.md` for complete sizes and styles refer
 
 ### Banner: Workflow
 
-1. **Gather requirements** via `AskUserQuestion` — purpose, platform, content, brand, style, quantity
-2. **Research** — Activate `ui-ux-pro-max`, browse Pinterest for references
-3. **Design** — Create HTML/CSS banner with `frontend-design`, generate visuals with `ai-artist`/`ai-multimodal`
-4. **Export** — Screenshot to PNG at exact dimensions via `chrome-devtools`
-5. **Present** — Show all options side-by-side, iterate on feedback
+1. **Gather requirements** via `AskUserQuestion` - purpose, platform, content, brand, style, quantity
+2. **Research** - Activate `ui-ux-pro-max`, browse Pinterest for references
+3. **Design** - Create HTML/CSS banner with `frontend-design`, generate visuals with `ai-artist`/`ai-multimodal`
+4. **Export** - Screenshot to PNG at exact dimensions via `chrome-devtools`
+5. **Present** - Show all options side-by-side, iterate on feedback
 
 ### Banner: Quick Size Reference
 
 | Platform | Type | Size (px) |
-|----------|------|-----------|
+| ---------- | ------ | ----------- |
 | Facebook | Cover | 820 x 312 |
 | Twitter/X | Header | 1500 x 500 |
 | LinkedIn | Personal | 1584 x 396 |
@@ -159,7 +159,7 @@ Load `references/banner-sizes-and-styles.md` for complete sizes and styles refer
 ### Banner: Top Art Styles
 
 | Style | Best For |
-|-------|----------|
+| ------- | ---------- |
 | Minimalist | SaaS, tech |
 | Bold Typography | Announcements |
 | Gradient | Modern brands |
@@ -203,7 +203,7 @@ python3 ~/.claude/skills/design/scripts/icon/generate.py --prompt "user profile"
 ### Icon: Top Styles
 
 | Style | Best For |
-|-------|----------|
+| ------- | ---------- |
 | outlined | UI interfaces, web apps |
 | filled | Mobile apps, nav bars |
 | duotone | Marketing, landing pages |
@@ -212,7 +212,7 @@ python3 ~/.claude/skills/design/scripts/icon/generate.py --prompt "user profile"
 | flat | Material design, Google-style |
 | gradient | Modern brands, SaaS |
 
-**Model:** `gemini-3.1-pro-preview` — text-only output (SVG is XML text). No image generation API needed.
+**Model:** `gemini-3.1-pro-preview` - text-only output (SVG is XML text). No image generation API needed.
 
 ## Social Photos (Built-in)
 
@@ -222,19 +222,19 @@ Load `references/social-photos-design.md` for sizes, templates, best practices.
 
 ### Social Photos: Workflow
 
-1. **Orchestrate** — `project-management` skill for TODO tasks; parallel subagents for independent work
-2. **Analyze** — Parse prompt: subject, platforms, style, brand context, content elements
-3. **Ideate** — 3-5 concepts, present via `AskUserQuestion`
-4. **Design** — `/ckm:brand` → `/ckm:design-system` → randomly invoke `/ck:ui-ux-pro-max` OR `/ck:frontend-design`; HTML per idea × size
-5. **Export** — `chrome-devtools` or Playwright screenshot at exact px (2x deviceScaleFactor)
-6. **Verify** — Use Chrome MCP or `chrome-devtools` skill to visually inspect exported designs; fix layout/styling issues and re-export
-7. **Report** — Summary to `plans/reports/` with design decisions
-8. **Organize** — Invoke `assets-organizing` skill to sort output files and reports
+1. **Orchestrate** - `project-management` skill for TODO tasks; parallel subagents for independent work
+2. **Analyze** - Parse prompt: subject, platforms, style, brand context, content elements
+3. **Ideate** - 3-5 concepts, present via `AskUserQuestion`
+4. **Design** - `/ckm:brand` → `/ckm:design-system` → randomly invoke `/ck:ui-ux-pro-max` OR `/ck:frontend-design`; HTML per idea × size
+5. **Export** - `chrome-devtools` or Playwright screenshot at exact px (2x deviceScaleFactor)
+6. **Verify** - Use Chrome MCP or `chrome-devtools` skill to visually inspect exported designs; fix layout/styling issues and re-export
+7. **Report** - Summary to `plans/reports/` with design decisions
+8. **Organize** - Invoke `assets-organizing` skill to sort output files and reports
 
 ### Social Photos: Key Sizes
 
 | Platform | Size (px) | Platform | Size (px) |
-|----------|-----------|----------|-----------|
+| ---------- | ----------- | ---------- | ----------- |
 | IG Post | 1080×1080 | FB Post | 1200×630 |
 | IG Story | 1080×1920 | X Post | 1200×675 |
 | IG Carousel | 1080×1350 | LinkedIn | 1200×627 |
@@ -257,7 +257,7 @@ Load `references/social-photos-design.md` for sizes, templates, best practices.
 ## References
 
 | Topic | File |
-|-------|------|
+| ------- | ------ |
 | Design Routing | `references/design-routing.md` |
 | Logo Design Guide | `references/logo-design.md` |
 | Logo Styles | `references/logo-style-guide.md` |
@@ -279,7 +279,7 @@ Load `references/social-photos-design.md` for sizes, templates, best practices.
 ## Scripts
 
 | Script | Purpose |
-|--------|---------|
+| -------- | --------- |
 | `scripts/logo/search.py` | Search logo styles, colors, industries |
 | `scripts/logo/generate.py` | Generate logos with Gemini AI |
 | `scripts/logo/core.py` | BM25 search engine for logo data |
@@ -294,6 +294,7 @@ Load `references/social-photos-design.md` for sizes, templates, best practices.
 **Python:** This skill uses Python scripts. On Windows, use `python` instead of `python3` (e.g., `python scripts/logo/search.py` instead of `python3 scripts/logo/search.py`).
 
 Check if Python is installed:
+
 ```bash
 python3 --version || python --version
 ```

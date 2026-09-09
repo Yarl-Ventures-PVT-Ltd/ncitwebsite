@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Mail, Globe } from 'lucide-react';
-import Link from 'next/link';
+import PreviousBoards from '@/components/sections/about/previous-boards';
 
 export const metadata: Metadata = {
   title: 'Board of Directors | NCIT',
@@ -155,6 +155,8 @@ export default function BoardPage() {
 
         </div>
       </section>
+
+      <PreviousBoards />
     </div>
   );
 }

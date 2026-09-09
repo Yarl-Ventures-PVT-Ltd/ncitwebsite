@@ -8,7 +8,7 @@ Comprehensive design guide for web, mobile, and desktop applications. Contains 6
 
 # Prerequisites
 
-The bundled scripts require Python 3 (standard library only — no third-party packages, no network access). Check if it is available:
+The bundled scripts require Python 3 (standard library only - no third-party packages, no network access). Check if it is available:
 
 ```bash
 python3 --version || python --version
@@ -27,7 +27,7 @@ If the user prefers not to install Python, skip the CLI searches and rely on the
 Use this skill when the user requests any of the following:
 
 | Scenario | Trigger Examples | Start From |
-|----------|-----------------|------------|
+| ---------- | ----------------- | ------------ |
 | **New project / page** | "做一个 landing page"、"Build a dashboard" | Step 1 → Step 2 (design system) |
 | **New component** | "Create a pricing card"、"Add a modal" | Step 3 (domain search: style, ux) |
 | **Choose style / color / font** | "What style fits a fintech app?"、"推荐配色" | Step 2 (design system) |
@@ -43,14 +43,15 @@ Follow this workflow:
 ### Step 1: Analyze User Requirements
 
 Extract key information from user request:
+
 - **Product type**: Entertainment (social, video, music, gaming), Tool (scanner, editor, converter), Productivity (task manager, notes, calendar), or hybrid
 - **Target audience**: C-end consumer users; consider age group, usage context (commute, leisure, work)
 - **Style keywords**: playful, vibrant, minimal, dark mode, content-first, immersive, etc.
-- **Stack**: whatever the user is actually building with — infer it from the project
+- **Stack**: whatever the user is actually building with - infer it from the project
   (package.json, existing files, explicit request) or ask. Then load its rules with
   `--stack <name>` (see "Available Stacks"). Do not assume React Native.
 - **Platform**: web or native app. Several sections below are scoped to App UI
-  (iOS/Android/React Native/Flutter) and do not apply to desktop-web work —
+  (iOS/Android/React Native/Flutter) and do not apply to desktop-web work -
   safe areas, haptics, bottom nav and Dynamic Type are mobile-only concerns.
 
 ### Step 2: Generate Design System (REQUIRED)
@@ -62,12 +63,14 @@ python3 skills/ui-ux-pro-max/scripts/search.py "<product_type> <industry> <keywo
 ```
 
 This command:
+
 1. Searches domains in parallel (product, style, color, landing, typography)
 2. Applies reasoning rules from `ui-reasoning.csv` to select best matches
 3. Returns complete design system: pattern, style, colors, typography, effects
 4. Includes anti-patterns to avoid
 
 **Example:**
+
 ```bash
 python3 skills/ui-ux-pro-max/scripts/search.py "beauty spa wellness service" --design-system -p "Serenity Spa"
 ```
@@ -81,23 +84,28 @@ python3 skills/ui-ux-pro-max/scripts/search.py "<query>" --design-system --persi
 ```
 
 This creates:
-- `design-system/MASTER.md` — Global Source of Truth with all design rules
-- `design-system/pages/` — Folder for page-specific overrides
+
+- `design-system/MASTER.md` - Global Source of Truth with all design rules
+- `design-system/pages/` - Folder for page-specific overrides
 
 **With page-specific override:**
+
 ```bash
 python3 skills/ui-ux-pro-max/scripts/search.py "<query>" --design-system --persist -p "Project Name" --page "dashboard"
 ```
 
 This also creates:
-- `design-system/pages/dashboard.md` — Page-specific deviations from Master
+
+- `design-system/pages/dashboard.md` - Page-specific deviations from Master
 
 **How hierarchical retrieval works:**
+
 1. When building a specific page (e.g., "Checkout"), first check `design-system/pages/checkout.md`
 2. If the page file exists, its rules **override** the Master file
 3. If not, use `design-system/MASTER.md` exclusively
 
 **Context-aware retrieval prompt:**
+
 ```
 I am building the [Page Name] page. Please read design-system/MASTER.md.
 Also check if design-system/pages/[page-name].md exists.
@@ -115,16 +123,17 @@ python3 skills/ui-ux-pro-max/scripts/search.py "<query>" --design-system --varia
 ```
 
 | Dial | Low (1-3) | Mid (4-7) | High (8-10) |
-|------|-----------|-----------|-------------|
+| ------ | ----------- | ----------- | ------------- |
 | `--variance` | Centered / minimal (biases toward Minimalism-style categories) | Balanced / modern | Bold / asymmetric (biases toward Brutalism, Bento Grids) |
 | `--motion` | Subtle micro-interactions | Standard scroll/stagger motion | Complex choreography (pin, Flip, SplitText) |
 | `--density` | Spacious (24-96px spacing scale) | Standard (16-64px, current default) | Dense/dashboard (8-32px spacing scale) |
 
 - `--motion` attaches a ready-to-use GSAP snippet (with framework notes, Do/Don't, and performance notes) pulled from `--domain gsap`, matched to the resolved tier (Subtle/Standard/Complex).
-- `--density` overrides the `--space-*` CSS variable table in the ASCII/markdown/MASTER.md output — use it for dashboards (high) vs. marketing pages (low) without hand-editing tokens.
+- `--density` overrides the `--space-*` CSS variable table in the ASCII/markdown/MASTER.md output - use it for dashboards (high) vs. marketing pages (low) without hand-editing tokens.
 - Leaving a dial unset keeps that part of the output exactly as it was before (no behavior change).
 
 **Example:**
+
 ```bash
 python3 skills/ui-ux-pro-max/scripts/search.py "internal analytics dashboard" --design-system --variance 8 --motion 7 --density 8 -p "Ops Console"
 ```
@@ -140,7 +149,7 @@ python3 skills/ui-ux-pro-max/scripts/search.py "<keyword>" --domain <domain> [-n
 **When to use detailed searches:**
 
 | Need | Domain | Example |
-|------|--------|---------|
+| ------ | -------- | --------- |
 | Product type patterns | `product` | `--domain product "entertainment social"` |
 | More style options | `style` | `--domain style "glassmorphism dark"` |
 | Color palettes | `color` | `--domain color "entertainment vibrant"` |
@@ -169,7 +178,7 @@ python3 skills/ui-ux-pro-max/scripts/search.py "<keyword>" --stack <stack>
 ### Available Domains
 
 | Domain | Use For | Example Keywords |
-|--------|---------|------------------|
+| -------- | --------- | ------------------ |
 | `product` | Product type recommendations | SaaS, e-commerce, portfolio, healthcare, beauty, service |
 | `style` | UI styles, colors, effects | glassmorphism, minimalism, dark mode, brutalism |
 | `typography` | Font pairings, Google Fonts | elegant, playful, professional, modern |
@@ -201,6 +210,7 @@ python3 skills/ui-ux-pro-max/scripts/search.py "enterprise tableview density per
 **User request:** "Make an AI search homepage。"
 
 ### Step 1: Analyze Requirements
+
 - Product type: Tool (AI search engine)
 - Target audience: C-end users looking for fast, intelligent search
 - Style keywords: modern, minimal, content-first, dark mode
@@ -252,7 +262,7 @@ python3 skills/ui-ux-pro-max/scripts/search.py "fintech crypto" --design-system 
 
 ### Query Strategy
 
-- Use **multi-dimensional keywords** — combine product + industry + tone + density: `"entertainment social vibrant content-dense"` not just `"app"`
+- Use **multi-dimensional keywords** - combine product + industry + tone + density: `"entertainment social vibrant content-dense"` not just `"app"`
 - Try different keywords for the same need: `"playful neon"` → `"vibrant dark"` → `"content-first minimal"`
 - Use `--design-system` first for full recommendations, then `--domain` to deep-dive any dimension you're unsure about
 - Add `--stack <stack>` for implementation-specific guidance when the target stack is known
@@ -260,7 +270,7 @@ python3 skills/ui-ux-pro-max/scripts/search.py "fintech crypto" --design-system 
 ### Common Sticking Points
 
 | Problem | What to Do |
-|---------|------------|
+| --------- | ------------ |
 | Can't decide on style/color | Re-run `--design-system` with different keywords |
 | Dark mode contrast issues | Quick Reference §6: `color-dark-mode` + `color-accessible-pairs` |
 | Animations feel unnatural | Quick Reference §7: `spring-physics` + `easing` + `exit-faster-than-enter` |
@@ -293,7 +303,7 @@ Scope notice: The rules below are for App UI (iOS/Android/React Native/Flutter),
   - 如果 Phosphor 也没有理想选项，可以使用 **Heroicons (`@heroicons/react`)** 作为备选，注意保持风格一致（线性/填充、笔画粗细、圆角风格）。
 
 | Rule | Standard | Avoid | Why It Matters |
-|------|----------|--------|----------------|
+| ------ | ---------- | -------- | ---------------- |
 | **No Emoji as Structural Icons** | Use vector-based icons (e.g., Phosphor `@phosphor-icons/react`, Heroicons `@heroicons/react`, react-native-vector-icons, @expo/vector-icons). | Using emojis (🎨 🚀 ⚙️) for navigation, settings, or system controls. | Emojis are font-dependent, inconsistent across platforms, and cannot be controlled via design tokens. |
 | **Vector-Only Assets** | Use SVG or platform vector icons that scale cleanly and support theming. | Raster PNG icons that blur or pixelate. | Ensures scalability, crisp rendering, and dark/light mode adaptability. |
 | **Stable Interaction States** | Use color, opacity, or elevation transitions for press states without changing layout bounds. | Layout-shifting transforms that move surrounding content or trigger visual jitter. | Prevents unstable interactions and preserves smooth motion/perceived quality on mobile. |
@@ -305,11 +315,10 @@ Scope notice: The rules below are for App UI (iOS/Android/React Native/Flutter),
 | **Icon Alignment** | Align icons to text baseline and maintain consistent padding. | Misaligned icons or inconsistent spacing around them. | Prevents subtle visual imbalance that reduces perceived quality. |
 | **Icon Contrast** | Follow WCAG contrast standards: 4.5:1 for small elements, 3:1 minimum for larger UI glyphs. | Low-contrast icons that blend into the background. | Ensures accessibility in both light and dark modes. |
 
-
 ### Interaction (App)
 
 | Rule | Do | Don't |
-|------|----|----- |
+| ------ | ---- | ----- |
 | **Tap feedback** | Provide clear pressed feedback (ripple/opacity/elevation) within 80-150ms | No visual response on tap |
 | **Animation timing** | Keep micro-interactions around 150-300ms with platform-native easing | Instant transitions or slow animations (>500ms) |
 | **Accessibility focus** | Ensure screen reader focus order matches visual order and labels are descriptive | Unlabeled controls or confusing focus traversal |
@@ -321,7 +330,7 @@ Scope notice: The rules below are for App UI (iOS/Android/React Native/Flutter),
 ### Light/Dark Mode Contrast
 
 | Rule | Do | Don't |
-|------|----|----- |
+| ------ | ---- | ----- |
 | **Surface readability (light)** | Keep cards/surfaces clearly separated from background with sufficient opacity/elevation | Overly transparent surfaces that blur hierarchy |
 | **Text contrast (light)** | Maintain body text contrast >=4.5:1 against light surfaces | Low-contrast gray body text |
 | **Text contrast (dark)** | Maintain primary text contrast >=4.5:1 and secondary text >=3:1 on dark surfaces | Dark mode text that blends into background |
@@ -333,7 +342,7 @@ Scope notice: The rules below are for App UI (iOS/Android/React Native/Flutter),
 ### Layout & Spacing
 
 | Rule | Do | Don't |
-|------|----|----- |
+| ------ | ---- | ----- |
 | **Safe-area compliance** | Respect top/bottom safe areas for all fixed headers, tab bars, and CTA bars | Placing fixed UI under notch, status bar, or gesture area |
 | **System bar clearance** | Add spacing for status/navigation bars and gesture home indicator | Let tappable content collide with OS chrome |
 | **Consistent content width** | Keep predictable content width per device class (phone/tablet) | Mixing arbitrary widths between screens |
@@ -351,6 +360,7 @@ Before delivering UI code, verify these items:
 Scope notice: This checklist is for App UI (iOS/Android/React Native/Flutter).
 
 ### Visual Quality
+
 - [ ] No emojis used as icons (use SVG instead)
 - [ ] All icons come from a consistent icon family and style
 - [ ] Official brand assets are used with correct proportions and clear space
@@ -358,6 +368,7 @@ Scope notice: This checklist is for App UI (iOS/Android/React Native/Flutter).
 - [ ] Semantic theme tokens are used consistently (no ad-hoc per-screen hardcoded colors)
 
 ### Interaction
+
 - [ ] All tappable elements provide clear pressed feedback (ripple/opacity/elevation)
 - [ ] Touch targets meet minimum size (>=44x44pt iOS, >=48x48dp Android)
 - [ ] Micro-interaction timing stays in the 150-300ms range with native-feeling easing
@@ -366,6 +377,7 @@ Scope notice: This checklist is for App UI (iOS/Android/React Native/Flutter).
 - [ ] Gesture regions avoid nested/conflicting interactions (tap/drag/back-swipe conflicts)
 
 ### Light/Dark Mode
+
 - [ ] Primary text contrast >=4.5:1 in both light and dark mode
 - [ ] Secondary text contrast >=3:1 in both light and dark mode
 - [ ] Dividers/borders and interaction states are distinguishable in both modes
@@ -373,6 +385,7 @@ Scope notice: This checklist is for App UI (iOS/Android/React Native/Flutter).
 - [ ] Both themes are tested before delivery (not inferred from a single theme)
 
 ### Layout
+
 - [ ] Safe areas are respected for headers, tab bars, and bottom CTA bars
 - [ ] Scroll content is not hidden behind fixed/sticky bars
 - [ ] Verified on small phone, large phone, and tablet (portrait + landscape)
@@ -381,6 +394,7 @@ Scope notice: This checklist is for App UI (iOS/Android/React Native/Flutter).
 - [ ] Long-form text measure remains readable on larger devices (no edge-to-edge paragraphs)
 
 ### Accessibility
+
 - [ ] All meaningful images/icons have accessibility labels
 - [ ] Form fields have labels, hints, and clear error messages
 - [ ] Color is not the only indicator

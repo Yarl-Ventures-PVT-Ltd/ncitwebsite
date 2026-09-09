@@ -8,7 +8,7 @@ A successful Administrative Officer will act as the point of contact for all NCI
 
 Responsibilities
 
-———————–
+-------–
 
 ✔Manage office supplies stock and place orders
 
@@ -32,7 +32,7 @@ Responsibilities
 
 Requirements
 
-——————-
+-------
 
 ✔Solid knowledge of office procedures and Information Technology.
 

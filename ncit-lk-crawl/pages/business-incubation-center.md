@@ -14,7 +14,7 @@ JIE NESL (Innovation Ecosystem – North East Sri-Lanka, Canada based Oganizatio
 
 expertise, professional guidance, and services – including access to space, business
 
-planning, education and training, and legal advice, among others — throughout the
+planning, education and training, and legal advice, among others - throughout the
 
 phases of the startup development.
 
@@ -58,7 +58,7 @@ _**More**_
 
 **Fee Structure (Introduction Fee)**
 
-|     |     |     |
+| | | |
 | --- | --- | --- |
 | **Description** | **Facility** | **Fee** |
 | **Conference Hall for Meeting(15×20)** | - 11 Seats<br>- Conference Table<br>- Air conditioned<br>-  WiFi | Rs 1000/- per Hour . For NCIT Members there is 30% Discount |
@@ -80,7 +80,7 @@ _**More**_
 
 \*Separate Wash rooms -3
 
-**for Booking information:** +94 21 222 9600 / +94 777 563213 /  support@ncit.lk
+**for Booking information:** +94 21 222 9600 / +94 777 563213 /  <support@ncit.lk>
 
 **Gallery**
 
@@ -140,7 +140,7 @@ More Gallery: [Here](https://www.facebook.com/ncitbusinessincubationcenter/posts
 
 (பஸ் நிலையத்தின் பின்புறம்)
 
-#NCIT #Business #Incubation #Center Powered by #IENESL
+# NCIT #Business #Incubation #Center Powered by #IENESL
 
 ```
 

@@ -14,7 +14,7 @@ export default function InvestHero() {
 
       <div className="container relative z-10 mx-auto px-4 md:px-6">
         <div className="max-w-4xl mx-auto text-center">
-          
+
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -42,17 +42,17 @@ export default function InvestHero() {
             transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
             className="text-lg md:text-xl text-white/70 leading-relaxed font-light max-w-3xl mx-auto mb-10"
           >
-            NCIT provides a trusted gateway to companies, talent, institutions, startups and partnerships across the Northern Province — helping serious partners understand the ecosystem and connect with the right local stakeholders.
+            NCIT provides a trusted gateway to companies, talent, institutions, startups and partnerships across the Northern Province - helping serious partners understand the ecosystem and connect with the right local stakeholders.
           </motion.p>
-          
+
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.3, ease: "easeOut" }}
             className="flex flex-col sm:flex-row justify-center items-center gap-4"
           >
-            <Link 
-              href="#inquiry" 
+            <Link
+              href="#inquiry"
               className="inline-flex items-center justify-center bg-ncit-blue text-white hover:bg-blue-600 w-full sm:w-auto h-14 px-8 text-base font-medium rounded-full shadow-[0_8px_30px_rgb(37,99,235,0.3)] hover:shadow-[0_8px_30px_rgb(37,99,235,0.5)] hover:-translate-y-1 transition-all duration-300"
             >
               Discuss an Investment

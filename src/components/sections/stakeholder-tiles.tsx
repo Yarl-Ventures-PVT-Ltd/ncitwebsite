@@ -11,7 +11,7 @@ export default function StakeholderTiles() {
       title: "Companies",
       icon: <Building2 className="h-7 w-7 text-white" />,
       desc: "Credibility, network, policy voice, and talent visibility.",
-      href: "/join/companies",
+      href: "/membership/apply",
       color: "from-ncit-blue to-ncit-blue/80",
     },
     {
@@ -19,7 +19,7 @@ export default function StakeholderTiles() {
       title: "Startups",
       icon: <Rocket className="h-7 w-7 text-white" />,
       desc: "Mentors, visibility, and ecosystem access.",
-      href: "/startups",
+      href: "/ecosystem",
       color: "from-ncit-purple to-ncit-purple/80",
     },
     {
@@ -27,7 +27,7 @@ export default function StakeholderTiles() {
       title: "Talent & Students",
       icon: <Users className="h-7 w-7 text-white" />,
       desc: "Industry exposure, skills, internships, and jobs.",
-      href: "/talent",
+      href: "/ecosystem",
       color: "from-ncit-pink to-ncit-pink/80",
     },
     {
@@ -43,7 +43,7 @@ export default function StakeholderTiles() {
       title: "Gov & Partners",
       icon: <Handshake className="h-7 w-7 text-white" />,
       desc: "Industry voice and ecosystem data implementation.",
-      href: "/partners",
+      href: "/contact",
       color: "from-ncit-gold to-ncit-gold/80",
     },
   ];

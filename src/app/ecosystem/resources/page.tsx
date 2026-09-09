@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { Card, CardContent } from '@/components/ui/card';
-import { FileText, Download, FileArchive, Mic, Newspaper } from 'lucide-react';
+import { FileText, Download, FileArchive, Mic, Newspaper, Link as LinkIcon } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 
@@ -42,6 +42,16 @@ const resourceCategories = [
       { name: "Nextwork 2020 - Angajan Speech", date: "Feb 2020", link: "/wp-content/uploads/2020/02/Nextwork2020-angajanSpeech.pdf", type: "PDF" },
       { name: "NextWork 2020 - Thavaruban Speech", date: "Feb 2020", link: "/wp-content/uploads/2020/02/NextWork2020ThavarubanSpeech.pdf", type: "PDF" },
       { name: "Thavaruban Speech", date: "Jun 2018", link: "/wp-content/uploads/2018/06/Thavaruban-Speach26062018.pdf", type: "PDF" },
+    ]
+  },
+  {
+    title: "Useful Links",
+    icon: <LinkIcon className="w-6 h-6 text-ncit-blue" />,
+    items: [
+      { name: "Ministry of Finance - Treasury", date: "Government", link: "http://treasury.gov.lk/", type: "LINK" },
+      { name: "Sri Lanka Export Development Board", date: "Government", link: "http://www.edb.gov.lk/", type: "LINK" },
+      { name: "ICT Agency of Sri Lanka (ICTA)", date: "Government", link: "http://www.icta.lk/", type: "LINK" },
+      { name: "Department for Registration of Companies", date: "Government", link: "http://www.drc.gov.lk/", type: "LINK" },
     ]
   }
 ];

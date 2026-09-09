@@ -9,19 +9,19 @@ const resources = [
     title: "University Networks",
     desc: "Connect with the leading academic institutions producing top-tier engineering and IT talent.",
     icon: <Library className="w-6 h-6" />,
-    link: "/ecosystem/talent#universities",
+    link: "/ecosystem",
   },
   {
     title: "Vocational & Skills Training",
     desc: "Discover specialized training centers addressing immediate industry skill gaps.",
     icon: <BookOpen className="w-6 h-6" />,
-    link: "/ecosystem/talent#vocational",
+    link: "/ecosystem",
   },
   {
     title: "Professional Development",
     desc: "Explore continuous learning programs, certifications, and upskilling pathways.",
     icon: <GraduationCap className="w-6 h-6" />,
-    link: "/ecosystem/talent#professional",
+    link: "/ecosystem",
   }
 ];
 
@@ -45,7 +45,7 @@ export default function TalentAndTraining() {
               A strong technology ecosystem relies on a continuous pipeline of skilled professionals. The Northern Province is home to renowned universities and training institutions building the next generation of digital leaders.
             </p>
             <Link 
-              href="/ecosystem/talent" 
+              href="/ecosystem" 
               className="inline-flex items-center text-ncit-blue font-semibold hover:text-white transition-colors"
             >
               Explore the Talent Pool

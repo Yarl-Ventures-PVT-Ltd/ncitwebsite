@@ -49,7 +49,7 @@ export default function SuccessStory() {
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4">
-                <Link href="/join" className="inline-flex items-center justify-center bg-ncit-blue text-white hover:bg-blue-600 px-6 py-3.5 text-sm font-medium rounded-xl shadow-md transition-all text-center">
+                <Link href="/membership/apply" className="inline-flex items-center justify-center bg-ncit-blue text-white hover:bg-blue-600 px-6 py-3.5 text-sm font-medium rounded-xl shadow-md transition-all text-center">
                   Join NCIT to Grow
                 </Link>
                 <Link href="/members" className="inline-flex items-center justify-center bg-white/10 text-white hover:bg-white/20 px-6 py-3.5 text-sm font-medium rounded-xl transition-all text-center">

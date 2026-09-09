@@ -53,7 +53,7 @@ export default function FeaturedMembers() {
       </div>
 
       <div className="mt-10 text-center">
-        <Link href="/directory" className="text-sm font-semibold text-ncit-blue hover:text-ncit-purple transition-colors">
+        <Link href="/members" className="text-sm font-semibold text-ncit-blue hover:text-ncit-purple transition-colors">
           View full member directory &rarr;
         </Link>
       </div>

@@ -6,17 +6,17 @@ We will allocate Stall for selected maximum 15-20 IT companies who located in No
 
 **Selection criteria IT SME exhibitors :**
 
-————————————————————
+--------------------
 
-#The company must have its presence or is able to service its customers remotely in Northern Province.
+# The company must have its presence or is able to service its customers remotely in Northern Province.
 
-#Exhibition space and promotions activities will be as per ICTA specifications.
+# Exhibition space and promotions activities will be as per ICTA specifications.
 
-#Only companies that are engaged in software product and solutions development are eligible to apply.
+# Only companies that are engaged in software product and solutions development are eligible to apply.
 
-#Only selected companies will be notified via email based on information provided upon registration.
+# Only selected companies will be notified via email based on information provided upon registration.
 
-#Selected Companies will be charged 5000 LKR
+# Selected Companies will be charged 5000 LKR
 
 **Facilities Provided :** Exhibition space / pod will be provided by NCIT including company on-site branding. NCIT along with ICTA and its partners in the program aims to bring business owners and decision makers.Company will be listed in NCIT member directory.
 

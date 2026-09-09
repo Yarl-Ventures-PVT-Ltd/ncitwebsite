@@ -41,6 +41,7 @@ export default function Footer() {
           <div>
             <h4 className="text-white font-medium mb-6 font-heading">About NCIT</h4>
             <ul className="space-y-4 text-sm text-white/60">
+              <li><Link href="/about" className="hover:text-white transition-colors">About NCIT</Link></li>
               <li><Link href="/about/history" className="hover:text-white transition-colors">Our History</Link></li>
               <li><Link href="/about/board" className="hover:text-white transition-colors">Board of Directors</Link></li>
               <li><Link href="/about/governance" className="hover:text-white transition-colors">Governance</Link></li>
@@ -53,6 +54,7 @@ export default function Footer() {
           <div>
             <h4 className="text-white font-medium mb-6 font-heading">What We Do</h4>
             <ul className="space-y-4 text-sm text-white/60">
+              <li><Link href="/what-we-do" className="hover:text-white transition-colors">What We Do</Link></li>
               <li><Link href="/what-we-do/services" className="hover:text-white transition-colors">Services</Link></li>
               <li><Link href="/what-we-do/projects" className="hover:text-white transition-colors">Projects & Initiatives</Link></li>
               <li><Link href="/what-we-do/business-incubation-center" className="hover:text-white transition-colors">Business Incubation</Link></li>
@@ -80,6 +82,7 @@ export default function Footer() {
               <li><Link href="/invest" className="hover:text-white transition-colors">Invest in the North</Link></li>
               <li><Link href="/ecosystem" className="hover:text-white transition-colors">The Ecosystem</Link></li>
               <li><Link href="/ecosystem/resources" className="hover:text-white transition-colors">Resources</Link></li>
+              <li><Link href="/gallery" className="hover:text-white transition-colors">Photo Gallery</Link></li>
             </ul>
           </div>
         </div>

@@ -57,7 +57,7 @@ export default function EventsOpportunities() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <Link href="/events">
+            <Link href="/insights">
               <Button variant="outline" className="glass rounded-full px-6 font-semibold text-ncit-ink">
                 View All Events <ArrowRight className="ml-2 w-4 h-4" />
               </Button>
@@ -97,7 +97,7 @@ export default function EventsOpportunities() {
                 </div>
               </div>
 
-              <Link href={`/events/${event.id}`}>
+              <Link href="/contact">
                 <Button className="w-full bg-ncit-ink hover:bg-ncit-blue text-white rounded-xl shadow-md transition-colors h-12">
                   Register Now
                 </Button>

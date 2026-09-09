@@ -30,7 +30,7 @@ const reasons = [
   },
   {
     title: "Five-District Ecosystem",
-    description: "A diverse regional network spanning Jaffna, Kilinochchi, Mannar, Mullaitivu, and Vavuniya—each offering unique strategic advantages.",
+    description: "A diverse regional network spanning Jaffna, Kilinochchi, Mannar, Mullaitivu, and Vavuniya-each offering unique strategic advantages.",
     icon: <Map className="w-6 h-6" />,
     color: "bg-pink-50 text-pink-600",
   }
@@ -40,10 +40,10 @@ export default function WhyTheNorth() {
   return (
     <section className="py-24 bg-ncit-cloud relative">
       <div className="container mx-auto px-4 md:px-6">
-        
+
         <div className="flex flex-col lg:flex-row gap-16 items-center">
-          
-          <motion.div 
+
+          <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}

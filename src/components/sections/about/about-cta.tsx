@@ -34,12 +34,12 @@ export default function AboutCTA() {
             </p>
             
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full">
-              <Link href="/about/leadership" className="inline-flex items-center justify-center bg-ncit-blue text-white hover:bg-blue-600 w-full sm:w-auto h-14 px-8 text-base font-medium rounded-full shadow-[0_8px_30px_rgb(37,99,235,0.3)] hover:shadow-[0_8px_30px_rgb(37,99,235,0.5)] hover:-translate-y-1 transition-all duration-300 group">
+              <Link href="/about/board" className="inline-flex items-center justify-center bg-ncit-blue text-white hover:bg-blue-600 w-full sm:w-auto h-14 px-8 text-base font-medium rounded-full shadow-[0_8px_30px_rgb(37,99,235,0.3)] hover:shadow-[0_8px_30px_rgb(37,99,235,0.5)] hover:-translate-y-1 transition-all duration-300 group">
                   Meet Our Leadership
                   <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
               </Link>
               
-              <Link href="/join" className="inline-flex items-center justify-center w-full sm:w-auto h-14 px-8 text-base font-medium rounded-full text-white bg-white/5 border border-white/20 hover:bg-white hover:text-ncit-ink hover:-translate-y-1 transition-all duration-300">
+              <Link href="/membership/apply" className="inline-flex items-center justify-center w-full sm:w-auto h-14 px-8 text-base font-medium rounded-full text-white bg-white/5 border border-white/20 hover:bg-white hover:text-ncit-ink hover:-translate-y-1 transition-all duration-300">
                   Join NCIT
               </Link>
             </div>
