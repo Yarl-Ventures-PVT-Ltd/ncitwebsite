@@ -66,7 +66,7 @@ export default function HowItWorks() {
                 <div className="w-20 h-20 bg-white border-2 border-gray-100 rounded-full flex items-center justify-center mb-6 shadow-sm group-hover:border-ncit-blue group-hover:text-ncit-blue transition-colors text-ncit-ink/40">
                   {step.icon}
                 </div>
-                <h4 className="font-bold text-ncit-ink mb-2">{step.title}</h4>
+                <h3 className="font-bold text-ncit-ink mb-2">{step.title}</h3>
                 <p className="text-xs text-ncit-ink/60 leading-relaxed px-2">
                   {step.description}
                 </p>

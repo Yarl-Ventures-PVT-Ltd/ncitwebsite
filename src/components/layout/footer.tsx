@@ -37,7 +37,7 @@ export default function Footer() {
 
           {/* About Links */}
           <div>
-            <h4 className="text-white font-medium mb-6 font-heading">About NCIT</h4>
+            <h2 className="text-white font-medium mb-6 font-heading">About NCIT</h2>
             <ul className="space-y-4 text-sm text-white/60">
               <li><Link href="/about" className="hover:text-white transition-colors">About NCIT</Link></li>
               <li><Link href="/about/history" className="hover:text-white transition-colors">Our History</Link></li>
@@ -50,7 +50,7 @@ export default function Footer() {
 
           {/* What We Do Links */}
           <div>
-            <h4 className="text-white font-medium mb-6 font-heading">What We Do</h4>
+            <h2 className="text-white font-medium mb-6 font-heading">What We Do</h2>
             <ul className="space-y-4 text-sm text-white/60">
               <li><Link href="/what-we-do" className="hover:text-white transition-colors">What We Do</Link></li>
               <li><Link href="/what-we-do/services" className="hover:text-white transition-colors">Services</Link></li>
@@ -63,7 +63,7 @@ export default function Footer() {
 
           {/* Membership Links */}
           <div>
-            <h4 className="text-white font-medium mb-6 font-heading">Membership</h4>
+            <h2 className="text-white font-medium mb-6 font-heading">Membership</h2>
             <ul className="space-y-4 text-sm text-white/60">
               <li><Link href="/membership" className="hover:text-white transition-colors">Overview</Link></li>
               <li><Link href="/membership/benefits" className="hover:text-white transition-colors">Benefits</Link></li>
@@ -74,7 +74,7 @@ export default function Footer() {
 
           {/* Ecosystem Links */}
           <div>
-            <h4 className="text-white font-medium mb-6 font-heading">Ecosystem</h4>
+            <h2 className="text-white font-medium mb-6 font-heading">Ecosystem</h2>
             <ul className="space-y-4 text-sm text-white/60">
               <li><Link href="/insights" className="hover:text-white transition-colors">Insights & News</Link></li>
               <li><Link href="/invest" className="hover:text-white transition-colors">Invest in the North</Link></li>

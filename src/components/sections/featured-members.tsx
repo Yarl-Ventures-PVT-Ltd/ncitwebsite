@@ -3,26 +3,22 @@
 import { motion } from "framer-motion";
 import { Building2 } from "lucide-react";
 import Link from "next/link";
+import { LINKED_MEMBERS } from "@/lib/members";
 
 export default function FeaturedMembers() {
-  // Placeholder data for verified members (CMS curated in reality)
-  const members = [
-    { name: "3AxisLabs", sector: "Software Engineering" },
-    { name: "EDUS", sector: "EdTech" },
-    { name: "Innovay", sector: "IT Services" },
-    { name: "Sun Microcreators", sector: "Hardware & Infrastructure" },
-    { name: "Loncey Tech", sector: "IT Services" },
-    { name: "Speed IT Net", sector: "Networking" },
-    { name: "College of ICT", sector: "Tech Education" },
-    { name: "UNITEC", sector: "Tech Education" },
-  ];
+  // Sourced from the real directory. The hand-written list this replaced had
+  // drifted: it advertised a company that is not a member, under a heading that
+  // calls every name on it a member, and it carried sector labels the chamber
+  // has no record of. Only members with a public website appear, because that
+  // link is the one claim the strip makes that a reader can check.
+  const members = LINKED_MEMBERS;
 
   return (
     <section className="relative z-10 py-16 overflow-hidden">
       <div className="container mx-auto px-4 md:px-6 mb-8 text-center">
-        <h3 className="text-xl font-bold font-heading text-ncit-ink tracking-tight">
+        <h2 className="text-xl font-bold font-heading text-ncit-ink tracking-tight">
           Trusted by Northern Sri Lanka&apos;s Leading Tech Organizations
-        </h3>
+        </h2>
       </div>
       
       {/* Auto-scrolling marquee wrapper */}
@@ -32,8 +28,8 @@ export default function FeaturedMembers() {
         
         <motion.div 
           className="flex gap-6 px-3"
-          animate={{ x: [0, -1920] }}
-          transition={{ repeat: Infinity, duration: 40, ease: "linear" }}
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{ repeat: Infinity, duration: members.length * 5, ease: "linear" }}
         >
           {[...members, ...members].map((member, i) => (
             <div 
@@ -44,8 +40,10 @@ export default function FeaturedMembers() {
                 <Building2 className="w-5 h-5" />
               </div>
               <div>
-                <h4 className="font-bold text-ncit-ink text-sm">{member.name}</h4>
-                <p className="text-xs text-ncit-ink/60 font-medium">{member.sector}</p>
+                <p className="font-bold text-ncit-ink text-sm">{member.name}</p>
+                {member.info && (
+                  <p className="text-xs text-ncit-ink/60 font-medium">{member.info}</p>
+                )}
               </div>
             </div>
           ))}

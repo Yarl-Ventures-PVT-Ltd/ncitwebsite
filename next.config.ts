@@ -473,6 +473,15 @@ const legacyRedirects = [
 ];
 
 const nextConfig: NextConfig = {
+  images: {
+    // Next ships a srcset for every entry here on every image. The defaults run
+    // to 3840px, which no slot on this site uses: the gallery grid caps at 25vw
+    // and the widest single image is an article hero. Trimming the list cuts the
+    // rendered markup sharply on the gallery, which holds 172 images at once.
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920],
+    imageSizes: [64, 128, 256, 384],
+  },
+
   async redirects() {
     return [
       ...legacyRedirects.map((r) => ({ ...r, permanent: true })),

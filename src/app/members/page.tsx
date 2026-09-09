@@ -2,6 +2,8 @@ import { Metadata } from 'next';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ExternalLink, Building2, Users, User, Rocket, Globe } from 'lucide-react';
+import { MEMBER_CATEGORIES, MEMBER_COUNT, type MemberCategory } from '@/lib/members';
+import { SITE, absoluteUrl, jsonLd } from '@/lib/seo';
 
 export const metadata: Metadata = {
   alternates: { canonical: "/members" },
@@ -9,82 +11,50 @@ export const metadata: Metadata = {
   description: 'Directory of all registered members of the Northern Chamber of Information Technology.',
 };
 
-const memberCategories = [
-  {
-    title: "Category I (Full Members)",
-    icon: <Building2 className="w-5 h-5" />,
-    members: [
-      { name: "Speed IT net", link: "http://en.speeditnet.com/" },
-      { name: "Innovay", link: "http://www.innovay.com/" },
-      { name: "MCS IT Campus", info: "ICT Education", link: "http://www.mcsitcampus.com/" },
-      { name: "College of ICT", info: "ICT Education", link: "http://www.cictjaffna.com/" },
-      { name: "Business Network System", link: null },
-      { name: "Iconic Coder", link: "http://iconiccoder.com/" },
-      { name: "Kale Systems", link: "http://www.kalesystems.com/" },
-      { name: "ePixcell Solutions", link: "http://epixcell.com/" },
-      { name: "Sun Microcreators(Pte) Ltd", link: "https://algoinn.com/" },
-      { name: "ezBooking", link: "http://www.ezbooking.io/" },
-      { name: "AppsLanka", link: "http://appslanka.lk/" },
-      { name: "Loncey Tech", link: "https://lonceytech.com/" },
-      { name: "3axislabs", link: "https://3axislabs.com/" },
-      { name: "Apptimus Tech", link: "https://apptimustech.com/" },
-      { name: "UNITEC Campus", link: "https://unitec.edu.lk/" },
-    ]
-  },
-  {
-    title: "Category II",
-    icon: <Building2 className="w-5 h-5" />,
-    members: [
-      { name: "DMI Computer Education", info: "ICT Education", link: "http://itdmi.com/" },
-      { name: "Apex of Computer Technology", link: null },
-      { name: "Winsoft Technology", link: "https://www.facebook.com/winsoftlk/" },
-      { name: "UMK Web Design", link: "http://umkwebdesign.com/" },
-      { name: "Yazhi Innovations (private) Limited", link: "http://www.yazhii.net/" },
-      { name: "Future Clicks Pvt Ltd", link: "http://www.futureclicks.lk/" },
-      { name: "Evergreen Buzz", link: null },
-      { name: "AKAMATHI Group", link: "http://www.akamathi.com/" },
-      { name: "Infonits", link: "https://infonits.io/" },
-    ]
-  },
-  {
-    title: "Category III (Associations)",
-    icon: <Users className="w-5 h-5" />,
-    description: "All members of Associate members will be NCIT Ordinary Members",
-    members: [
-      { name: "MANFICT", info: "Mannar Federation of Information Communication Technology", link: "https://www.facebook.com/manfict/" },
-      { name: "VICTA", info: "Vavuniya Information & Communication Association", link: "http://www.victa.org/" },
-      { name: "Aaruthal", link: "http://www.aaruthal.lk/" },
-    ]
-  },
-  {
-    title: "Category IV (Individuals)",
-    icon: <User className="w-5 h-5" />,
-    members: [
-      { name: "S. Garigaraganapathy", info: "Head, IT, ATI Jaffna", link: null },
-      { name: "T. Lenin Arivalakan", info: "Dep of Education, NP", link: null },
-    ]
-  },
-  {
-    title: "Category V (Offshore)",
-    icon: <Globe className="w-5 h-5" />,
-    members: [
-      { name: "Micro PC Systems", link: "http://www.micropcsystems.com/" },
-      { name: "Ceymplon", link: "http://www.ceymplon.lk/" },
-      { name: "IDM Nations Campus", link: "http://www.idmedu.lk/" },
-    ]
-  },
-  {
-    title: "Category VI (Startup)",
-    icon: <Rocket className="w-5 h-5" />,
-    members: [
-      { name: "Mithu IT Solutions", link: null },
-    ]
-  }
-];
+// Icons live here rather than in the data module so the data stays plain and
+// importable from anywhere, including the home page strip.
+const CATEGORY_ICONS: Record<MemberCategory["key"], React.ReactNode> = {
+  full: <Building2 className="w-5 h-5" />,
+  second: <Building2 className="w-5 h-5" />,
+  associations: <Users className="w-5 h-5" />,
+  individuals: <User className="w-5 h-5" />,
+  offshore: <Globe className="w-5 h-5" />,
+  startup: <Rocket className="w-5 h-5" />,
+};
+
+/**
+ * The directory as a list of real organisations rather than 33 lines of text.
+ * Each member with a website becomes an Organization node, which is what lets a
+ * search engine connect the chamber to its members as entities instead of
+ * guessing from the page copy. Only facts already shown on the page are
+ * described: the name, the link, and the descriptor where the chamber has one.
+ */
+const directorySchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "@id": absoluteUrl("/members#directory"),
+  name: "NCIT Member Directory",
+  description:
+    `The ${MEMBER_COUNT} companies, institutions, associations and professionals that belong to the Northern Chamber of Information Technology.`,
+  numberOfItems: MEMBER_COUNT,
+  itemListOrder: "https://schema.org/ItemListUnordered",
+  itemListElement: MEMBER_CATEGORIES.flatMap((category) => category.members).map((member, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    item: {
+      "@type": "Organization",
+      name: member.name,
+      ...(member.link ? { url: member.link } : {}),
+      ...(member.info ? { description: member.info } : {}),
+      memberOf: { "@id": `${SITE.url}/#organization` },
+    },
+  })),
+};
 
 export default function MembersDirectoryPage() {
   return (
     <div className="bg-ncit-cloud min-h-screen pb-20">
+      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(directorySchema)} />
       {/* Hero Section */}
       <section className="bg-[#040D17] text-white pt-32 pb-20 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-ncit-purple/20 rounded-full blur-[120px] pointer-events-none -translate-y-1/2 translate-x-1/3" />
@@ -94,7 +64,7 @@ export default function MembersDirectoryPage() {
               Member Directory
             </h1>
             <p className="text-lg md:text-xl text-white/80 font-light leading-relaxed">
-              Explore our growing network of over 40+ IT organizations, startups, associations, and professionals driving the digital economy in the Northern Province.
+              Explore our network of {MEMBER_COUNT} IT organizations, startups, associations, and professionals driving the digital economy in the Northern Province.
             </p>
           </div>
         </div>
@@ -105,11 +75,11 @@ export default function MembersDirectoryPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto space-y-16">
             
-            {memberCategories.map((category, index) => (
+            {MEMBER_CATEGORIES.map((category, index) => (
               <div key={index} className="space-y-6">
                 <div className="flex items-center gap-3 mb-8">
                   <div className="w-10 h-10 bg-white rounded-xl shadow-sm border border-gray-100 flex items-center justify-center text-ncit-blue">
-                    {category.icon}
+                    {CATEGORY_ICONS[category.key]}
                   </div>
                   <div>
                     <h2 className="text-2xl font-bold text-ncit-ink font-heading">{category.title}</h2>

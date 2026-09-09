@@ -142,9 +142,9 @@ export default function EcosystemPreview() {
               <div className="relative z-10 p-10 flex-1 flex flex-col">
                 <div className="flex items-center gap-3 mb-6">
                   <Network className="w-6 h-6 text-ncit-blue" />
-                  <h4 className="font-heading font-bold text-xl text-ncit-ink uppercase tracking-wide">
+                  <h3 className="font-heading font-bold text-xl text-ncit-ink uppercase tracking-wide">
                     Regional Profile
-                  </h4>
+                  </h3>
                 </div>
 
                 <AnimatePresence mode="wait">

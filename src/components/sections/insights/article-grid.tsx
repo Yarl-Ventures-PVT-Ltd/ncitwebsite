@@ -60,9 +60,9 @@ export default function ArticleGrid({ articles }: ArticleGridProps) {
                 </div>
 
                 <Link href={`/insights/${article.slug}`}>
-                  <h3 className="text-xl md:text-2xl font-bold text-ncit-ink mb-3 leading-snug group-hover:text-ncit-blue transition-colors duration-300 line-clamp-2">
+                  <h2 className="text-xl md:text-2xl font-bold text-ncit-ink mb-3 leading-snug group-hover:text-ncit-blue transition-colors duration-300 line-clamp-2">
                     {article.title}
-                  </h3>
+                  </h2>
                 </Link>
 
                 <p className="text-ncit-ink/70 font-light leading-relaxed mb-6 line-clamp-3">
