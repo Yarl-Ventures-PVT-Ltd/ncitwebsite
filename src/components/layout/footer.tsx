@@ -12,9 +12,9 @@ export default function Footer() {
       <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-ncit-purple/10 rounded-full blur-[100px] pointer-events-none translate-y-1/2 -translate-x-1/4" />
 
       <div className="container mx-auto px-4 md:px-6 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-8 lg:gap-12 mb-16">
           {/* Brand & About */}
-          <div className="lg:col-span-2">
+          <div className="sm:col-span-2">
             <Link href="/" className="inline-block mb-6">
               <NcitLogo variant="white" className="h-10 md:h-12 w-auto hover:opacity-80 transition-opacity" />
             </Link>
@@ -42,31 +42,44 @@ export default function Footer() {
             <h4 className="text-white font-medium mb-6 font-heading">About NCIT</h4>
             <ul className="space-y-4 text-sm text-white/60">
               <li><Link href="/about/history" className="hover:text-white transition-colors">Our History</Link></li>
-              <li><Link href="/about/governance" className="hover:text-white transition-colors">Governance & Documents</Link></li>
-              <li><Link href="/what-we-do/advocacy" className="hover:text-white transition-colors">Advocacy & Policy</Link></li>
-              <li><Link href="/what-we-do/market-access" className="hover:text-white transition-colors">Business & Market Access</Link></li>
+              <li><Link href="/about/board" className="hover:text-white transition-colors">Board of Directors</Link></li>
+              <li><Link href="/about/governance" className="hover:text-white transition-colors">Governance</Link></li>
+              <li><Link href="/about/governance/bylaws" className="hover:text-white transition-colors">NCIT Bylaws</Link></li>
               <li><Link href="/contact" className="hover:text-white transition-colors">Contact Us</Link></li>
             </ul>
           </div>
 
-          {/* Ecosystem & Membership Links */}
+          {/* What We Do Links */}
+          <div>
+            <h4 className="text-white font-medium mb-6 font-heading">What We Do</h4>
+            <ul className="space-y-4 text-sm text-white/60">
+              <li><Link href="/what-we-do/services" className="hover:text-white transition-colors">Services</Link></li>
+              <li><Link href="/what-we-do/projects" className="hover:text-white transition-colors">Projects & Initiatives</Link></li>
+              <li><Link href="/what-we-do/business-incubation-center" className="hover:text-white transition-colors">Business Incubation</Link></li>
+              <li><Link href="/what-we-do/market-access" className="hover:text-white transition-colors">Market Access</Link></li>
+              <li><Link href="/what-we-do/advocacy" className="hover:text-white transition-colors">Advocacy & Policy</Link></li>
+            </ul>
+          </div>
+
+          {/* Membership Links */}
           <div>
             <h4 className="text-white font-medium mb-6 font-heading">Membership</h4>
             <ul className="space-y-4 text-sm text-white/60">
-              <li><Link href="/membership" className="hover:text-white transition-colors">Membership Overview</Link></li>
-              <li><Link href="/membership/benefits" className="hover:text-white transition-colors">Member Benefits</Link></li>
+              <li><Link href="/membership" className="hover:text-white transition-colors">Overview</Link></li>
+              <li><Link href="/membership/benefits" className="hover:text-white transition-colors">Benefits</Link></li>
               <li><Link href="/membership/apply" className="hover:text-white transition-colors">Apply Now</Link></li>
               <li><Link href="/members" className="hover:text-white transition-colors">Member Directory</Link></li>
             </ul>
           </div>
 
-          {/* Quick Links */}
+          {/* Ecosystem Links */}
           <div>
             <h4 className="text-white font-medium mb-6 font-heading">Ecosystem</h4>
             <ul className="space-y-4 text-sm text-white/60">
               <li><Link href="/insights" className="hover:text-white transition-colors">Insights & News</Link></li>
               <li><Link href="/invest" className="hover:text-white transition-colors">Invest in the North</Link></li>
-              <li><Link href="/ecosystem" className="hover:text-white transition-colors">The Tech Ecosystem</Link></li>
+              <li><Link href="/ecosystem" className="hover:text-white transition-colors">The Ecosystem</Link></li>
+              <li><Link href="/ecosystem/resources" className="hover:text-white transition-colors">Resources</Link></li>
             </ul>
           </div>
         </div>

@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Mail, Linkedin } from 'lucide-react';
+import { Mail, Globe } from 'lucide-react';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
@@ -103,7 +103,7 @@ export default function BoardPage() {
                     <p className="text-ncit-ink/60 text-sm mb-4">{member.company}</p>
                     <div className="flex gap-2">
                       <div className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center text-gray-400 hover:text-ncit-blue hover:bg-ncit-blue/10 transition-colors cursor-pointer">
-                        <Linkedin className="w-4 h-4" />
+                        <Globe className="w-4 h-4" />
                       </div>
                       <div className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center text-gray-400 hover:text-ncit-blue hover:bg-ncit-blue/10 transition-colors cursor-pointer">
                         <Mail className="w-4 h-4" />
@@ -129,7 +129,7 @@ export default function BoardPage() {
                     <p className="text-ncit-ink/60 text-sm mb-4">{member.company}</p>
                     <div className="flex gap-2">
                       <div className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center text-gray-400 hover:text-ncit-blue hover:bg-ncit-blue/10 transition-colors cursor-pointer">
-                        <Linkedin className="w-4 h-4" />
+                        <Globe className="w-4 h-4" />
                       </div>
                     </div>
                   </CardContent>
