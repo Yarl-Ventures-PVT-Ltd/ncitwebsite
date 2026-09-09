@@ -81,6 +81,22 @@ export function organizationSchema() {
       postalCode: SITE.address.postalCode,
       addressCountry: SITE.address.country,
     },
+    // Coordinates taken from the map embed on the contact page, so the pin a
+    // visitor sees and the one a search engine reads are the same point.
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: 9.697425,
+      longitude: 79.999615,
+    },
+    // The contact page displays these hours; the markup only restates them.
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        opens: "09:00",
+        closes: "17:00",
+      },
+    ],
     areaServed: SERVICE_AREA.map((name) => ({ "@type": "Place", name })),
     knowsAbout: [
       "Information and communication technology",

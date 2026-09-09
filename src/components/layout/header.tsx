@@ -113,7 +113,7 @@ export default function Header() {
           
           {/* Mobile Menu Toggle */}
           <button 
-            className="lg:hidden text-ncit-ink p-2"
+            className="lg:hidden text-ncit-ink p-2 min-w-11 min-h-11 flex items-center justify-center"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -132,13 +132,15 @@ export default function Header() {
                     <Link 
                       href={item.href} 
                       onClick={() => !item.subItems && setMobileMenuOpen(false)}
-                      className="text-lg font-bold text-ncit-ink hover:text-ncit-blue transition-colors"
+                      className="flex-1 py-2.5 text-lg font-bold text-ncit-ink hover:text-ncit-blue transition-colors"
                     >
                       {item.label}
                     </Link>
                     {item.subItems && (
                       <button 
-                        className="p-2"
+                        aria-label={`Show ${item.label} links`}
+                        aria-expanded={openDropdown === item.label}
+                        className="p-2 min-w-11 min-h-11 flex items-center justify-center"
                         onClick={() => setOpenDropdown(openDropdown === item.label ? null : item.label)}
                       >
                         <ChevronDown className={`w-5 h-5 text-ncit-ink/50 transition-transform ${openDropdown === item.label ? 'rotate-180' : ''}`} />
@@ -147,13 +149,13 @@ export default function Header() {
                   </div>
                   
                   {item.subItems && openDropdown === item.label && (
-                    <div className="flex flex-col pl-4 mt-2 space-y-3 mb-2">
+                    <div className="flex flex-col pl-4 mt-1 mb-2">
                       {item.subItems.map((subItem) => (
                         <Link
                           key={subItem.label}
                           href={subItem.href}
                           onClick={() => setMobileMenuOpen(false)}
-                          className="text-ncit-ink/70 hover:text-ncit-blue transition-colors text-base"
+                          className="flex items-center min-h-11 text-ncit-ink/70 hover:text-ncit-blue transition-colors text-base"
                         >
                           {subItem.label}
                         </Link>
