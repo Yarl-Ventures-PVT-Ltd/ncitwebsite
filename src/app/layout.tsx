@@ -3,7 +3,7 @@ import { DM_Sans, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
-import { SITE, organizationSchema, websiteSchema, faqSchema, ORGANISATION_FAQ, jsonLd } from "@/lib/seo";
+import { SITE, organizationSchema, websiteSchema, jsonLd } from "@/lib/seo";
 
 const dmSans = DM_Sans({
   variable: "--font-sans",
@@ -69,12 +69,13 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${dmSans.variable} ${spaceGrotesk.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col font-sans mesh-bg text-ncit-ink selection:bg-ncit-blue/20">
-        {/* Structured data. The organisation and website nodes are referenced
-            by @id from every article page, so the graph stays connected. The
-            FAQ block is what answer engines quote about NCIT. */}
+        {/* Structured data describing the entity and the site as a whole, so
+            it is correct on every page. The organisation and website nodes are
+            referenced by @id from the article and gallery pages, which keeps
+            the graph connected. Page-specific types such as FAQPage belong on
+            the page whose visible content they describe, not here. */}
         <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(organizationSchema())} />
         <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(websiteSchema())} />
-        <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(faqSchema(ORGANISATION_FAQ))} />
         <Header />
         <main className="flex-1 relative z-10">
           {children}

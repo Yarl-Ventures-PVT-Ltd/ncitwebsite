@@ -7,7 +7,7 @@ import ArticleGrid from "@/components/sections/insights/article-grid";
 import NewsletterSignup from "@/components/sections/insights/newsletter-signup";
 import { ArticleCategory, getAllArticles, getFeaturedArticle } from "@/lib/mock-data/insights";
 
-export default function InsightsPage() {
+export default function InsightsClient() {
   const [selectedCategory, setSelectedCategory] = useState<ArticleCategory | "All">("All");
 
   const featuredArticle = getFeaturedArticle();

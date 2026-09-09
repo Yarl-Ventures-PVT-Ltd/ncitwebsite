@@ -29,15 +29,18 @@ const STATIC_ROUTES: Array<{ path: string; priority: number; changeFrequency: Me
   { path: "/gallery", priority: 0.7, changeFrequency: "monthly" },
   { path: "/invest", priority: 0.8, changeFrequency: "monthly" },
   { path: "/contact", priority: 0.8, changeFrequency: "yearly" },
-  { path: "/portal", priority: 0.5, changeFrequency: "monthly" },
 ];
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const now = new Date();
+// Static pages have no per-page change history to draw on, so they share one
+// honest date: when their content was last revised. Using build time instead
+// would claim every page changed on every deploy, which makes lastmod
+// meaningless as a freshness signal and search engines learn to ignore it.
+const STATIC_CONTENT_REVISED = new Date("2026-09-09T00:00:00.000Z");
 
+export default function sitemap(): MetadataRoute.Sitemap {
   const staticEntries = STATIC_ROUTES.map((route) => ({
     url: `${SITE.url}${route.path}`,
-    lastModified: now,
+    lastModified: STATIC_CONTENT_REVISED,
     changeFrequency: route.changeFrequency,
     priority: route.priority,
   }));

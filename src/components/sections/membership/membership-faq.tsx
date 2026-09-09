@@ -1,31 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import { MEMBERSHIP_FAQS } from "@/lib/membership-faqs";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 
-const faqs = [
-  {
-    question: "Do I have to pay when submitting the application?",
-    answer: "No. You do not pay during the application stage. NCIT will first review your eligibility and documents. If approved, you will receive an invoice with payment instructions to activate your membership."
-  },
-  {
-    question: "What documents do I need to apply?",
-    answer: "For Corporate/Association memberships, you will need a copy of your Business Registration (BR) or equivalent organizational registration. For Professional, Freelancer, or Student memberships, you will need a valid ID, student ID, or a link to your professional profile (like LinkedIn) depending on the category."
-  },
-  {
-    question: "How long does the approval process take?",
-    answer: "Applications are typically reviewed by the Secretariat and approved by the Executive Committee within 7-14 business days. You will be notified via email of your status."
-  },
-  {
-    question: "Can I upgrade my membership later?",
-    answer: "Yes, you can request to upgrade your membership (for example, from Ordinary to Full Member once your business crosses the 2-year operational requirement). Upgrades are subject to approval and payment of the fee difference."
-  },
-  {
-    question: "How does the annual renewal work?",
-    answer: "Membership is valid for one year from the date of activation. You will receive a renewal notice 30 days before your membership expires. Renewals can be paid directly through the member portal."
-  }
-];
 
 export default function MembershipFAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
@@ -42,7 +21,7 @@ export default function MembershipFAQ() {
         </div>
 
         <div className="max-w-3xl mx-auto space-y-4">
-          {faqs.map((faq, index) => (
+          {MEMBERSHIP_FAQS.map((faq, index) => (
             <div 
               key={index} 
               className={`bg-white rounded-2xl border transition-all ${
