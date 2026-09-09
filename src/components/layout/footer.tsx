@@ -1,7 +1,5 @@
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { ArrowRight, Phone } from 'lucide-react';
+import { Phone } from 'lucide-react';
 import NcitLogo from '@/components/ui/ncit-logo';
 
 export default function Footer() {
@@ -87,22 +85,9 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Newsletter & Copyright */}
+        {/* Copyright */}
         <div className="border-t border-white/10 pt-8 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
-          <div className="w-full lg:max-w-md">
-            <h4 className="text-white font-medium mb-3 text-sm font-heading">Subscribe to Ecosystem Updates</h4>
-            <div className="flex gap-2">
-              <Input 
-                type="email" 
-                placeholder="Email address" 
-                className="bg-white/5 border-white/10 text-white placeholder:text-white/40 focus-visible:ring-ncit-blue h-12 rounded-full px-6"
-              />
-              <Button className="bg-white text-ncit-ink hover:bg-white/90 h-12 w-12 rounded-full p-0 flex-shrink-0 shadow-lg">
-                <ArrowRight className="h-5 w-5" />
-              </Button>
-            </div>
-          </div>
-          <div className="flex flex-col items-start lg:items-end gap-2 mt-4 lg:mt-0">
+          <div className="flex flex-col items-start gap-2">
             <div className="text-sm text-white/40 font-light">
               &copy; {new Date().getFullYear()} Northern Chamber of Information Technology. All rights reserved.
             </div>
