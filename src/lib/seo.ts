@@ -7,9 +7,10 @@
  *  - Answer engines (AI assistants, featured snippets) want explicit, factual
  *    JSON-LD they can quote without guessing.
  *
- * Every value below is taken from NCIT's own published contact page. Nothing
- * here is invented: if a fact is not known, it is left out rather than filled
- * in with a plausible-looking placeholder.
+ * Every value below is confirmed by NCIT. The office address matches the
+ * visible contact page and its map pin; the previous site published an older
+ * K.K.S Road address which is superseded. Nothing here is invented: if a fact
+ * is not known, it is left out rather than filled in with a placeholder.
  */
 
 export const SITE = {
@@ -21,7 +22,7 @@ export const SITE = {
   locale: "en_LK",
   founded: "2016",
   address: {
-    street: "No 95, K.K.S Road, Kokkuvil Junction",
+    street: "136/1 Palaly Road, Parameswara Junction",
     locality: "Jaffna",
     region: "Northern Province",
     postalCode: "40000",
@@ -189,12 +190,12 @@ export const ORGANISATION_FAQ = [
   {
     question: "What is NCIT?",
     answer:
-      "NCIT is the Northern Chamber of Information Technology, the industry chamber representing the information and communication technology sector in Northern Sri Lanka. It was founded in 2016 and is based at No 95, K.K.S Road, Kokkuvil Junction, Jaffna.",
+      "NCIT is the Northern Chamber of Information Technology, the industry chamber representing the information and communication technology sector in Northern Sri Lanka. It was founded in 2016 and is based at 136/1 Palaly Road, Parameswara Junction, Jaffna.",
   },
   {
     question: "Where is NCIT located?",
     answer:
-      "NCIT is located at No 95, K.K.S Road, Kokkuvil Junction, Jaffna 40000, in the Northern Province of Sri Lanka. It serves Jaffna, Kilinochchi, Mullaitivu, Mannar and Vavuniya.",
+      "NCIT is located at 136/1 Palaly Road, Parameswara Junction, Jaffna, in the Northern Province of Sri Lanka. It serves Jaffna, Kilinochchi, Mullaitivu, Mannar and Vavuniya.",
   },
   {
     question: "Who can join NCIT?",
@@ -209,7 +210,7 @@ export const ORGANISATION_FAQ = [
   {
     question: "How do I contact NCIT?",
     answer:
-      "NCIT can be reached by email at support@ncit.lk, or by telephone on +94 77 086 9328. The chamber office is at No 95, K.K.S Road, Kokkuvil Junction, Jaffna 40000, Sri Lanka.",
+      "NCIT can be reached by email at support@ncit.lk, or by telephone on +94 77 086 9328. The chamber office is at 136/1 Palaly Road, Parameswara Junction, Jaffna, Sri Lanka.",
   },
 ];
 
