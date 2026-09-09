@@ -91,6 +91,7 @@ export default async function InsightArticlePage({ params }: InsightArticlePageP
             image: article.imageUrl,
             keywords: article.keywords,
             section: article.category,
+            language: article.language,
           })
         )}
       />

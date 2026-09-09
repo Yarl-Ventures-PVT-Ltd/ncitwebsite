@@ -100,7 +100,7 @@ export const mockInsights: InsightArticle[] = [
     imageUrl: "/wp-content/uploads/2020/01/64658733_1293727117471367_4049944694572974080_o-1024x458.jpg",
     imageAlt: "Northern Province ICT Education Centers- Data Collection by NCIT - NCIT, Jaffna, Northern Province, Sri Lanka",
     keywords: ["NCIT", "Northern Chamber of Information Technology", "Jaffna", "Northern Province", "NCIT membership"],
-    language: "English",
+    language: "Tamil",
   },
   {
     id: "6",
@@ -212,7 +212,7 @@ export const mockInsights: InsightArticle[] = [
     imageUrl: "/wp-content/uploads/2020/01/ncit-sirakukal-organized-workshop-support-ncit-2020-04.jpg",
     imageAlt: "Awareness Program on 5G Technology - NCIT, Jaffna, Northern Province, Sri Lanka",
     keywords: ["NCIT", "Northern Chamber of Information Technology", "Jaffna", "Northern Province"],
-    language: "English",
+    language: "Bilingual",
   },
   {
     id: "13",
@@ -228,7 +228,7 @@ export const mockInsights: InsightArticle[] = [
     imageUrl: "/wp-content/uploads/2020/01/ncit-sirakukal-organized-workshop-support-ncit-2020-01.jpg",
     imageAlt: "Sirakukal  Organized Workshop with the support of NCIT - NCIT, Jaffna, Northern Province, Sri Lanka",
     keywords: ["NCIT", "Northern Chamber of Information Technology", "Jaffna", "Northern Province", "ICT training Northern Province"],
-    language: "English",
+    language: "Bilingual",
   },
   {
     id: "14",
@@ -244,7 +244,7 @@ export const mockInsights: InsightArticle[] = [
     imageUrl: "/wp-content/uploads/2019/02/51783671_10156312805374141_5552017100127600640_o-1024x768.jpg",
     imageAlt: "NCIT is now Trusted partner channel member of Facebook - NCIT, Jaffna, Northern Province, Sri Lanka",
     keywords: ["NCIT", "Northern Chamber of Information Technology", "Jaffna", "Northern Province", "NCIT membership"],
-    language: "English",
+    language: "Bilingual",
   },
   {
     id: "15",
@@ -388,7 +388,7 @@ export const mockInsights: InsightArticle[] = [
     imageUrl: "/wp-content/uploads/2018/10/ncit-digital-marketing-challenge-2018-2018-01.jpg",
     imageAlt: "Digital Marketing Challenge 2018 - NCIT, Jaffna, Northern Province, Sri Lanka",
     keywords: ["NCIT", "Northern Chamber of Information Technology", "Jaffna", "Northern Province"],
-    language: "English",
+    language: "Bilingual",
   },
   {
     id: "24",
@@ -404,7 +404,7 @@ export const mockInsights: InsightArticle[] = [
     imageUrl: "/wp-content/uploads/2018/12/ncit-flood2018-2018-01.jpg",
     imageAlt: "Flood2018 - NCIT, Jaffna, Northern Province, Sri Lanka",
     keywords: ["NCIT", "Northern Chamber of Information Technology", "Jaffna", "Northern Province"],
-    language: "English",
+    language: "Bilingual",
   },
   {
     id: "25",
@@ -436,7 +436,7 @@ export const mockInsights: InsightArticle[] = [
     imageUrl: "/wp-content/uploads/2018/10/ncit-talk-session-criteria-global-citizenry-2018-01.jpg",
     imageAlt: "Digital Marketing Challenge 2018 Registration Open - NCIT, Jaffna, Northern Province, Sri Lanka",
     keywords: ["NCIT", "Northern Chamber of Information Technology", "Jaffna", "Northern Province"],
-    language: "English",
+    language: "Bilingual",
   },
   {
     id: "27",
@@ -468,7 +468,7 @@ export const mockInsights: InsightArticle[] = [
     imageUrl: "/wp-content/uploads/2018/06/IMG-20180531-WA0011-300x225.jpg",
     imageAlt: "NCIT starts Women Chapter - NCIT, Jaffna, Northern Province, Sri Lanka",
     keywords: ["NCIT", "Northern Chamber of Information Technology", "Jaffna", "Northern Province"],
-    language: "English",
+    language: "Bilingual",
   },
   {
     id: "29",
@@ -548,7 +548,7 @@ export const mockInsights: InsightArticle[] = [
     imageUrl: "/wp-content/uploads/2018/06/36347169_2596695180556659_7749275557912641536_o-1024x683.jpg",
     imageAlt: "Application called for employment based skill training programme – 2018 - NCIT, Jaffna, Northern Province, Sri Lanka",
     keywords: ["NCIT", "Northern Chamber of Information Technology", "Jaffna", "Northern Province", "ICT training Northern Province"],
-    language: "English",
+    language: "Bilingual",
   },
   {
     id: "34",
@@ -676,7 +676,7 @@ export const mockInsights: InsightArticle[] = [
     imageUrl: "/wp-content/uploads/2017/11/ncit-meeting-canadian-high-commissioner-mr-david-mckinnon-2017-02.jpg",
     imageAlt: "Applications for INFOTEL2017 Exhibition  from North region IT SMEs - NCIT, Jaffna, Northern Province, Sri Lanka",
     keywords: ["NCIT", "Northern Chamber of Information Technology", "Jaffna", "Northern Province", "ICT exhibition Jaffna"],
-    language: "English",
+    language: "Bilingual",
   },
   {
     id: "42",
@@ -708,7 +708,7 @@ export const mockInsights: InsightArticle[] = [
     imageUrl: "/wp-content/uploads/2017/11/ncit-meeting-canadian-high-commissioner-mr-david-mckinnon-2017-03.jpg",
     imageAlt: "Capacity Development Work Shop - NCIT, Jaffna, Northern Province, Sri Lanka",
     keywords: ["NCIT", "Northern Chamber of Information Technology", "Jaffna", "Northern Province"],
-    language: "English",
+    language: "Bilingual",
   },
   {
     id: "44",
@@ -724,7 +724,7 @@ export const mockInsights: InsightArticle[] = [
     imageUrl: "/wp-content/uploads/2017/11/22815518_2418826931676819_3158514500017167397_n.png",
     imageAlt: "NCIT Get Together 2017 - NCIT, Jaffna, Northern Province, Sri Lanka",
     keywords: ["NCIT", "Northern Chamber of Information Technology", "Jaffna", "Northern Province"],
-    language: "English",
+    language: "Bilingual",
   },
   {
     id: "45",

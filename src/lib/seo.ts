@@ -32,6 +32,7 @@ export const SITE = {
   social: [
     "https://www.facebook.com/NCITLK/",
     "https://www.facebook.com/groups/190201704676007/",
+    "https://www.linkedin.com/company/ncitsl/",
   ],
 } as const;
 
@@ -67,7 +68,9 @@ export function organizationSchema() {
     telephone: SITE.telephone,
     logo: {
       "@type": "ImageObject",
-      url: absoluteUrl("/wp-content/uploads/2016/04/logo_NCIT_small.jpg"),
+      url: absoluteUrl("/logo/ncit-logo.png"),
+      width: 800,
+      height: 344,
     },
     address: {
       "@type": "PostalAddress",
@@ -113,7 +116,21 @@ export interface ArticleSchemaInput {
   image?: string;
   keywords?: string[];
   section?: string;
+  language?: "English" | "Tamil" | "Sinhala" | "Bilingual";
 }
+
+/**
+ * Map the editorial language label to a BCP-47 tag. Several migrated articles
+ * are wholly or partly Tamil, so claiming English on all of them misstates the
+ * content to both search engines and assistants. A bilingual piece lists both
+ * tags rather than picking one.
+ */
+const BCP47: Record<string, string | string[]> = {
+  English: "en",
+  Tamil: "ta",
+  Sinhala: "si",
+  Bilingual: ["en", "ta"],
+};
 
 /** A news article, so it can surface as a dated, attributed result. */
 export function articleSchema(a: ArticleSchemaInput) {
@@ -127,7 +144,7 @@ export function articleSchema(a: ArticleSchemaInput) {
     dateModified: a.dateModified || a.datePublished,
     articleSection: a.section,
     keywords: a.keywords?.join(", "),
-    inLanguage: "en",
+    inLanguage: BCP47[a.language || "English"] ?? "en",
     image: a.image ? [absoluteUrl(a.image)] : undefined,
     mainEntityOfPage: { "@type": "WebPage", "@id": absoluteUrl(`/insights/${a.slug}`) },
     author: { "@type": "Organization", name: SITE.legalName, url: SITE.url },
