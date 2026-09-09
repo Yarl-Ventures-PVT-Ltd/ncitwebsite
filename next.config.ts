@@ -478,8 +478,58 @@ const nextConfig: NextConfig = {
     // to 3840px, which no slot on this site uses: the gallery grid caps at 25vw
     // and the widest single image is an article hero. Trimming the list cuts the
     // rendered markup sharply on the gallery, which holds 172 images at once.
+    // AVIF first, WebP second, original last. Next negotiates per request,
+    // so an older browser still gets a format it understands.
+    formats: ["image/avif", "image/webp"],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920],
     imageSizes: [64, 128, 256, 384],
+  },
+
+  /**
+   * Response headers. The site sent none of these before.
+   *
+   * script-src and style-src need 'unsafe-inline' because headers() is static,
+   * so there is no per-request nonce to hand Next's hydration payload or the
+   * inline style attributes React server-renders. A nonce-based policy is
+   * stricter but needs middleware, which is a bigger change than this one.
+   * JSON-LD needs no allowance: a script tag with a non-JS type is never
+   * executed, so script-src is never consulted for it.
+   *
+   * frame-src allows google.com for the map embed on the contact page.
+   * HSTS does nothing until the real host serves HTTPS.
+   */
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          {
+            key: "Content-Security-Policy",
+            value: [
+              "default-src 'self'",
+              "script-src 'self' 'unsafe-inline'",
+              "style-src 'self' 'unsafe-inline'",
+              "img-src 'self' data:",
+              "font-src 'self' data:",
+              "frame-src 'self' https://www.google.com",
+              "connect-src 'self'",
+              "object-src 'none'",
+              "base-uri 'self'",
+              "form-action 'self'",
+              "frame-ancestors 'self'",
+              "upgrade-insecure-requests",
+            ].join("; "),
+          },
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          {
+            key: "Permissions-Policy",
+            value: "camera=(), microphone=(), geolocation=(), payment=(), usb=(), browsing-topics=()",
+          },
+          { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains; preload" },
+        ],
+      },
+    ];
   },
 
   async redirects() {

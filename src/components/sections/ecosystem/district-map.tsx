@@ -1,46 +1,41 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { MapPin, Building2, Users } from "lucide-react";
+import { MapPin } from "lucide-react";
 import Link from "next/link";
 
 const districts = [
   {
     name: "Jaffna",
-    companies: 42,
-    professionals: 156,
+    description: "The historical and cultural hub with a dense concentration of startups and educational institutions.",
     color: "from-blue-500 to-blue-600",
     shadow: "shadow-blue-500/20",
     delay: 0.1
   },
   {
     name: "Kilinochchi",
-    companies: 15,
-    professionals: 48,
+    description: "An emerging center for agri-tech and sustainable engineering innovation.",
     color: "from-emerald-500 to-emerald-600",
     shadow: "shadow-emerald-500/20",
     delay: 0.2
   },
   {
     name: "Vavuniya",
-    companies: 24,
-    professionals: 85,
+    description: "A strategic logistical and technology gateway connecting the North to the rest of the country.",
     color: "from-purple-500 to-purple-600",
     shadow: "shadow-purple-500/20",
     delay: 0.3
   },
   {
     name: "Mannar",
-    companies: 8,
-    professionals: 32,
+    description: "Growing potential in renewable energy tech and coastal digital connectivity.",
     color: "from-amber-500 to-amber-600",
     shadow: "shadow-amber-500/20",
     delay: 0.4
   },
   {
     name: "Mullaitivu",
-    companies: 6,
-    professionals: 21,
+    description: "Developing digital infrastructure to support regional economic empowerment.",
     color: "from-rose-500 to-rose-600",
     shadow: "shadow-rose-500/20",
     delay: 0.5
@@ -99,26 +94,9 @@ export default function DistrictMap() {
                   {district.name}
                 </h3>
                 
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between text-sm">
-                    <span className="flex items-center text-ncit-ink/60 font-medium">
-                      <Building2 className="w-4 h-4 mr-2 opacity-70" />
-                      Companies
-                    </span>
-                    <span className="font-bold text-ncit-ink bg-gray-50 px-3 py-1 rounded-full">
-                      {district.companies}
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between text-sm">
-                    <span className="flex items-center text-ncit-ink/60 font-medium">
-                      <Users className="w-4 h-4 mr-2 opacity-70" />
-                      Professionals
-                    </span>
-                    <span className="font-bold text-ncit-ink bg-gray-50 px-3 py-1 rounded-full">
-                      {district.professionals}
-                    </span>
-                  </div>
-                </div>
+                <p className="text-sm text-ncit-ink/70 font-light leading-relaxed">
+                  {district.description}
+                </p>
               </motion.div>
             </Link>
           ))}

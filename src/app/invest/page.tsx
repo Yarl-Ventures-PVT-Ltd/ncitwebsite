@@ -3,7 +3,6 @@ import InvestHero from "@/components/sections/invest/invest-hero";
 import WhyTheNorth from "@/components/sections/invest/why-the-north";
 import SectorOpportunities from "@/components/sections/invest/sector-opportunities";
 import HowNcitSupports from "@/components/sections/invest/how-ncit-supports";
-import DistrictMap from "@/components/sections/ecosystem/district-map";
 import PartnershipPathways from "@/components/sections/invest/partnership-pathways";
 import TrustedPartners from "@/components/sections/invest/trusted-partners";
 import InvestInquiryForm from "@/components/sections/invest/invest-inquiry-form";
@@ -21,7 +20,6 @@ export default function InvestPage() {
       <WhyTheNorth />
       <SectorOpportunities />
       <HowNcitSupports />
-      <DistrictMap />
       <PartnershipPathways />
       <TrustedPartners />
       <InvestInquiryForm />

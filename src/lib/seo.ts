@@ -18,7 +18,7 @@ export const SITE = {
   legalName: "Northern Chamber of Information Technology",
   url: "https://www.ncit.lk",
   description:
-    "The Northern Chamber of Information Technology (NCIT) is the industry chamber for the ICT sector in Northern Sri Lanka, connecting technology companies, talent, startups, investors and partners across Jaffna and the Northern Province.",
+    "NCIT is the industry chamber for the ICT sector in Northern Sri Lanka, connecting technology companies, talent, startups and investors across Jaffna.",
   locale: "en_LK",
   founded: "2016",
   address: {

@@ -15,6 +15,9 @@ interface Service {
   description: string;
   icon: React.ReactNode;
   link: string;
+  /** Describes the destination. Six identical "Learn More" buttons told a
+   *  crawler, and a screen reader user, nothing about where each one went. */
+  linkLabel: string;
   /** Set only where the service is not currently running. */
   status?: string;
 }
@@ -25,37 +28,43 @@ const services: Service[] = [
     description: "The chamber ran an incubation centre in Jaffna with IE-NESL, giving young entrepreneurs workspace, mentorship and resources. It has been closed since September 2020.",
     icon: <Building2 className="w-8 h-8 text-ncit-blue" />,
     link: "/what-we-do/business-incubation-center",
+    linkLabel: "About the incubation centre",
     status: "Closed since September 2020",
   },
   {
     title: "Market Access & Networking",
     description: "Connecting local IT businesses with national and global markets through B2B expos and delegations.",
     icon: <Globe2 className="w-8 h-8 text-ncit-blue" />,
-    link: "/what-we-do/market-access"
+    link: "/what-we-do/market-access",
+    linkLabel: "Explore market access"
   },
   {
     title: "Policy Advocacy",
     description: "Representing the interests of the Northern IT sector to government bodies and policymakers.",
     icon: <ShieldCheck className="w-8 h-8 text-ncit-blue" />,
-    link: "/what-we-do/advocacy"
+    link: "/what-we-do/advocacy",
+    linkLabel: "See our advocacy work"
   },
   {
     title: "Capacity Building",
     description: "Organizing workshops, seminars, and training programs to upskill IT professionals and entrepreneurs.",
     icon: <BookOpen className="w-8 h-8 text-ncit-blue" />,
-    link: "/what-we-do/projects"
+    link: "/what-we-do/projects",
+    linkLabel: "Browse training and projects"
   },
   {
     title: "Industry Events",
     description: "Hosting tech summits, hackathons, and Startup Weekends to foster a culture of innovation.",
     icon: <Users className="w-8 h-8 text-ncit-blue" />,
-    link: "/insights"
+    link: "/insights",
+    linkLabel: "See past events"
   },
   {
     title: "Investment Facilitation",
     description: "Assisting investors in navigating the Northern IT landscape and matching them with promising startups.",
     icon: <LineChart className="w-8 h-8 text-ncit-blue" />,
-    link: "/invest"
+    link: "/invest",
+    linkLabel: "Investment opportunities"
   }
 ];
 
@@ -104,7 +113,7 @@ export default function ServicesPage() {
                 <CardContent>
                   <Link href={service.link}>
                     <Button variant="outline" className="w-full mt-4 group-hover:bg-ncit-ink group-hover:text-white transition-colors">
-                      Learn More
+                      {service.linkLabel}
                     </Button>
                   </Link>
                 </CardContent>

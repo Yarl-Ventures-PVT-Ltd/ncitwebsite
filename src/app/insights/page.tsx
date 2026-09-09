@@ -12,7 +12,7 @@ import { SITE, absoluteUrl } from "@/lib/seo";
 export const metadata: Metadata = {
   title: "Insights & News",
   description:
-    "News, announcements and reports from the Northern Chamber of Information Technology: ICT industry developments, events and member stories across Jaffna and the Northern Province of Sri Lanka.",
+    "News and announcements from NCIT: ICT industry developments, chamber events and member stories across Jaffna and the Northern Province of Sri Lanka.",
   keywords: [
     "NCIT news",
     "ICT news Jaffna",

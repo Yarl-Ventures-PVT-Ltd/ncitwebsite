@@ -3,7 +3,7 @@ import MaintenanceScreen from "@/components/ui/maintenance-screen";
 export const metadata = {
   alternates: { canonical: "/membership/apply" },
   title: "Apply for Membership",
-  description: 'Apply for Northern Chamber of Information Technology membership.',
+  description: 'Apply to join NCIT as a company, professional, startup or student member. See the categories, fees and eligibility before you send an application.',
 };
 
 export default function ApplyPage() {

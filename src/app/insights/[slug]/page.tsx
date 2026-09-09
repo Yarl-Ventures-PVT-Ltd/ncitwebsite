@@ -64,6 +64,33 @@ export async function generateMetadata({ params }: InsightArticlePageProps): Pro
   };
 }
 
+/**
+ * Marks the Tamil passages inside a post so a screen reader reads them with a
+ * Tamil voice.
+ *
+ * Eleven posts are bilingual: whole English paragraphs sit beside whole Tamil
+ * ones. Marking the entire article "ta", as this template used to, hands those
+ * English paragraphs to a Tamil speech synthesiser, which has no phonemes for
+ * Latin script. That is a WCAG 2.1 SC 3.1.2 failure at AA, and it makes the
+ * post unusable for the readers the mark was meant to help.
+ *
+ * Only leaf blocks are tagged, meaning ones that contain no further block of
+ * their own. Nested markup is left alone rather than guessed at; it falls back
+ * to the document language, which is the safe direction. A Tamil sentence
+ * containing an English proper noun stays a Tamil passage, which is what WCAG
+ * expects.
+ */
+const TAMIL = /[\u0B80-\u0BFF]/;
+const LEAF_BLOCK = /<(p|h[1-6]|li|td|blockquote|div)((?:\s[^>]*)?)>((?:(?!<(?:p|h[1-6]|li|td|blockquote|div)\b)[\s\S])*?)<\/\1>/g;
+
+function markTamilPassages(html: string) {
+  return html.replace(LEAF_BLOCK, (whole, tag, attrs, inner) => {
+    if (attrs.includes("lang=")) return whole;
+    if (!TAMIL.test(inner.replace(/<[^>]+>/g, ""))) return whole;
+    return `<${tag}${attrs} lang="ta">${inner}</${tag}>`;
+  });
+}
+
 export default async function InsightArticlePage({ params }: InsightArticlePageProps) {
   const { slug } = await params;
   const article = getArticleBySlug(slug);
@@ -176,15 +203,18 @@ export default async function InsightArticlePage({ params }: InsightArticlePageP
 
           {/* Prose Content */}
           {/* Twelve of these articles are written in Tamil or in both Tamil and
-              English. Marking the language on the content lets a screen reader
-              pick the right voice and tells search engines what they are
-              reading; the document lang alone would claim English for all of
-              them. hreflang is deliberately not used: these are not translated
+              English. Marking the language lets a screen reader pick the right
+              voice; the document lang alone would claim English for all of
+              them. It is not a search signal, Google reads the visible text.
+              hreflang is deliberately not used: these are not translated
               versions of one another, they are separate posts. */}
           <div
-            lang={article.language === "Tamil" ? "ta" : article.language === "Bilingual" ? "ta" : "en"}
+            lang={article.language === "Tamil" ? "ta" : "en"}
             className="prose prose-lg prose-blue max-w-none break-words prose-headings:text-ncit-ink prose-p:text-gray-600 prose-a:text-ncit-blue prose-li:text-gray-600 prose-table:block prose-table:overflow-x-auto"
-            dangerouslySetInnerHTML={{ __html: article.content }}
+            dangerouslySetInnerHTML={{
+              __html:
+                article.language === "English" ? article.content : markTamilPassages(article.content),
+            }}
           />
         </div>
       </div>

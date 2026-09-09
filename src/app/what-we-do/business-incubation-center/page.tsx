@@ -7,7 +7,7 @@ import { Building2, MonitorPlay, Wifi, Users, Presentation, Car } from 'lucide-r
 export const metadata: Metadata = {
   alternates: { canonical: "/what-we-do/business-incubation-center" },
   title: "Business Incubation Center",
-  description: 'NCIT Business Incubation Center powered by IE-NESL.',
+  description: 'The NCIT Business Incubation Center in Jaffna, run with IE-NESL, gave startups workspace and mentorship. A record of the programme, closed since 2020.',
 };
 
 const facilities = [

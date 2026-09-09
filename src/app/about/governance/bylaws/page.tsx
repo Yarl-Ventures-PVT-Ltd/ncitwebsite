@@ -6,7 +6,7 @@ import Link from 'next/link';
 export const metadata: Metadata = {
   alternates: { canonical: "/about/governance/bylaws" },
   title: "Bylaws and Constitution",
-  description: 'Official bylaws of the Northern Chamber of Information Technology.',
+  description: 'The official bylaws of the Northern Chamber of Information Technology: membership classes, the board, elections, meetings and the rules the chamber runs by.',
 };
 
 export default function BylawsPage() {

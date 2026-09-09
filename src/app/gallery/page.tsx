@@ -9,7 +9,7 @@ import { Camera } from "lucide-react";
 export const metadata: Metadata = {
   title: "Photo Gallery",
   description:
-    "Photographs from NCIT events across Jaffna and the Northern Province of Sri Lanka: startup weekends, exhibitions, training programmes, business incubation and chamber meetings from 2016 onwards.",
+    "Photographs from NCIT events across Jaffna and the Northern Province since 2016: startup weekends, exhibitions, training programmes and chamber meetings.",
   keywords: [
     "NCIT gallery",
     "NCIT event photos",
@@ -162,7 +162,7 @@ export default function GalleryPage() {
                       which is what keeps largest-contentful-paint down. */}
                   <Image
                     src={src}
-                    alt={`${event.title} - NCIT Jaffna, Northern Province Sri Lanka (photo ${i + 1})`}
+                    alt={event.images.length > 1 ? `${event.title} (photo ${i + 1})` : event.title}
                     fill
                     sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                     className="object-cover transition-transform duration-300 group-hover:scale-105"
@@ -196,7 +196,7 @@ export default function GalleryPage() {
                 >
                   <Image
                     src={src}
-                    alt={`NCIT archive photograph ${i + 1} - Jaffna, Northern Province, Sri Lanka`}
+                    alt={`NCIT chamber archive photograph ${i + 1}`}
                     fill
                     sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                     className="object-cover"

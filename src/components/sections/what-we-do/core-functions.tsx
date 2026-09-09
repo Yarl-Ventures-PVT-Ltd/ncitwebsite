@@ -6,6 +6,7 @@ import { ShieldAlert, Briefcase, Handshake, GraduationCap, Lightbulb, Users, Fil
 const functions = [
   {
     title: "Advocacy & Policy",
+    href: "/what-we-do/advocacy",
     description: "Industry representation, evidence-based policy, consultations, and addressing collective issues.",
     icon: <ShieldAlert className="w-6 h-6" />,
     color: "text-blue-600",
@@ -14,6 +15,7 @@ const functions = [
   },
   {
     title: "Business & Market Access",
+    href: "/what-we-do/market-access",
     description: "Referrals, showcases, B2B introductions, and expanding national and global connections.",
     icon: <Briefcase className="w-6 h-6" />,
     color: "text-emerald-600",
@@ -22,6 +24,7 @@ const functions = [
   },
   {
     title: "Investment & Partnerships",
+    href: "/invest",
     description: "Trusted local facilitation for investors, venture capitalists, and development partners.",
     icon: <Handshake className="w-6 h-6" />,
     color: "text-amber-600",
@@ -30,6 +33,7 @@ const functions = [
   },
   {
     title: "Skills & Capacity",
+    href: "/what-we-do/projects",
     description: "Member and talent development, expert sessions, setting standards, and professional growth.",
     icon: <GraduationCap className="w-6 h-6" />,
     color: "text-purple-600",
@@ -38,6 +42,7 @@ const functions = [
   },
   {
     title: "Startups & Innovation",
+    href: "/what-we-do/business-incubation-center",
     description: "Supporting the founder ecosystem, incubation/acceleration partnerships, and ensuring startup exposure.",
     icon: <Lightbulb className="w-6 h-6" />,
     color: "text-orange-600",
@@ -46,6 +51,7 @@ const functions = [
   },
   {
     title: "Events & Community",
+    href: "/insights",
     description: "Hosting forums, summits, roundtables, tech talks, and driving active district engagement.",
     icon: <Users className="w-6 h-6" />,
     color: "text-pink-600",
@@ -54,6 +60,7 @@ const functions = [
   },
   {
     title: "Member Standards & Support",
+    href: "/membership/benefits",
     description: "Ensuring credibility, mediating issues, and upholding rigorous professional conduct.",
     icon: <FileCheck className="w-6 h-6" />,
     color: "text-indigo-600",
@@ -83,8 +90,9 @@ export default function CoreFunctions() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {functions.map((fn, index) => (
-            <motion.div
+            <motion.a
               key={fn.title}
+              href={fn.href}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -98,7 +106,10 @@ export default function CoreFunctions() {
               <p className="text-ncit-ink/70 font-light leading-relaxed flex-1">
                 {fn.description}
               </p>
-            </motion.div>
+              <span className="mt-6 text-sm font-semibold text-ncit-blue group-hover:underline">
+                Read more about {fn.title.toLowerCase()} &rarr;
+              </span>
+            </motion.a>
           ))}
         </div>
 
