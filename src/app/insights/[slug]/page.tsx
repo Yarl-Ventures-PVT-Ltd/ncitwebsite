@@ -183,7 +183,7 @@ export default async function InsightArticlePage({ params }: InsightArticlePageP
               versions of one another, they are separate posts. */}
           <div
             lang={article.language === "Tamil" ? "ta" : article.language === "Bilingual" ? "ta" : "en"}
-            className="prose prose-lg prose-blue max-w-none prose-headings:text-ncit-ink prose-p:text-gray-600 prose-a:text-ncit-blue prose-li:text-gray-600"
+            className="prose prose-lg prose-blue max-w-none break-words prose-headings:text-ncit-ink prose-p:text-gray-600 prose-a:text-ncit-blue prose-li:text-gray-600 prose-table:block prose-table:overflow-x-auto"
             dangerouslySetInnerHTML={{ __html: article.content }}
           />
         </div>
