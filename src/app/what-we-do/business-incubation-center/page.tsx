@@ -4,7 +4,8 @@ import { Badge } from '@/components/ui/badge';
 import { Building2, MonitorPlay, Wifi, Users, Presentation, Car } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Business Incubation Center | NCIT',
+  alternates: { canonical: "/what-we-do/business-incubation-center" },
+  title: "Business Incubation Center",
   description: 'NCIT Business Incubation Center powered by IE-NESL.',
 };
 

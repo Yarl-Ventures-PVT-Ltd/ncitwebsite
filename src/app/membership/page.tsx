@@ -8,7 +8,8 @@ import { MEMBERSHIP_FAQS } from "@/lib/membership-faqs";
 import { faqSchema, jsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Membership | NCIT",
+  alternates: { canonical: "/membership" },
+  title: "Membership",
   description: "Join the Network Building Northern Sri Lanka’s Technology Future. Discover NCIT membership plans for companies, professionals, startups, and students.",
 };
 

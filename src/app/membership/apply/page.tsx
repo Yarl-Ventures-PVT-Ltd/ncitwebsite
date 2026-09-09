@@ -1,7 +1,8 @@
 import MaintenanceScreen from "@/components/ui/maintenance-screen";
 
 export const metadata = {
-  title: 'Apply for Membership | NCIT',
+  alternates: { canonical: "/membership/apply" },
+  title: "Apply for Membership",
   description: 'Apply for Northern Chamber of Information Technology membership.',
 };
 

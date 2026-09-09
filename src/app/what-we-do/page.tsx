@@ -4,7 +4,8 @@ import CoreFunctions from "@/components/sections/what-we-do/core-functions";
 import WhatWeDoCTA from "@/components/sections/what-we-do/what-we-do-cta";
 
 export const metadata: Metadata = {
-  title: "What We Do | Northern Chamber of Information Technology",
+  alternates: { canonical: "/what-we-do" },
+  title: { absolute: "What We Do | Northern Chamber of Information Technology" },
   description: "NCIT works across industry representation, business growth, investment, talent, innovation and partnerships to strengthen Northern Sri Lanka’s technology economy.",
 };
 

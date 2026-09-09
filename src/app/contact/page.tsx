@@ -4,7 +4,8 @@ import ContactForm from "@/components/sections/contact/contact-form";
 import ContactDetails from "@/components/sections/contact/contact-details";
 
 export const metadata: Metadata = {
-  title: "Contact Us | NCIT",
+  alternates: { canonical: "/contact" },
+  title: "Contact Us",
   description: "Connect with the Northern Chamber of Information Technology for inquiries regarding membership, partnerships, investments, and more.",
 };
 

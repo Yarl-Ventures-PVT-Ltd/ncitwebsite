@@ -5,7 +5,8 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 
 export const metadata: Metadata = {
-  title: 'Our Services | NCIT',
+  alternates: { canonical: "/what-we-do/services" },
+  title: "Our Services",
   description: 'Explore the range of services offered by the Northern Chamber of Information Technology to its members and the community.',
 };
 

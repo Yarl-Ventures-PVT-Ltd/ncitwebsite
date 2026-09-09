@@ -11,7 +11,8 @@ import AboutCTA from "@/components/sections/about/about-cta";
 import { ORGANISATION_FAQ, faqSchema, jsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "About NCIT | Northern Chamber of Information Technology",
+  alternates: { canonical: "/about" },
+  title: { absolute: "About NCIT | Northern Chamber of Information Technology" },
   description: "Learn how NCIT unites and represents the technology ecosystem across Sri Lanka’s Northern Province.",
 };
 

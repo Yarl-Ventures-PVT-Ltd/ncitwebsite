@@ -5,7 +5,8 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 
 export const metadata: Metadata = {
-  title: 'Resources & Downloads | NCIT',
+  alternates: { canonical: "/ecosystem/resources" },
+  title: "Resources & Downloads",
   description: 'Access important documents, forms, newsletters, and speeches from the Northern Chamber of Information Technology.',
 };
 

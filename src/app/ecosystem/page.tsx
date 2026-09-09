@@ -9,7 +9,8 @@ import ProjectsAndEvents from "@/components/sections/ecosystem/projects-and-even
 import EcosystemCTA from "@/components/sections/ecosystem/ecosystem-cta";
 
 export const metadata: Metadata = {
-  title: "Northern Tech Ecosystem | NCIT",
+  alternates: { canonical: "/ecosystem" },
+  title: "Northern Tech Ecosystem",
   description: "Discover verified technology businesses, institutions, startups, professionals and opportunities across Jaffna, Kilinochchi, Mannar, Mullaitivu and Vavuniya.",
 };
 

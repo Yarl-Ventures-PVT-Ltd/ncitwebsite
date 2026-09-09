@@ -5,7 +5,8 @@ import PastBoards from "@/components/sections/about/past-boards";
 import HistoricGallery from "@/components/sections/about/historic-gallery";
 
 export const metadata: Metadata = {
-  title: "History & Archive | NCIT",
+  alternates: { canonical: "/about/history" },
+  title: "History & Archive",
   description: "Explore the history, past boards, and archive of the Northern Chamber of Information Technology since 2016.",
 };
 

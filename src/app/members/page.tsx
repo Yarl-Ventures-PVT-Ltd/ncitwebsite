@@ -4,7 +4,8 @@ import { Badge } from '@/components/ui/badge';
 import { ExternalLink, Building2, Users, User, Rocket, Globe } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Member Directory | NCIT',
+  alternates: { canonical: "/members" },
+  title: "Member Directory",
   description: 'Directory of all registered members of the Northern Chamber of Information Technology.',
 };
 

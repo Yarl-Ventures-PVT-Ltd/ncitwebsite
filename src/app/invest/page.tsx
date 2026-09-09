@@ -9,7 +9,8 @@ import TrustedPartners from "@/components/sections/invest/trusted-partners";
 import InvestInquiryForm from "@/components/sections/invest/invest-inquiry-form";
 
 export const metadata: Metadata = {
-  title: "Invest & Partner | NCIT",
+  alternates: { canonical: "/invest" },
+  title: "Invest & Partner",
   description: "Discover technology opportunities in Northern Sri Lanka. NCIT provides a trusted gateway to companies, talent, institutions, startups and partnerships.",
 };
 

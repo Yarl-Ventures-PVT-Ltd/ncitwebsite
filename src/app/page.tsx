@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import HeroSection from "@/components/sections/hero";
 import CredibilityStrip from "@/components/sections/credibility-strip";
 import StakeholderTiles from "@/components/sections/stakeholder-tiles";
@@ -10,6 +11,10 @@ import ProjectsImpact from "@/components/sections/projects-impact";
 import LatestInsights from "@/components/sections/latest-insights";
 import PartnerStrip from "@/components/sections/partner-strip";
 import ConversionBand from "@/components/sections/conversion-band";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 export default function Home() {
   return (

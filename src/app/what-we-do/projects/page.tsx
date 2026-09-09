@@ -5,7 +5,8 @@ import { Rocket, Users, Building2, Briefcase, Presentation, ArrowRight } from 'l
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Projects & Initiatives | NCIT',
+  alternates: { canonical: "/what-we-do/projects" },
+  title: "Projects & Initiatives",
   description: 'Explore the key projects and initiatives driven by the Northern Chamber of Information Technology.',
 };
 

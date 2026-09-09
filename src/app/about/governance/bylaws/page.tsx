@@ -4,7 +4,8 @@ import { ScrollText, FileText, Users, Building, Briefcase, Target, RotateCcw } f
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Bylaws | NCIT Governance',
+  alternates: { canonical: "/about/governance/bylaws" },
+  title: "Bylaws and Constitution",
   description: 'Official bylaws of the Northern Chamber of Information Technology.',
 };
 

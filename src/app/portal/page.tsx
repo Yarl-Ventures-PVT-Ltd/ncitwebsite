@@ -1,7 +1,8 @@
 import MaintenanceScreen from "@/components/ui/maintenance-screen";
 
 export const metadata = {
-  title: 'Member Portal | NCIT',
+  alternates: { canonical: "/portal" },
+  title: "Member Portal",
   description: 'Login to the Northern Chamber of Information Technology member portal.',
   // A login page has nothing to rank for. noindex keeps it out of results while
   // still allowing the crawl, which is what makes the directive readable at all:

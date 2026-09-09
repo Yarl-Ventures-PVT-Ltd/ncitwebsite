@@ -4,7 +4,8 @@ import PolicyThemes from "@/components/sections/what-we-do/policy-themes";
 import PolicyProcess from "@/components/sections/what-we-do/policy-process";
 
 export const metadata: Metadata = {
-  title: "Advocacy & Policy | NCIT",
+  alternates: { canonical: "/what-we-do/advocacy" },
+  title: "Advocacy & Policy",
   description: "NCIT consolidates industry priorities and engages stakeholders on the conditions required for sustainable digital growth in Northern Sri Lanka.",
 };
 

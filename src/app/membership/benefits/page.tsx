@@ -4,7 +4,8 @@ import BenefitPillars from "@/components/sections/membership/benefit-pillars";
 import BenefitMatrix from "@/components/sections/membership/benefit-matrix";
 
 export const metadata: Metadata = {
-  title: "Member Benefits | NCIT",
+  alternates: { canonical: "/membership/benefits" },
+  title: "Member Benefits",
   description: "Explore the comprehensive benefits of joining the Northern Chamber of Information Technology.",
 };
 

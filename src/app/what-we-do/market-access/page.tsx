@@ -4,7 +4,8 @@ import MarketPillars from "@/components/sections/what-we-do/market-pillars";
 import SuccessStory from "@/components/sections/what-we-do/success-story";
 
 export const metadata: Metadata = {
-  title: "Business & Market Access | NCIT",
+  alternates: { canonical: "/what-we-do/market-access" },
+  title: "Business & Market Access",
   description: "NCIT creates trusted pathways for member companies to discover partners, customers, expertise, procurement opportunities, and market connections.",
 };
 

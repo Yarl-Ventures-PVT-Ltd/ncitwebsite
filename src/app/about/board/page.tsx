@@ -5,7 +5,8 @@ import { Mail, Globe } from 'lucide-react';
 import PreviousBoards from '@/components/sections/about/previous-boards';
 
 export const metadata: Metadata = {
-  title: 'Board of Directors | NCIT',
+  alternates: { canonical: "/about/board" },
+  title: "Board of Directors",
   description: 'Meet the dedicated leadership team driving the Northern Chamber of Information Technology.',
 };
 
