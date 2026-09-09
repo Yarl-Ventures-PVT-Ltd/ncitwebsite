@@ -1,66 +1,35 @@
-import React from 'react';
+import Image from 'next/image';
 
-interface NcitLogoProps extends React.SVGProps<SVGSVGElement> {
+interface NcitLogoProps {
   className?: string;
   variant?: "default" | "white";
+  priority?: boolean;
 }
 
-export default function NcitLogo({ className = "", variant = "default", ...props }: NcitLogoProps) {
-  const colorClass = variant === "white" ? "text-white" : "text-ncit-blue";
-  
-  return (
-    <svg 
-      width="220" 
-      height="65" 
-      viewBox="0 0 220 65" 
-      fill="none" 
-      xmlns="http://www.w3.org/2000/svg"
-      className={`${colorClass} ${className}`}
-      {...props}
-    >
-      <g stroke="currentColor" fill="currentColor">
-        {/* Row 1 */}
-        <circle cx="12" cy="12" r="5" fill="none" strokeWidth="1.5"/>
-        <circle cx="30" cy="12" r="5" fill="none" strokeWidth="1.5"/>
-        <circle cx="48" cy="12" r="5.75" stroke="none"/>
-        
-        {/* Row 2 */}
-        <circle cx="12" cy="30" r="5.75" stroke="none"/>
-        <circle cx="30" cy="30" r="5.75" stroke="none"/>
-        <circle cx="48" cy="30" r="5" fill="none" strokeWidth="1.5"/>
-        
-        {/* Row 3 */}
-        <circle cx="12" cy="48" r="5" fill="none" strokeWidth="1.5"/>
-        <circle cx="30" cy="48" r="5.75" stroke="none"/>
-        <circle cx="48" cy="48" r="5.75" stroke="none"/>
-      </g>
-      
-      {/* NCIT Text */}
-      <text 
-        x="60" 
-        y="50" 
-        fontFamily="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" 
-        fontSize="48" 
-        fontWeight="300" 
-        letterSpacing="-1.5" 
-        fill="currentColor"
-      >
-        NCIT
-      </text>
+/**
+ * The NCIT logo.
+ *
+ * This renders the chamber's real artwork rather than a redrawn approximation.
+ * The source is the original logo carried over from the previous site, at
+ * public/wp-content/uploads/2016/04/logo_NCIT_small.jpg. That file is a 200x86
+ * JPEG on solid white with no alpha, so it cannot be used directly: it shows a
+ * white box against the dark footer. The files under public/logo/ are that same
+ * artwork upscaled and keyed to a transparent background, in brand blue and in
+ * white for dark surfaces.
+ *
+ * Regenerate them with scripts/build-logo.mjs if the source artwork changes.
+ */
+export default function NcitLogo({ className = "", variant = "default", priority = false }: NcitLogoProps) {
+  const src = variant === "white" ? "/logo/ncit-logo-white.png" : "/logo/ncit-logo.png";
 
-      {/* Subtitle */}
-      <text 
-        x="3" 
-        y="62" 
-        fontFamily="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" 
-        fontSize="9" 
-        fontWeight="400" 
-        letterSpacing="2.5" 
-        fill="currentColor"
-        className="opacity-80"
-      >
-        The Gateway to Northern ICT
-      </text>
-    </svg>
+  return (
+    <Image
+      src={src}
+      alt="NCIT - The Gateway to Northern ICT"
+      width={200}
+      height={86}
+      priority={priority}
+      className={className}
+    />
   );
 }
