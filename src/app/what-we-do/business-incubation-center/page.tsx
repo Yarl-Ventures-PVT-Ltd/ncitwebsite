@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import Link from 'next/link';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Building2, MonitorPlay, Wifi, Users, Presentation, Car } from 'lucide-react';
@@ -36,13 +37,16 @@ export default function IncubationCenterPage() {
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl">
             <Badge variant="secondary" className="mb-6 bg-red-500/20 text-red-400 hover:bg-red-500/30 border border-red-500/20">
-              Note: Center temporarily closed since Sept 2020
+              Closed since September 2020
             </Badge>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 font-heading">
               Business Incubation Center
             </h1>
             <p className="text-lg md:text-xl text-white/80 font-light leading-relaxed">
-              Powered by IE-NESL (Innovation Ecosystem – North East Sri Lanka) and managed by NCIT, helping young entrepreneurs transform innovative ideas into viable businesses.
+              Powered by IE-NESL (Innovation Ecosystem – North East Sri Lanka) and managed by NCIT, the centre helped young entrepreneurs in Jaffna turn innovative ideas into viable businesses. It has not operated since September 2020. This page is kept as a record of the programme.
+            </p>
+            <p className="mt-4 text-base text-white/70">
+              For current support, see <Link href="/what-we-do/services" className="underline underline-offset-4 hover:text-white">what the chamber offers today</Link> or <Link href="/contact" className="underline underline-offset-4 hover:text-white">get in touch</Link>.
             </p>
           </div>
         </div>

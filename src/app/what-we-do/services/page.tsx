@@ -10,12 +10,22 @@ export const metadata: Metadata = {
   description: 'Explore the range of services offered by the Northern Chamber of Information Technology to its members and the community.',
 };
 
-const services = [
+interface Service {
+  title: string;
+  description: string;
+  icon: React.ReactNode;
+  link: string;
+  /** Set only where the service is not currently running. */
+  status?: string;
+}
+
+const services: Service[] = [
   {
     title: "Business Incubation",
-    description: "Providing workspace, mentorship, and resources to help tech startups grow from ideas to viable businesses.",
+    description: "The chamber ran an incubation centre in Jaffna with IE-NESL, giving young entrepreneurs workspace, mentorship and resources. It has been closed since September 2020.",
     icon: <Building2 className="w-8 h-8 text-ncit-blue" />,
-    link: "/what-we-do/business-incubation-center"
+    link: "/what-we-do/business-incubation-center",
+    status: "Closed since September 2020",
   },
   {
     title: "Market Access & Networking",
@@ -82,6 +92,11 @@ export default function ServicesPage() {
                   <CardTitle className="text-2xl font-bold text-ncit-ink mb-2">
                     {service.title}
                   </CardTitle>
+                  {service.status && (
+                    <span className="inline-block mb-2 rounded-full border border-amber-300 bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-800">
+                      {service.status}
+                    </span>
+                  )}
                   <CardDescription className="text-ncit-ink/70 text-base">
                     {service.description}
                   </CardDescription>
