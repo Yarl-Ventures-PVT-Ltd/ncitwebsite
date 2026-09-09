@@ -34,8 +34,11 @@ export async function generateMetadata({ params }: InsightArticlePageProps): Pro
   const canonical = `/insights/${article.slug}`;
   const image = article.imageUrl?.startsWith("/") ? absoluteUrl(article.imageUrl) : article.imageUrl;
 
+  // The full headline stays as the page's H1; search results get the shorter
+  // variant where one exists, because the migrated WordPress headlines run to
+  // 100 characters and truncate in the SERP.
   return {
-    title: article.title,
+    title: article.seoTitle || article.title,
     description: article.excerpt,
     keywords: article.keywords,
     alternates: { canonical },
@@ -172,7 +175,14 @@ export default async function InsightArticlePage({ params }: InsightArticlePageP
           </div>
 
           {/* Prose Content */}
-          <div 
+          {/* Twelve of these articles are written in Tamil or in both Tamil and
+              English. Marking the language on the content lets a screen reader
+              pick the right voice and tells search engines what they are
+              reading; the document lang alone would claim English for all of
+              them. hreflang is deliberately not used: these are not translated
+              versions of one another, they are separate posts. */}
+          <div
+            lang={article.language === "Tamil" ? "ta" : article.language === "Bilingual" ? "ta" : "en"}
             className="prose prose-lg prose-blue max-w-none prose-headings:text-ncit-ink prose-p:text-gray-600 prose-a:text-ncit-blue prose-li:text-gray-600"
             dangerouslySetInnerHTML={{ __html: article.content }}
           />
