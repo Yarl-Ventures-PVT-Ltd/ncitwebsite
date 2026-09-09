@@ -1,0 +1,1 @@
+https://maps.googleapis.com/maps/api/js/StaticMapService.GetMapImage?1m2&amp;1i3029130&amp;2i1983576&amp;2e1&amp;3u14&amp;4m2&amp;1u600&amp;2u450&amp;5m6&amp;1e0&amp;5sen-US&amp;6sus&amp;10b1&amp;12b1&amp;14i47083502&amp;8e1&amp;key=AIzaSyCmL18misQw9KdwqGaw3zHkitj8vG6QF2Y&amp;token=46645  HTTP_FAIL
