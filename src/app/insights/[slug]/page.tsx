@@ -1,12 +1,13 @@
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import { getArticleBySlug, getAllArticles } from "@/lib/mock-data/insights";
 import Link from "next/link";
 import { ArrowLeft, Calendar, Globe2, Clock, Share2 } from "lucide-react";
+import { SITE, absoluteUrl, articleSchema, breadcrumbSchema, jsonLd } from "@/lib/seo";
 
+// In this version of Next.js, params is a promise and has to be awaited.
 interface InsightArticlePageProps {
-  params: {
-    slug: string;
-  };
+  params: Promise<{ slug: string }>;
 }
 
 // Generate static params for the mock data
@@ -17,15 +18,84 @@ export function generateStaticParams() {
   }));
 }
 
-export default function InsightArticlePage({ params }: InsightArticlePageProps) {
-  const article = getArticleBySlug(params.slug);
+/**
+ * Per-article title, description, canonical and social card. Without this
+ * every article shared the site-wide title, so 59 pages competed with each
+ * other for the same query and none of them described itself.
+ */
+export async function generateMetadata({ params }: InsightArticlePageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const article = getArticleBySlug(slug);
+
+  if (!article) {
+    return { title: "Article not found" };
+  }
+
+  const canonical = `/insights/${article.slug}`;
+  const image = article.imageUrl?.startsWith("/") ? absoluteUrl(article.imageUrl) : article.imageUrl;
+
+  return {
+    title: article.title,
+    description: article.excerpt,
+    keywords: article.keywords,
+    alternates: { canonical },
+    openGraph: {
+      type: "article",
+      title: article.title,
+      description: article.excerpt,
+      url: absoluteUrl(canonical),
+      siteName: SITE.legalName,
+      locale: SITE.locale,
+      publishedTime: article.date,
+      modifiedTime: article.updatedAt || article.date,
+      authors: [SITE.legalName],
+      section: article.category,
+      images: image ? [{ url: image, alt: article.imageAlt || article.title }] : undefined,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: article.title,
+      description: article.excerpt,
+      images: image ? [image] : undefined,
+    },
+  };
+}
+
+export default async function InsightArticlePage({ params }: InsightArticlePageProps) {
+  const { slug } = await params;
+  const article = getArticleBySlug(slug);
 
   if (!article) {
     notFound();
   }
 
+  const breadcrumb = breadcrumbSchema([
+    { name: "Home", path: "/" },
+    { name: "Insights", path: "/insights" },
+    { name: article.title, path: `/insights/${article.slug}` },
+  ]);
+
   return (
     <article className="pb-24 bg-white">
+      {/* Structured data: a dated, attributed article plus its breadcrumb
+          trail, both linked to the organisation node in the root layout. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={jsonLd(
+          articleSchema({
+            title: article.title,
+            description: article.excerpt,
+            slug: article.slug,
+            datePublished: article.date,
+            dateModified: article.updatedAt,
+            image: article.imageUrl,
+            keywords: article.keywords,
+            section: article.category,
+          })
+        )}
+      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(breadcrumb)} />
+
       {/* Article Header */}
       <header className="pt-32 pb-16 md:pt-40 md:pb-20 bg-ncit-ink text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-cover bg-center opacity-20" style={{ backgroundImage: `url(${article.imageUrl})` }} />

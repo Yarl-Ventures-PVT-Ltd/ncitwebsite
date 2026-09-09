@@ -44,7 +44,8 @@ const navItems = [
     href: '/ecosystem',
     subItems: [
       { label: 'The Tech Ecosystem', href: '/ecosystem' },
-      { label: 'Resources & Downloads', href: '/ecosystem/resources' }
+      { label: 'Resources & Downloads', href: '/ecosystem/resources' },
+      { label: 'Photo Gallery', href: '/gallery' }
     ]
   },
   { label: 'Invest', href: '/invest' },
