@@ -61,7 +61,10 @@ export default function Header() {
       <div className="container mx-auto flex h-20 items-center justify-between px-4 md:px-6">
         <div className="flex items-center gap-2">
           <Link href="/" className="flex items-center group">
-            <NcitLogo className="h-10 md:h-12 w-auto group-hover:scale-[1.02] transition-transform duration-300" />
+            <NcitLogo
+              priority
+              className="h-10 md:h-12 w-auto group-hover:scale-[1.02] transition-transform duration-300"
+            />
           </Link>
         </div>
 

@@ -9,15 +9,13 @@ interface NcitLogoProps {
 /**
  * The NCIT logo.
  *
- * This renders the chamber's real artwork rather than a redrawn approximation.
- * The source is the original logo carried over from the previous site, at
- * public/wp-content/uploads/2016/04/logo_NCIT_small.jpg. That file is a 200x86
- * JPEG on solid white with no alpha, so it cannot be used directly: it shows a
- * white box against the dark footer. The files under public/logo/ are that same
- * artwork upscaled and keyed to a transparent background, in brand blue and in
- * white for dark surfaces.
+ * The files under public/logo/ are built from the chamber's own artwork by
+ * scripts/build-logo.mjs: brand blue for light surfaces, and the light
+ * colourway for dark ones. Both are transparent, so the logo sits on the dark
+ * footer without a white box behind it.
  *
- * Regenerate them with scripts/build-logo.mjs if the source artwork changes.
+ * Re-run that script if the artwork changes. It also rebuilds the favicon and
+ * the app icons from the same source, so they never drift apart.
  */
 export default function NcitLogo({ className = "", variant = "default", priority = false }: NcitLogoProps) {
   const src = variant === "white" ? "/logo/ncit-logo-white.png" : "/logo/ncit-logo.png";
@@ -27,7 +25,7 @@ export default function NcitLogo({ className = "", variant = "default", priority
       src={src}
       alt="NCIT - The Gateway to Northern ICT"
       width={200}
-      height={86}
+      height={74}
       priority={priority}
       className={className}
     />

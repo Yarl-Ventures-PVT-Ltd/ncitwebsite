@@ -1,70 +1,215 @@
-/**
- * Rebuild the transparent logo assets from the chamber's original artwork.
- *
- *   node scripts/build-logo.mjs
- *
- * The original is a 200x86 JPEG of flat blue ink on solid white, with no alpha
- * channel. Two things follow: it shows a white box on any dark surface, and it
- * is soft on a modern display. This script upscales it and turns the white
- * background into transparency, then writes a brand-blue and a white version.
- *
- * How the keying works: the artwork is a single flat colour on white, so the
- * greyscale value at each pixel is a clean measure of ink coverage. Inverting
- * it gives the alpha channel and preserves the anti-aliased edges. The inverted
- * value is normalised against the darkest pixel in the image, because the ink
- * is blue rather than black. Without that step full-strength ink lands near
- * 70 percent opacity and the logo renders visibly washed out.
- */
+// Builds every logo asset the site ships, from the chamber's supplied artwork.
+//
+// Source: two SVGs from NCIT, one in brand blue for light surfaces and one in
+// light grey for dark ones. Both are a bitmap wrapped in an SVG rather than
+// true vector art, roughly 690KB and 490KB, so shipping them as-is would send
+// half a megabyte to render a header logo. They are rasterised once here at a
+// size the site actually uses.
+//
+// Run: node scripts/build-logo.mjs
 import sharp from "sharp";
-import path from "path";
 import fs from "fs";
+import path from "path";
 
-const SRC = "public/wp-content/uploads/2016/04/logo_NCIT_small.jpg";
-const OUT_DIR = "public/logo";
-const SCALE = 4;
+const SOURCE_DIR = process.env.NCIT_LOGO_SOURCE || "/Users/tisankan/Downloads/Untitled design(1)";
+const BLUE_SVG = path.join(SOURCE_DIR, "1.svg");
+const LIGHT_SVG = path.join(SOURCE_DIR, "2.svg");
+const OUT_TMP = fs.mkdtempSync("/tmp/ncit-logo-");
 
-const VARIANTS = [
-  { name: "ncit-logo.png", rgb: [0x33, 0x5b, 0xc8] },        // brand blue, light surfaces
-  { name: "ncit-logo-white.png", rgb: [0xff, 0xff, 0xff] },  // white, dark surfaces
-];
+// One master per colourway, trimmed of its transparent margin so the artwork
+// sits flush and every derived size lines up.
+const buildMaster = async (source) => {
+    return sharp(source, { density: 300 }).trim().png().toBuffer();
+};
 
-if (!fs.existsSync(SRC)) {
-  console.error(`Source artwork not found: ${SRC}`);
-  process.exit(1);
-}
+// The wordmark is two and a half times wider than it is tall, so squashing it
+// into a square icon would be unreadable. The dot grid on the left is the
+// chamber's mark and is square, so the icons crop to that.
+//
+// Finding it: the tagline runs the full width underneath, so a horizontal cut
+// alone still catches the left end of it. The mark is the block above the first
+// empty row and left of the gap before the N. Candidate cuts are scored by how
+// close to square they come out, which is self checking: if a re-export moves
+// the artwork, a bad cut shows up as a ratio far from 1 rather than silently
+// producing a squashed icon.
+const findMark = async (master) => {
+    const { data, info } = await sharp(master).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
 
-fs.mkdirSync(OUT_DIR, { recursive: true });
+    const columnHasInk = new Array(info.width).fill(false);
+    const rowHasInk = new Array(info.height).fill(false);
+    for (let y = 0; y < info.height; y++) {
+        for (let x = 0; x < info.width; x++) {
+            if (data[(y * info.width + x) * info.channels + 3] > 40) {
+                columnHasInk[x] = true;
+                rowHasInk[y] = true;
+            }
+        }
+    }
 
-const { data, info } = await sharp(SRC)
-  .resize({ width: 200 * SCALE, kernel: "lanczos3" })
-  .greyscale()
-  .raw()
-  .toBuffer({ resolveWithObject: true });
+    // Only gaps that fall between ink count. The master is trimmed, but its
+    // outermost row and column are anti-aliased and sit under the alpha
+    // threshold, so without this the very first "gap" is the edge itself and
+    // every measurement comes out zero.
+    const runsOfEmpty = (flags) => {
+        const runs = [];
+        let seenInk = false;
+        let i = 0;
+        while (i < flags.length) {
+            if (flags[i]) {
+                seenInk = true;
+                i++;
+                continue;
+            }
+            const start = i;
+            while (i < flags.length && !flags[i]) i++;
+            if (seenInk && i < flags.length) {
+                runs.push(start);
+            }
+        }
+        return runs;
+    };
 
-let darkest = 255;
-for (const value of data) if (value < darkest) darkest = value;
-const range = 255 - darkest;
+    // The first empty row band separates the NCIT block from the tagline.
+    const rowGaps = runsOfEmpty(rowHasInk);
+    const markHeight = rowGaps.length > 0 ? rowGaps[0] : info.height;
 
-const alpha = Buffer.alloc(data.length);
-for (let i = 0; i < data.length; i++) {
-  const a = Math.round(((255 - data[i]) / range) * 255);
-  alpha[i] = a > 255 ? 255 : a < 0 ? 0 : a;
-}
+    // Try each vertical gap and keep the one that yields the squarest block.
+    let best = null;
+    for (const cut of runsOfEmpty(columnHasInk)) {
+        if (cut < info.width * 0.02) continue;
+        const ratio = cut / markHeight;
+        const offBy = Math.abs(ratio - 1);
+        if (best === null || offBy < best.offBy) {
+            best = { width: cut, height: markHeight, ratio, offBy };
+        }
+    }
 
-const { width, height } = info;
-for (const variant of VARIANTS) {
-  const rgb = Buffer.alloc(width * height * 3);
-  for (let i = 0; i < width * height; i++) {
-    rgb[i * 3] = variant.rgb[0];
-    rgb[i * 3 + 1] = variant.rgb[1];
-    rgb[i * 3 + 2] = variant.rgb[2];
-  }
-  const out = path.join(OUT_DIR, variant.name);
-  await sharp(rgb, { raw: { width, height, channels: 3 } })
-    .joinChannel(alpha, { raw: { width, height, channels: 1 } })
+    if (best === null || best.offBy > 0.25) {
+        throw new Error(
+            `Could not find a square mark in the artwork. Closest was ${best ? best.ratio.toFixed(3) : "none"}. Check the source files.`
+        );
+    }
+    return best;
+};
+
+const blueMaster = await buildMaster(BLUE_SVG);
+
+// The supplied dark-surface artwork is grey, around #B3B3B3, which reads dim
+// next to white body text on the navy panels it sits on. The shape is kept
+// exactly as drawn and only the ink is forced to white: the alpha channel
+// carries every edge and anti-aliased pixel, so nothing about the outline
+// changes, it just stops being grey.
+const forceWhite = async (source) => {
+    const master = await buildMaster(source);
+    const { width, height } = await sharp(master).metadata();
+    const alpha = await sharp(master).ensureAlpha().extractChannel("alpha").toBuffer();
+    return sharp({ create: { width, height, channels: 3, background: { r: 255, g: 255, b: 255 } } })
+        .joinChannel(alpha)
+        .png()
+        .toBuffer();
+};
+
+const lightMaster = await forceWhite(LIGHT_SVG);
+
+const blueMeta = await sharp(blueMaster).metadata();
+const ratio = blueMeta.width / blueMeta.height;
+console.log(`master ${blueMeta.width}x${blueMeta.height}, ratio ${ratio.toFixed(3)}`);
+
+// Wordmark, 800 wide. The header renders it around 200px, so this covers a
+// four times device pixel ratio and still weighs little.
+const WORDMARK_WIDTH = 800;
+const wordmarkHeight = Math.round(WORDMARK_WIDTH / ratio);
+
+fs.mkdirSync("public/logo", { recursive: true });
+await sharp(blueMaster)
+    .resize({ width: WORDMARK_WIDTH })
     .png({ compressionLevel: 9 })
-    .toFile(out);
-  console.log(`  ${out}  ${width}x${height}`);
-}
+    .toFile("public/logo/ncit-logo.png");
+await sharp(lightMaster)
+    .resize({ width: WORDMARK_WIDTH })
+    .png({ compressionLevel: 9 })
+    .toFile("public/logo/ncit-logo-white.png");
+console.log(`wordmark ${WORDMARK_WIDTH}x${wordmarkHeight} written to public/logo`);
 
-console.log(`Done. Ink luminance ${darkest}, alpha normalised over ${range}.`);
+// Square icons, cropped to the dot grid and padded so the mark does not touch
+// the edge of a browser tab.
+const mark = await findMark(blueMaster);
+console.log(`dot-grid mark: ${mark.width}x${mark.height}, ratio ${mark.ratio.toFixed(3)}`);
+
+// The icon is the blue mark on a solid white square. A transparent ground
+// would leave hollow blue rings that turn to mush at the 16px a browser tab
+// actually renders, and vanish on a dark tab strip. White keeps the mark's
+// own colour and stays legible on any tab background.
+const markOnly = await sharp(blueMaster)
+    .extract({ left: 0, top: 0, width: mark.width, height: mark.height })
+    .trim()
+    .toBuffer();
+
+const ICON_BACKGROUND = { r: 255, g: 255, b: 255, alpha: 1 };
+
+const buildIcon = async (size, file) => {
+    const inner = Math.round(size * 0.62);
+    const radius = Math.round(size * 0.22);
+    const glyph = await sharp(markOnly)
+        .resize({ width: inner, height: inner, fit: "contain", background: { r: 0, g: 0, b: 0, alpha: 0 } })
+        .toBuffer();
+    const roundedMask = Buffer.from(
+        `<svg width="${size}" height="${size}"><rect width="${size}" height="${size}" rx="${radius}" ry="${radius}" fill="#fff"/></svg>`
+    );
+    await sharp({ create: { width: size, height: size, channels: 4, background: ICON_BACKGROUND } })
+        .composite([
+            { input: glyph, gravity: "center" },
+            { input: roundedMask, blend: "dest-in" },
+        ])
+        .png({ compressionLevel: 9 })
+        .toFile(file);
+};
+
+await buildIcon(512, "src/app/icon.png");
+await buildIcon(180, "src/app/apple-icon.png");
+
+// favicon.ico carries the three sizes Windows and older browsers ask for.
+//
+// Written by hand rather than pulling in an encoder package. An ICO is a six
+// byte header, a sixteen byte directory entry per image, then the images, and
+// every browser in use reads PNG data inside that container.
+const buildIco = (pngs) => {
+    const header = Buffer.alloc(6);
+    header.writeUInt16LE(0, 0); // reserved
+    header.writeUInt16LE(1, 2); // 1 means icon
+    header.writeUInt16LE(pngs.length, 4);
+
+    const entries = [];
+    let offset = 6 + pngs.length * 16;
+    for (const png of pngs) {
+        const entry = Buffer.alloc(16);
+        entry.writeUInt8(png.size >= 256 ? 0 : png.size, 0); // 0 means 256
+        entry.writeUInt8(png.size >= 256 ? 0 : png.size, 1);
+        entry.writeUInt8(0, 2); // palette count, 0 for truecolour
+        entry.writeUInt8(0, 3); // reserved
+        entry.writeUInt16LE(1, 4); // colour planes
+        entry.writeUInt16LE(32, 6); // bits per pixel
+        entry.writeUInt32LE(png.data.length, 8);
+        entry.writeUInt32LE(offset, 12);
+        offset = offset + png.data.length;
+        entries.push(entry);
+    }
+
+    return Buffer.concat([header, ...entries, ...pngs.map((png) => png.data)]);
+};
+
+const icoImages = [];
+for (const size of [16, 32, 48]) {
+    const file = `${OUT_TMP}/ico-${size}.png`;
+    await buildIcon(size, file);
+    icoImages.push({ size, data: fs.readFileSync(file) });
+}
+fs.writeFileSync("src/app/favicon.ico", buildIco(icoImages));
+fs.rmSync(OUT_TMP, { recursive: true, force: true });
+console.log("icons written: icon.png (512), apple-icon.png (180), favicon.ico (16/32/48)");
+
+for (const file of ["public/logo/ncit-logo.png", "public/logo/ncit-logo-white.png", "src/app/icon.png"]) {
+    const { size } = fs.statSync(file);
+    const meta = await sharp(file).metadata();
+    console.log(`  ${file}  ${meta.width}x${meta.height}  ${Math.round(size / 1024)}KB`);
+}

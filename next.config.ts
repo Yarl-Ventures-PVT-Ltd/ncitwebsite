@@ -472,6 +472,11 @@ const legacyRedirects = [
   }
 ];
 
+// React uses eval in development for source mapping and callstack rebuilding,
+// and the dev server pushes updates over a websocket. Neither is true of a
+// production build, so the shipped policy stays strict and only dev relaxes.
+const isDevelopment = process.env.NODE_ENV === "development";
+
 const nextConfig: NextConfig = {
   images: {
     // Next ships a srcset for every entry here on every image. The defaults run
@@ -507,12 +512,12 @@ const nextConfig: NextConfig = {
             key: "Content-Security-Policy",
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-inline'",
+              `script-src 'self' 'unsafe-inline'${isDevelopment ? " 'unsafe-eval'" : ""}`,
               "style-src 'self' 'unsafe-inline'",
               "img-src 'self' data:",
               "font-src 'self' data:",
               "frame-src 'self' https://www.google.com",
-              "connect-src 'self'",
+              `connect-src 'self'${isDevelopment ? " ws: http://localhost:*" : ""}`,
               "object-src 'none'",
               "base-uri 'self'",
               "form-action 'self'",
