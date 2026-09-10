@@ -92,24 +92,55 @@ const findMark = async (master) => {
     return best;
 };
 
-const blueMaster = await buildMaster(BLUE_SVG);
+// The supplied artwork is a bitmap wrapped in an SVG, and it carries the
+// artefacts of one: 13 percent of its ink sat at almost zero alpha, a haze
+// around every shape, and the blue was smeared across nearly two thousand
+// near-identical values instead of one flat colour. Rendered small that reads
+// washed out, which is exactly what it looked like in the header.
+//
+// Both colourways are therefore rebuilt from the artwork's own alpha channel:
+// the shape is kept exactly as drawn, the ink becomes one flat colour, and the
+// alpha is put through a contrast ramp that clears the invisible fringe and
+// solidifies anything already nearly opaque. The middle of the ramp is left
+// alone so edges stay anti-aliased rather than turning jagged.
+const FRINGE_FLOOR = 40; // below this the pixel was never visible, drop it
+const SOLID_CEILING = 215; // above this it was meant to be solid ink
 
-// The supplied dark-surface artwork is grey, around #B3B3B3, which reads dim
-// next to white body text on the navy panels it sits on. The shape is kept
-// exactly as drawn and only the ink is forced to white: the alpha channel
-// carries every edge and anti-aliased pixel, so nothing about the outline
-// changes, it just stops being grey.
-const forceWhite = async (source) => {
-    const master = await buildMaster(source);
-    const { width, height } = await sharp(master).metadata();
-    const alpha = await sharp(master).ensureAlpha().extractChannel("alpha").toBuffer();
-    return sharp({ create: { width, height, channels: 3, background: { r: 255, g: 255, b: 255 } } })
-        .joinChannel(alpha)
-        .png()
+// Applied at the FINAL size, never to the master. Downscaling is itself what
+// creates partial alpha: ramping the 7650px master and then resizing to 800
+// simply regenerates the fringe on the way down, which is what happened on the
+// first attempt and left the count unchanged.
+const flattenAtSize = async (master, ink, width) => {
+    const resized = await sharp(master).resize({ width }).ensureAlpha().png().toBuffer();
+    const { width: w, height: h } = await sharp(resized).metadata();
+
+    // Walked by hand rather than with sharp's linear(), which operates on the
+    // colour channels and leaves alpha untouched.
+    const alpha = await sharp(resized).extractChannel("alpha").raw().toBuffer();
+    const span = SOLID_CEILING - FRINGE_FLOOR;
+    for (let i = 0; i < alpha.length; i++) {
+        const value = alpha[i];
+        if (value <= FRINGE_FLOOR) {
+            alpha[i] = 0;
+        } else if (value >= SOLID_CEILING) {
+            alpha[i] = 255;
+        } else {
+            alpha[i] = Math.round(((value - FRINGE_FLOOR) * 255) / span);
+        }
+    }
+
+    return sharp({ create: { width: w, height: h, channels: 3, background: ink } })
+        .joinChannel(alpha, { raw: { width: w, height: h, channels: 1 } })
+        .png({ compressionLevel: 9 })
         .toBuffer();
 };
 
-const lightMaster = await forceWhite(LIGHT_SVG);
+// The blue the artwork itself uses, taken from its most common opaque pixel.
+const BRAND_INK = { r: 36, g: 72, b: 204 };
+const WHITE_INK = { r: 255, g: 255, b: 255 };
+
+const blueMaster = await buildMaster(BLUE_SVG);
+const lightMaster = await buildMaster(LIGHT_SVG);
 
 const blueMeta = await sharp(blueMaster).metadata();
 const ratio = blueMeta.width / blueMeta.height;
@@ -121,14 +152,8 @@ const WORDMARK_WIDTH = 800;
 const wordmarkHeight = Math.round(WORDMARK_WIDTH / ratio);
 
 fs.mkdirSync("public/logo", { recursive: true });
-await sharp(blueMaster)
-    .resize({ width: WORDMARK_WIDTH })
-    .png({ compressionLevel: 9 })
-    .toFile("public/logo/ncit-logo.png");
-await sharp(lightMaster)
-    .resize({ width: WORDMARK_WIDTH })
-    .png({ compressionLevel: 9 })
-    .toFile("public/logo/ncit-logo-white.png");
+fs.writeFileSync("public/logo/ncit-logo.png", await flattenAtSize(blueMaster, BRAND_INK, WORDMARK_WIDTH));
+fs.writeFileSync("public/logo/ncit-logo-white.png", await flattenAtSize(lightMaster, WHITE_INK, WORDMARK_WIDTH));
 console.log(`wordmark ${WORDMARK_WIDTH}x${wordmarkHeight} written to public/logo`);
 
 // Square icons, cropped to the dot grid and padded so the mark does not touch
@@ -150,9 +175,11 @@ const ICON_BACKGROUND = { r: 255, g: 255, b: 255, alpha: 1 };
 const buildIcon = async (size, file) => {
     const inner = Math.round(size * 0.62);
     const radius = Math.round(size * 0.22);
-    const glyph = await sharp(markOnly)
+    const fitted = await sharp(markOnly)
         .resize({ width: inner, height: inner, fit: "contain", background: { r: 0, g: 0, b: 0, alpha: 0 } })
+        .png()
         .toBuffer();
+    const glyph = await flattenAtSize(fitted, BRAND_INK, inner);
     const roundedMask = Buffer.from(
         `<svg width="${size}" height="${size}"><rect width="${size}" height="${size}" rx="${radius}" ry="${radius}" fill="#fff"/></svg>`
     );
@@ -207,6 +234,33 @@ for (const size of [16, 32, 48]) {
 fs.writeFileSync("src/app/favicon.ico", buildIco(icoImages));
 fs.rmSync(OUT_TMP, { recursive: true, force: true });
 console.log("icons written: icon.png (512), apple-icon.png (180), favicon.ico (16/32/48)");
+
+// The members portal and the transactional emails use the same artwork, so
+// they are written from here too rather than downscaled from the web asset.
+// Downscaling a flattened file regenerates the very fringe the flatten removed,
+// so every output is produced at its own final size.
+const PORTAL = process.env.NCIT_PORTAL_DIR || "../Members Portal/NCITFrontend";
+const BACKEND = process.env.NCIT_BACKEND_DIR || "../Members Portal/NCITBackend";
+
+if (fs.existsSync(PORTAL)) {
+    fs.mkdirSync(`${PORTAL}/public/logo`, { recursive: true });
+    fs.copyFileSync("public/logo/ncit-logo.png", `${PORTAL}/public/logo/ncit-logo.png`);
+    fs.copyFileSync("public/logo/ncit-logo-white.png", `${PORTAL}/public/logo/ncit-logo-white.png`);
+    fs.copyFileSync("src/app/icon.png", `${PORTAL}/public/icon.png`);
+    fs.copyFileSync("src/app/apple-icon.png", `${PORTAL}/public/apple-icon.png`);
+    fs.copyFileSync("src/app/favicon.ico", `${PORTAL}/public/favicon.ico`);
+    console.log("portal assets written");
+}
+
+if (fs.existsSync(BACKEND)) {
+    // 440 wide, the width the email layout renders it at on a two times display.
+    const EMAIL_WIDTH = 440;
+    fs.writeFileSync(
+        `${BACKEND}/src/assets/ncit-logo.png`,
+        await flattenAtSize(lightMaster, WHITE_INK, EMAIL_WIDTH)
+    );
+    console.log(`email logo written at ${EMAIL_WIDTH} wide`);
+}
 
 for (const file of ["public/logo/ncit-logo.png", "public/logo/ncit-logo-white.png", "src/app/icon.png"]) {
     const { size } = fs.statSync(file);

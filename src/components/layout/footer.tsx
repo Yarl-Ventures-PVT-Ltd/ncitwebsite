@@ -16,6 +16,9 @@ export default function Footer() {
             <Link href="/" className="inline-block mb-6">
               <NcitLogo variant="white" className="h-10 md:h-12 w-auto hover:opacity-80 transition-opacity" />
             </Link>
+            <p className="text-white font-heading font-semibold text-base mb-3">
+              Northern Chamber of Information Technology
+            </p>
             <p className="text-white/60 text-sm leading-relaxed max-w-sm mb-8 font-light">
               Northern Sri Lanka’s Gateway to Technology, Talent & Global Opportunity. Connecting the ecosystem across Jaffna, Kilinochchi, Mannar, Mullaitivu, and Vavuniya.
             </p>

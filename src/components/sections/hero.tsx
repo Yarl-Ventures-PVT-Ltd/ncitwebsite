@@ -25,7 +25,7 @@ export default function HeroSection() {
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-white/60 text-sm font-medium text-ncit-blue shadow-sm">
             <Sparkles className="h-4 w-4" />
-            <span className="tracking-wide">Building the Digital North</span>
+            <span className="tracking-wide">Northern Chamber of Information Technology</span>
           </div>
         </motion.div>
 
