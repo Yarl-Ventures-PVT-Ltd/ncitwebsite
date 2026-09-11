@@ -57,7 +57,6 @@ export default function MembersDirectoryPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(directorySchema)} />
       {/* Hero Section */}
       <section className="bg-[#040D17] text-white pt-32 pb-20 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-ncit-purple/20 rounded-full blur-[120px] pointer-events-none -translate-y-1/2 translate-x-1/3" />
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 font-heading">
@@ -108,7 +107,7 @@ export default function MembersDirectoryPage() {
                             href={member.link} 
                             target="_blank" 
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 text-sm text-ncit-blue mt-4 font-medium opacity-80 hover:opacity-100"
+                            className="inline-flex min-h-[24px] items-center gap-2 py-1 mt-4 text-sm font-medium text-ncit-blue opacity-80 hover:opacity-100"
                           >
                             Visit Website
                             <ExternalLink className="w-3.5 h-3.5" />

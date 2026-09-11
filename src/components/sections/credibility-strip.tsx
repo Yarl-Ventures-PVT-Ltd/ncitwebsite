@@ -1,39 +1,68 @@
-"use client";
+import { MEMBER_COUNT, MEMBER_CATEGORIES } from "@/lib/members";
+import { ARTICLE_COUNT, archiveYears } from "@/lib/content";
+import { SITE } from "@/lib/seo";
 
-import { motion } from "framer-motion";
-
+/**
+ * The chamber's record, at a glance.
+ *
+ * This used to read "150+ Active Members" and "40+ Ecosystem Events". Neither
+ * number appears anywhere in NCIT's own material. They were invented, and a
+ * chamber that publishes a membership figure it cannot support is one question
+ * away from an awkward conversation with the member who asks to see the list.
+ *
+ * Every figure below is now counted from the data the site actually ships, at
+ * build time, so none of them can drift from what a visitor can go and verify
+ * on the members and insights pages. If a member is added to members.ts the
+ * count here moves on its own.
+ *
+ * These are deliberately set at body scale rather than as large counters. The
+ * numbers are small and honest, and blowing them up to 5xl would be asking
+ * them to carry weight they do not have.
+ */
 export default function CredibilityStrip() {
-  const stats = [
-    { label: "Districts United", value: "5" },
-    { label: "Established", value: "2016" },
-    { label: "Active Members", value: "150+" },
-    { label: "Ecosystem Events", value: "40+" },
-  ];
+    const years = archiveYears();
 
-  return (
-    <section className="relative z-20 -mt-16 mb-24">
-      <div className="container mx-auto px-4 md:px-6">
-        <motion.div 
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
-          className="glass-card rounded-3xl p-8 md:p-12"
-        >
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-4 divide-x divide-white/20">
-            {stats.map((stat, i) => (
-              <div key={i} className="flex flex-col items-center justify-center text-center px-4 group">
-                <span className="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-ncit-ink to-ncit-ink/70 mb-2 font-heading tracking-tight group-hover:scale-110 transition-transform duration-500">
-                  {stat.value}
-                </span>
-                <span className="text-sm md:text-base font-medium text-ncit-ink/60 uppercase tracking-wider">
-                  {stat.label}
-                </span>
-              </div>
-            ))}
-          </div>
-        </motion.div>
-      </div>
-    </section>
-  );
+    const facts = [
+        {
+            value: SITE.founded,
+            label: "Established",
+            note: "Inaugurated in Jaffna",
+        },
+        {
+            value: "5",
+            label: "Districts represented",
+            note: "Jaffna, Kilinochchi, Mannar, Mullaitivu, Vavuniya",
+        },
+        {
+            value: String(MEMBER_COUNT),
+            label: "Member companies listed",
+            note: `Across ${MEMBER_CATEGORIES.length} membership categories`,
+        },
+        {
+            value: String(ARTICLE_COUNT),
+            label: "Published updates",
+            note: `From ${years.first} to ${years.last}`,
+        },
+    ];
+
+    return (
+        <section aria-label="NCIT at a glance" className="border-b border-ncit-line bg-ncit-surface">
+            <div className="ncit-container">
+                <dl className="grid grid-cols-1 divide-y divide-ncit-line sm:grid-cols-2 sm:divide-y-0 lg:grid-cols-4">
+                    {facts.map((fact) => (
+                        <div
+                            key={fact.label}
+                            className="py-6 sm:border-b sm:border-ncit-line sm:py-8 lg:border-b-0 lg:border-l lg:border-ncit-line lg:px-6 lg:first:border-l-0 lg:first:pl-0"
+                        >
+                            <dt className="ncit-meta text-ncit-ink-3">{fact.label}</dt>
+                            <dd className="mt-2 font-mono text-2xl font-medium tracking-tight text-ncit-ink">
+                                {fact.value}
+                            </dd>
+                            <dd className="mt-1 text-sm leading-relaxed text-ncit-ink-3">{fact.note}</dd>
+                        </div>
+                    ))}
+                </dl>
+            </div>
+        </section>
+    );
 }

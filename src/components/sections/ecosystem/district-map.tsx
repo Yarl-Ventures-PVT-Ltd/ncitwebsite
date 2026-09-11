@@ -84,7 +84,6 @@ export default function DistrictMap() {
                 className={`h-full bg-white rounded-3xl p-6 border border-gray-100 hover:shadow-2xl ${district.shadow} transition-all duration-300 hover:-translate-y-2 group cursor-pointer relative overflow-hidden`}
               >
                 {/* Decorative gradient blob */}
-                <div className={`absolute -right-10 -top-10 w-32 h-32 bg-gradient-to-br ${district.color} opacity-10 rounded-full blur-2xl group-hover:opacity-20 transition-opacity duration-300`} />
                 
                 <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${district.color} text-white flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
                   <MapPin className="w-6 h-6" />

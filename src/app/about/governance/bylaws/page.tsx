@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { Card, CardContent } from '@/components/ui/card';
-import { ScrollText, FileText, Users, Building, Briefcase, Target, RotateCcw } from 'lucide-react';
+import { ScrollText, Users, Building, Briefcase, Target } from 'lucide-react';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
@@ -14,14 +14,13 @@ export default function BylawsPage() {
     <div className="bg-ncit-cloud min-h-screen pb-20">
       {/* Hero Section */}
       <section className="bg-[#040D17] text-white pt-32 pb-20 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-ncit-purple/20 rounded-full blur-[120px] pointer-events-none -translate-y-1/2 translate-x-1/3" />
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl">
-            <Link href="/about/governance" className="text-ncit-blue hover:text-white transition-colors text-sm font-semibold mb-4 inline-block">
+            <Link href="/about/governance" className="inline-block py-1 text-sm font-semibold text-white/80 transition-colors hover:text-white">
               &larr; Back to Governance
             </Link>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 font-heading flex items-center gap-4">
-              <ScrollText className="w-12 h-12 text-ncit-blue" />
+              <ScrollText className="w-12 h-12 text-white/70" />
               NCIT Bylaws
             </h1>
             <p className="text-lg md:text-xl text-white/80 font-light leading-relaxed">
@@ -46,7 +45,7 @@ export default function BylawsPage() {
                 Northern Chamber of Information Technology (NCIT) is the gateway to the information technology market and industry in the Northern Part of Sri Lanka.
               </p>
               <p className="text-ncit-ink/70 leading-relaxed">
-                Hereafter the Northern Chamber of Information Technology is referred to as the <strong>"Chamber"</strong>.
+                Hereafter the Northern Chamber of Information Technology is referred to as the <strong>&ldquo;Chamber&rdquo;</strong>.
               </p>
             </div>
 
@@ -57,7 +56,7 @@ export default function BylawsPage() {
                 Membership
               </h2>
               <p className="text-ncit-ink/70 leading-relaxed mb-6">
-                Membership is categorized into 6 types and the Applicant's main business activity/core business should be in ICT.
+                Membership is categorized into 6 types and the Applicant&rsquo;s main business activity/core business should be in ICT.
               </p>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
@@ -101,7 +100,7 @@ export default function BylawsPage() {
 
               <ul className="list-disc pl-6 space-y-3 text-ncit-ink/70">
                 <li>Membership period starts in April of every year and must be renewed yearly.</li>
-                <li>Membership fee is determined by the Chamber's Board from time to time.</li>
+                <li>Membership fee is determined by the Chamber&rsquo;s Board from time to time.</li>
               </ul>
             </div>
 
@@ -122,7 +121,7 @@ export default function BylawsPage() {
                 <li>A Board member should not be in an Executive committee of the same objective regional organization where that organization is not partnered with NCIT.</li>
               </ul>
 
-              <h3 className="font-bold text-ncit-ink mb-4">Proposed Composition for Board's 9 members:</h3>
+              <h3 className="font-bold text-ncit-ink mb-4">Proposed Composition for Board&rsquo;s 9 members:</h3>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div className="bg-gray-50 rounded-xl p-4 text-center">
                   <div className="text-2xl font-bold text-ncit-blue mb-1">3</div>

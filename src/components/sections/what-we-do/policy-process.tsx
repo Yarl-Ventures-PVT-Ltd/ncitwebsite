@@ -1,119 +1,129 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { MessageSquare, Users, FileSearch, CheckSquare, Megaphone, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { MessageSquare, Users, FileSearch, CheckSquare, Megaphone } from "lucide-react";
 
-const steps = [
-  {
-    icon: <MessageSquare className="w-5 h-5" />,
-    title: "Member Input",
-    description: "Issues are raised by members through the portal or committees."
-  },
-  {
-    icon: <Users className="w-5 h-5" />,
-    title: "Working Groups",
-    description: "Expert groups review the issue and draft potential solutions."
-  },
-  {
-    icon: <FileSearch className="w-5 h-5" />,
-    title: "Evidence Gathering",
-    description: "Data and case studies are collected to build a robust argument."
-  },
-  {
-    icon: <CheckSquare className="w-5 h-5" />,
-    title: "Board Approval",
-    description: "The formal position is reviewed and approved by the NCIT Board."
-  },
-  {
-    icon: <Megaphone className="w-5 h-5" />,
-    title: "Engagement",
-    description: "NCIT engages stakeholders to implement the policy recommendations."
-  }
+import { Section } from "@/components/ui/section";
+import { ActionLink, MoreLink } from "@/components/ui/action";
+
+/**
+ * How the chamber develops a policy position.
+ *
+ * The panel that used to sit on the right was invented. It advertised a
+ * consultation on a "Jaffna IT Park Infrastructure Proposal" marked open for
+ * input, a closed "National AI Strategy Response" said to be under board
+ * review, and two published submissions, a "2024 Pre-Budget Submission" and a
+ * "Response to Data Protection Authority Draft Rules". None of them exist, and
+ * both submission links pointed at href="#", so a reader who clicked either
+ * one stayed exactly where they were.
+ *
+ * The process on the left is a description of how the chamber works, which is
+ * fair to state. What replaces the right panel is the part that is true and
+ * useful: where a member actually raises something, and the engagements the
+ * archive can evidence.
+ */
+const STEPS = [
+    {
+        icon: MessageSquare,
+        title: "Member input",
+        description: "Issues are raised by members through the portal or through committees.",
+    },
+    {
+        icon: Users,
+        title: "Working groups",
+        description: "A group with relevant experience reviews the issue and drafts options.",
+    },
+    {
+        icon: FileSearch,
+        title: "Evidence",
+        description: "Data and member case studies are gathered to support the position.",
+    },
+    {
+        icon: CheckSquare,
+        title: "Board approval",
+        description: "The position is reviewed and approved by the NCIT board.",
+    },
+    {
+        icon: Megaphone,
+        title: "Engagement",
+        description: "The chamber puts the position to the relevant public and industry bodies.",
+    },
+];
+
+const ENGAGEMENTS = [
+    {
+        slug: "digital-roadmap-for-northern-province-online-event-26th-june-2-30pm",
+        title: "Digital Roadmap for the Northern Province",
+        note: "Main forum convened with ICTA, June 2021. The NCIT chairman spoke on developing the technology industry in the Northern Province.",
+    },
+    {
+        slug: "slasscom-presents-sri-lankas-largest-it-bpm-week-2021-ncit-on-board-as-event-partner",
+        title: "Sri Lanka IT/BPM Week 2021",
+        note: "NCIT joined the national industry body SLASSCOM as an event partner, putting Northern firms on a national programme.",
+    },
 ];
 
 export default function PolicyProcess() {
-  return (
-    <section className="py-24 bg-ncit-cloud relative">
-      <div className="container mx-auto px-4 md:px-6">
-        
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 max-w-6xl mx-auto items-center">
-          
-          <div>
-            <h2 className="text-3xl md:text-4xl font-bold text-ncit-ink mb-6">How We Develop Positions</h2>
-            <p className="text-ncit-ink/70 leading-relaxed mb-8">
-              NCIT’s advocacy is driven strictly by member needs and backed by industry evidence. We do not lobby based on individual interests, but focus on systemic changes that benefit the entire Northern technology ecosystem.
-            </p>
-            
-            <div className="space-y-6">
-              {steps.map((step, index) => (
-                <motion.div
-                  key={step.title}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: index * 0.1 }}
-                  className="flex items-start gap-4"
-                >
-                  <div className="w-10 h-10 rounded-full bg-white border border-gray-200 shadow-sm flex items-center justify-center shrink-0 text-ncit-blue relative z-10">
-                    {step.icon}
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-ncit-ink">{step.title}</h4>
-                    <p className="text-sm text-ncit-ink/60">{step.description}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-            
-            <div className="mt-10">
-              <Link href="/portal" className="inline-flex items-center justify-center bg-ncit-blue text-white hover:bg-blue-600 px-6 py-3 text-sm font-medium rounded-xl shadow-md transition-all">
-                Member Login to Contribute
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </Link>
-            </div>
-          </div>
+    return (
+        <Section tone="surface" labelledBy="policy-process">
+            <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
+                <div>
+                    <h2 id="policy-process" className="ncit-h2 ncit-tick">
+                        How positions are developed
+                    </h2>
+                    <p className="ncit-lede mt-4">
+                        Advocacy follows member needs and is backed by evidence. The chamber takes up systemic issues
+                        affecting the Northern technology sector rather than individual commercial interests.
+                    </p>
 
-          <div className="bg-white p-8 md:p-10 rounded-3xl border border-gray-200 shadow-sm">
-            <h3 className="text-2xl font-bold text-ncit-ink mb-6">Current Consultations</h3>
-            
-            <div className="space-y-4">
-              <div className="p-5 border border-blue-100 bg-blue-50/50 rounded-2xl relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-1.5 h-full bg-ncit-blue" />
-                <span className="inline-block px-2 py-1 bg-white text-ncit-blue text-xs font-bold rounded shadow-sm mb-3">OPEN FOR INPUT</span>
-                <h4 className="font-bold text-ncit-ink mb-2">Jaffna IT Park Infrastructure Proposal</h4>
-                <p className="text-sm text-ncit-ink/70 mb-3">Seeking feedback from local software exporters regarding facility requirements and connectivity needs.</p>
-                <Link href="/portal" className="text-sm font-semibold text-ncit-blue hover:underline">Submit Feedback →</Link>
-              </div>
+                    <ol className="mt-8 border-t border-ncit-line">
+                        {STEPS.map((step) => (
+                            <li key={step.title} className="flex gap-4 border-b border-ncit-line py-5">
+                                <step.icon
+                                    className="mt-0.5 h-5 w-5 shrink-0 text-ncit-blue"
+                                    aria-hidden="true"
+                                />
+                                <div className="min-w-0">
+                                    <h3 className="text-[0.95rem] font-semibold text-ncit-ink">{step.title}</h3>
+                                    <p className="mt-1 text-sm leading-relaxed text-ncit-ink-2">{step.description}</p>
+                                </div>
+                            </li>
+                        ))}
+                    </ol>
 
-              <div className="p-5 border border-gray-200 rounded-2xl">
-                <span className="inline-block px-2 py-1 bg-gray-100 text-gray-600 text-xs font-bold rounded mb-3">CLOSED</span>
-                <h4 className="font-bold text-ncit-ink mb-2">National AI Strategy Response</h4>
-                <p className="text-sm text-ncit-ink/70 mb-3">Consultation closed. Document is currently under Board review.</p>
-              </div>
+                    <div className="mt-8">
+                        <ActionLink href="/portal" variant="primary" withArrow>
+                            Member portal
+                        </ActionLink>
+                    </div>
+                </div>
+
+                <div>
+                    <h2 className="ncit-h2">Where the chamber has engaged</h2>
+                    <p className="ncit-lede mt-4">
+                        Engagements the chamber has published a record of. There is no open public consultation at the
+                        moment; members raise issues through the portal or the secretariat.
+                    </p>
+
+                    <ul className="mt-8 border-t border-ncit-line">
+                        {ENGAGEMENTS.map((item) => (
+                            <li key={item.slug} className="group relative border-b border-ncit-line py-5">
+                                <h3 className="text-[0.95rem] font-semibold text-ncit-ink">
+                                    <Link
+                                        href={`/insights/${item.slug}`}
+                                        className="after:absolute after:inset-0 after:content-[''] group-hover:text-ncit-blue"
+                                    >
+                                        {item.title}
+                                    </Link>
+                                </h3>
+                                <p className="mt-1 text-sm leading-relaxed text-ncit-ink-2">{item.note}</p>
+                            </li>
+                        ))}
+                    </ul>
+
+                    <div className="mt-6">
+                        <MoreLink href="/press">Official statements</MoreLink>
+                    </div>
+                </div>
             </div>
-
-            <div className="mt-10 pt-8 border-t border-gray-100">
-              <h3 className="text-lg font-bold text-ncit-ink mb-4">Published Submissions</h3>
-              <ul className="space-y-3">
-                <li>
-                  <Link href="#" className="text-sm font-medium text-ncit-blue hover:underline flex items-center">
-                    <FileSearch className="w-4 h-4 mr-2 opacity-70" />
-                    2024 Pre-Budget Submission (Digital Economy)
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="text-sm font-medium text-ncit-blue hover:underline flex items-center">
-                    <FileSearch className="w-4 h-4 mr-2 opacity-70" />
-                    Response to Data Protection Authority Draft Rules
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-  );
+        </Section>
+    );
 }

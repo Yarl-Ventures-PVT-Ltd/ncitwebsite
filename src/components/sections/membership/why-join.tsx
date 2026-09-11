@@ -71,7 +71,7 @@ export default function WhyJoin() {
         </div>
 
         <div className="text-center">
-          <Link href="/membership/benefits" className="inline-flex items-center text-sm font-semibold text-ncit-blue hover:underline">
+          <Link href="/membership/benefits" className="inline-flex items-center text-sm font-semibold text-ncit-blue hover:underline min-h-[24px] py-1">
             View detailed benefit breakdown →
           </Link>
         </div>

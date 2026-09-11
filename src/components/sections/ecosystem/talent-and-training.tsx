@@ -46,7 +46,7 @@ export default function TalentAndTraining() {
             </p>
             <Link 
               href="/ecosystem" 
-              className="inline-flex items-center text-ncit-blue font-semibold hover:text-white transition-colors"
+              className="inline-flex min-h-[24px] items-center py-1 font-semibold text-white/85 transition-colors hover:text-white"
             >
               Explore the Talent Pool
               <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
@@ -72,7 +72,7 @@ export default function TalentAndTraining() {
                 </p>
                 <Link 
                   href={res.link} 
-                  className="text-sm font-medium text-ncit-blue hover:text-white transition-colors"
+                  className="inline-block min-h-[24px] py-1 text-sm font-medium text-white/85 transition-colors hover:text-white"
                 >
                   View Details &rarr;
                 </Link>

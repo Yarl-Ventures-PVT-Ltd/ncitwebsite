@@ -42,10 +42,19 @@ const milestones = [
 
 export default function HistoryTimeline() {
   return (
-    <section className="py-24 bg-white relative">
+    <section aria-labelledby="history-timeline" className="py-24 bg-white relative">
       <div className="container mx-auto px-4 md:px-6">
         <div className="max-w-4xl mx-auto">
-          
+
+          <div className="mb-12">
+            <h2 id="history-timeline" className="ncit-h2 ncit-tick">
+              Milestones
+            </h2>
+            <p className="ncit-lede mt-4">
+              How the chamber has developed since its inauguration in Jaffna in February 2016.
+            </p>
+          </div>
+
           <div className="relative">
             {/* Vertical Line */}
             <div className="absolute left-[28px] md:left-1/2 top-0 bottom-0 w-px bg-gray-200 transform md:-translate-x-1/2" />

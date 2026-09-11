@@ -13,11 +13,9 @@ export default function EcosystemCTA() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="relative bg-white/5 border border-white/10 rounded-[2.5rem] overflow-hidden p-8 md:p-16 lg:p-20 text-center"
+          className="relative bg-white/5 border border-white/10 rounded-2xl overflow-hidden p-8 md:p-16 lg:p-20 text-center"
         >
           {/* Decorative background elements */}
-          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-ncit-blue/20 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/3 pointer-events-none" />
-          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-ncit-purple/20 rounded-full blur-[100px] translate-y-1/3 -translate-x-1/3 pointer-events-none" />
 
           <div className="relative z-10 max-w-3xl mx-auto flex flex-col items-center">
             
@@ -26,7 +24,7 @@ export default function EcosystemCTA() {
             </h2>
             
             <p className="text-lg md:text-xl text-white/70 font-light mb-12 leading-relaxed">
-              If your technology business, startup, or training institution operates in the Northern Province and is not listed in our directory, it's time to join the Chamber.
+              If your technology business, startup, or training institution operates in the Northern Province and is not listed in our directory, it&rsquo;s time to join the Chamber.
             </p>
             
             <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-4 w-full">

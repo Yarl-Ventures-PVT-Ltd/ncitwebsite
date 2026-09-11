@@ -14,11 +14,9 @@ export default function AboutCTA() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="relative bg-ncit-ink rounded-[2.5rem] overflow-hidden p-8 md:p-16 lg:p-20 text-center"
+          className="relative bg-ncit-ink rounded-2xl overflow-hidden p-8 md:p-16 lg:p-20 text-center"
         >
           {/* Decorative background elements */}
-          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-ncit-blue/20 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/3 pointer-events-none" />
-          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-ncit-purple/20 rounded-full blur-[100px] translate-y-1/3 -translate-x-1/3 pointer-events-none" />
 
           <div className="relative z-10 max-w-3xl mx-auto flex flex-col items-center">
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 mb-8">

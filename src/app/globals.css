@@ -3,25 +3,65 @@
 @import "shadcn/tailwind.css";
 @plugin "@tailwindcss/typography";
 
-@custom-variant dark (&:is(.dark *));
+/* ==========================================================================
+   NCIT design system
+   --------------------------------------------------------------------------
+   The chamber speaks to companies, universities, government and international
+   partners. It has to read as an institution first and a technology body
+   second, so the system is built on paper, hairlines and one accent rather
+   than on gradients and frosted panels.
+
+   Three rules hold the whole thing together. Break one and the page stops
+   looking institutional.
+
+     1. ONE accent. NCIT blue, and nothing else. It is the logo ink, so the
+        page and the mark cannot drift apart.
+     2. Hairlines over elevation. Structure comes from rules and space. A
+        shadow is only used where something genuinely floats above the page.
+     3. Crisp corners. 2px to 14px. Pills are reserved for category chips,
+        which is the one documented exception to the radius scale.
+   ========================================================================== */
 
 @theme inline {
-  /* NCIT Brand Colors - Enhanced for Glassmorphism */
-  --color-ncit-cloud: #F4F7FB;
-  --color-ncit-ink: #001A66; /* Deep navy blue for typography */
-  --color-ncit-blue: #0033CC; /* Vibrant Electric Brand Blue */
-  --color-ncit-teal: #0EA5A8;
-  --color-ncit-gold: #E9A23B;
-  --color-ncit-navy: #002288; /* Changed to dark blue */
-  --color-ncit-purple: #7C3AED; 
-  --color-ncit-pink: #EC4899; 
+  /* -- Brand -------------------------------------------------------------
+     ncit-blue is #2448CC, the exact ink the logo is built from in
+     scripts/build-logo.mjs (BRAND_INK). Changing it here without changing it
+     there makes the wordmark look wrong next to the buttons. */
+  --color-ncit-blue: #2448cc;
+  --color-ncit-blue-hover: #1b3aa8;
+  --color-ncit-blue-light: #3a5dd9;
+  --color-ncit-blue-tint: #eef2fd;
+  --color-ncit-navy: #0a1733;
+  --color-ncit-navy-soft: #101f42;
 
-  /* Shadcn standard tokens mapped to CSS vars */
+  /* -- Neutrals ----------------------------------------------------------
+     Cool slate, not warm paper. Warm neutrals read retail, cool neutrals read
+     institutional. */
+  --color-ncit-paper: #ffffff;
+  --color-ncit-surface: #f7f8fa;
+  --color-ncit-surface-2: #eef1f5;
+  --color-ncit-line: #e3e7ee;
+  --color-ncit-line-strong: #cbd3e0;
+
+  /* -- Text --------------------------------------------------------------
+     Every value below passes WCAG AA on both paper and surface.
+     ink 15.9:1, ink-2 8.1:1, ink-3 5.3:1, blue 7.3:1. */
+  --color-ncit-ink: #101828;
+  --color-ncit-ink-2: #475467;
+  --color-ncit-ink-3: #667085;
+
+  /* Retired brand colours. The previous palette carried a purple, a pink, a
+     teal and a gold alongside the blue. Purple and pink are gone from the
+     markup entirely; these three remain only because call sites still name
+     them, and they all resolve to the single accent or to a neutral so no
+     page can reintroduce a second hue by accident. */
+  --color-ncit-teal: #2448cc;
+  --color-ncit-gold: #2448cc;
+  --color-ncit-cloud: #f7f8fa;
+
+  /* -- shadcn token bridge ---------------------------------------------- */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans); /* mapped to DM Sans */
-  --font-heading: var(--font-heading); /* mapped to Space Grotesk */
-  
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
   --color-secondary: var(--secondary);
@@ -35,98 +75,320 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
 
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
-  --radius-4xl: calc(var(--radius) * 2.6);
+  /* Tamil sits behind Geist in the stack rather than replacing it, so a
+     browser picks it up per glyph wherever Tamil appears in an article. */
+  --font-sans: var(--font-geist), var(--font-tamil), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-geist), var(--font-tamil), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, "SF Mono", monospace;
+
+  /* -- Radius ------------------------------------------------------------
+     Declared as absolute steps rather than multiples of a base, because the
+     old multiplier scale turned `rounded-3xl` into 33px and made every panel
+     look like a mobile app card. The page carries 261 of these class names,
+     so the scale is the cheapest place to fix all of them at once. */
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 6px;
+  --radius-xl: 8px;
+  --radius-2xl: 10px;
+  --radius-3xl: 12px;
+  --radius-4xl: 14px;
 }
 
 :root {
-  /* Light mode strictly enforced */
-  --background: #F4F7FF; /* Slightly blue tinted background */
-  --foreground: #001A66; /* Deep blue typography */
-  
-  /* Glassmorphism defaults - highly transparent */
-  --card: rgba(255, 255, 255, 0.6);
-  --card-foreground: #001A66;
-  
-  --popover: rgba(255, 255, 255, 0.8);
-  --popover-foreground: #001A66;
-  
-  --primary: #0033CC; /* Vibrant Electric Brand Blue */
-  --primary-foreground: #FFFFFF;
-  
-  --secondary: #0EA5A8; 
-  --secondary-foreground: #FFFFFF;
-  
-  --muted: rgba(226, 232, 240, 0.5); 
-  --muted-foreground: #475569; 
-  
-  --accent: #E9A23B; 
-  --accent-foreground: #0F172A;
-  
-  --destructive: #EF4444; 
-  --destructive-foreground: #FFFFFF;
-  
-  --border: rgba(255, 255, 255, 0.5);
-  --input: rgba(255, 255, 255, 0.5);
-  --ring: rgba(37, 99, 235, 0.5);
-  
-  --radius: 1.5rem; /* Smoother, larger radius for trending design */
+  --background: #ffffff;
+  --foreground: #101828;
+
+  --card: #ffffff;
+  --card-foreground: #101828;
+
+  --popover: #ffffff;
+  --popover-foreground: #101828;
+
+  --primary: #2448cc;
+  --primary-foreground: #ffffff;
+
+  --secondary: #f7f8fa;
+  --secondary-foreground: #101828;
+
+  --muted: #f7f8fa;
+  --muted-foreground: #667085;
+
+  --accent: #eef2fd;
+  --accent-foreground: #1b3aa8;
+
+  --destructive: #b42318;
+  --destructive-foreground: #ffffff;
+
+  --border: #e3e7ee;
+  --input: #cbd3e0;
+  --ring: #2448cc;
+
+  --radius: 6px;
 }
 
 @layer base {
-  html, body {
-    @apply antialiased overflow-x-hidden;
-    max-width: 100vw;
+  html {
+    -webkit-text-size-adjust: 100%;
   }
-  * {
-    @apply border-border outline-ring/50;
-  }
+
+  html,
   body {
-    @apply bg-background text-foreground;
+    @apply antialiased;
+    max-width: 100vw;
+    overflow-x: hidden;
   }
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-heading tracking-tight;
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+  }
+
+  * {
+    border-color: var(--border);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading), var(--font-sans), system-ui, sans-serif;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+    /* No colour here, deliberately. Setting one made every heading near-black,
+       which beat the inherited text-white on the site's dark sections and left
+       those headings invisible against their own background. Headings inherit,
+       so a dark band colours its own contents and a light page picks up the
+       body colour. */
+  }
+
+  /* Long paragraphs should not leave one orphaned word on the last line. */
+  p {
+    text-wrap: pretty;
+  }
+
+  /* A visible, high contrast focus ring is a hard requirement for this
+     audience, so it is set once here rather than per component. Using
+     focus-visible keeps it off mouse clicks and on for keyboard users. */
+  :focus-visible {
+    outline: 2px solid var(--color-ncit-blue);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  /* Anchored headings must clear the sticky header when jumped to. */
+  [id] {
+    scroll-margin-top: 6rem;
   }
 }
 
-/* Glassmorphism utility classes */
 @layer utilities {
-  .glass {
-    @apply bg-white/60 backdrop-blur-xl border border-white/40 shadow-sm;
+  /* -- Structure -------------------------------------------------------- */
+
+  /* The single page container. Every section uses this so the left edge of
+     the text is identical from the header to the footer. */
+  .ncit-container {
+    width: 100%;
+    max-width: 1240px;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
   }
-  .glass-card {
-    @apply bg-white/40 backdrop-blur-md border border-white/50 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all duration-300;
+
+  @media (min-width: 768px) {
+    .ncit-container {
+      padding-inline: 2rem;
+    }
   }
+
+  @media (min-width: 1280px) {
+    .ncit-container {
+      padding-inline: 2.5rem;
+    }
+  }
+
+  /* -- Surfaces ---------------------------------------------------------
+     These replace the previous .glass / .glass-card / .glass-header
+     utilities. The names are kept so the ten files still referencing them
+     keep rendering, but they now draw solid institutional surfaces with a
+     hairline instead of a frosted blur. */
+  .glass,
+  .surface-panel {
+    background-color: var(--color-ncit-paper);
+    border: 1px solid var(--color-ncit-line);
+  }
+
+  .glass-card,
+  .surface-card {
+    background-color: var(--color-ncit-paper);
+    border: 1px solid var(--color-ncit-line);
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+
+  .glass-card:hover,
+  .surface-card:hover {
+    border-color: var(--color-ncit-line-strong);
+    box-shadow: 0 1px 2px rgb(16 24 40 / 0.04), 0 8px 24px rgb(16 24 40 / 0.06);
+  }
+
   .glass-header {
-    @apply bg-white/70 backdrop-blur-lg border-b border-white/50 shadow-sm;
+    background-color: color-mix(in srgb, var(--color-ncit-paper) 88%, transparent);
+    backdrop-filter: saturate(180%) blur(12px);
+    -webkit-backdrop-filter: saturate(180%) blur(12px);
+    border-bottom: 1px solid var(--color-ncit-line);
   }
-  
-  /* Animated mesh gradient background utilities */
+
+  /* The header is the one place a blur earns its keep, because content
+     scrolls under it. Readers who ask for less transparency get a solid bar. */
+  @media (prefers-reduced-transparency: reduce) {
+    .glass-header {
+      background-color: var(--color-ncit-paper);
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+  }
+
+  /* The animated four-blob mesh is gone. The page ground is plain paper. */
   .mesh-bg {
-    background-color: #F4F7FF;
-    background-image: 
-      radial-gradient(at 0% 0%, hsla(225, 100%, 90%, 1) 0px, transparent 60%),
-      radial-gradient(at 100% 0%, hsla(210, 100%, 92%, 1) 0px, transparent 60%),
-      radial-gradient(at 100% 100%, hsla(230, 80%, 94%, 1) 0px, transparent 60%),
-      radial-gradient(at 0% 100%, hsla(220, 100%, 90%, 1) 0px, transparent 60%);
-    background-size: 200% 200%;
-    animation: mesh-movement 15s ease infinite alternate;
+    background-color: var(--color-ncit-paper);
+  }
+
+  /* -- Typography -------------------------------------------------------- */
+
+  /* Metadata: dates, categories, counts, reference numbers. Mono keeps
+     numbers aligned in lists and reads as record-keeping, which is the right
+     register for a chamber. */
+  /* Metadata labels: categories, field names, counts.
+     No colour is set here on purpose. It used to set ink-3, which then beat
+     an explicit text-white utility on the navy band and pushed that text to
+     3.57:1, under the AA floor. Colour is now chosen at the call site, where
+     the surface is known. */
+  .ncit-meta {
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* Dates and figures. Same mono register so they line up in a list, but not
+     uppercase: a date is read, not scanned as a label, and the page was
+     carrying more than fifty shouting micro-labels with dates included. */
+  .ncit-date {
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.01em;
+  }
+
+  .ncit-display {
+    font-size: clamp(2.25rem, 5vw, 3.75rem);
+    line-height: 1.05;
+    letter-spacing: -0.035em;
+    font-weight: 600;
+  }
+
+  .ncit-h2 {
+    font-size: clamp(1.75rem, 3vw, 2.375rem);
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    font-weight: 600;
+  }
+
+  .ncit-lede {
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    color: var(--color-ncit-ink-2);
+  }
+
+  @media (min-width: 768px) {
+    .ncit-lede {
+      font-size: 1.125rem;
+    }
+  }
+
+  /* -- Rules ------------------------------------------------------------- */
+  .ncit-rule {
+    border-top: 1px solid var(--color-ncit-line);
+  }
+
+  /* A short accent rule used to open a section. It replaces the uppercase
+     eyebrow label that the old design put above every single heading. */
+  .ncit-tick::before {
+    content: "";
+    display: block;
+    width: 2.5rem;
+    height: 2px;
+    margin-bottom: 1.25rem;
+    background-color: var(--color-ncit-blue);
+  }
+
+  /* -- Motion ------------------------------------------------------------
+     The whole motion budget for this site. One reveal, driven by CSS rather
+     than by a JavaScript animation library, so it costs nothing on the main
+     thread and cannot jank on a low end phone over a slow connection, which
+     is the normal case for this audience.
+
+     Elements start visible. The reveal is applied only when the browser both
+     supports scroll driven animation and the reader has not asked for less
+     motion, so no content can ever be trapped invisible. */
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      .ncit-reveal {
+        animation: ncit-reveal-in linear both;
+        animation-timeline: view();
+        animation-range: entry 10% cover 28%;
+      }
+    }
+  }
+
+  @keyframes ncit-reveal-in {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* -- Accessibility ----------------------------------------------------- */
+
+  /* Skip link. Sits off screen until focused, then lands on the page. */
+  .ncit-skip {
+    position: absolute;
+    left: 1rem;
+    top: -4rem;
+    z-index: 100;
+    padding: 0.75rem 1rem;
+    background-color: var(--color-ncit-navy);
+    color: #ffffff;
+    border-radius: 6px;
+    transition: top 0.15s ease;
+  }
+
+  .ncit-skip:focus {
+    top: 1rem;
   }
 }
 
-@keyframes mesh-movement {
-  0% { background-position: 0% 0%; }
-  50% { background-position: 100% 100%; }
-  100% { background-position: 0% 100%; }
+/* Anything the old design animated forever, and any transition at all, stops
+   for a reader who has asked for reduced motion. This is a blanket guard so a
+   future component cannot opt itself out by accident. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

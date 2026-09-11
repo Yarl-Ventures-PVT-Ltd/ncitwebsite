@@ -39,10 +39,10 @@ export default function VisionMission() {
             className="flex flex-col h-full"
           >
             <div className="mb-6 inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20">
-              <Target className="w-8 h-8 text-ncit-purple" />
+              <Target className="w-8 h-8 text-ncit-blue" />
             </div>
             <h2 className="text-3xl font-bold mb-4 tracking-tight">Our Mission</h2>
-            <div className="w-12 h-1 bg-ncit-purple rounded-full mb-6"></div>
+            <div className="w-12 h-1 bg-ncit-blue rounded-full mb-6"></div>
             <p className="text-xl md:text-2xl font-light leading-relaxed text-white/90">
               NCIT unifies and represents the Northern technology ecosystem, strengthens industry standards and talent, connects members to markets and investment, advocates for enabling policy, and builds partnerships that accelerate sustainable technology-led growth.
             </p>

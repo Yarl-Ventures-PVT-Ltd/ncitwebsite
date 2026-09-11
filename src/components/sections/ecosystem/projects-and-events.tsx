@@ -1,98 +1,85 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { Calendar, LayoutDashboard } from "lucide-react";
 import Link from "next/link";
 
-const initiatives = [
-  {
-    type: "Event",
-    icon: <Calendar className="w-4 h-4" />,
-    title: "Northern Tech Summit 2026",
-    district: "Jaffna",
-    date: "October 15, 2026",
-    color: "bg-ncit-blue text-white",
-  },
-  {
-    type: "Project",
-    icon: <LayoutDashboard className="w-4 h-4" />,
-    title: "AgriTech Incubation Drive",
-    district: "Kilinochchi",
-    date: "Active (Q3 2026)",
-    color: "bg-purple-600 text-white",
-  },
-  {
-    type: "Event",
-    icon: <Calendar className="w-4 h-4" />,
-    title: "Vavuniya IT Job Fair",
-    district: "Vavuniya",
-    date: "November 05, 2026",
-    color: "bg-emerald-600 text-white",
-  }
-];
+import { Section, SectionHeading } from "@/components/ui/section";
+import { Chip } from "@/components/ui/chip";
+import { MoreLink } from "@/components/ui/action";
+import { PROJECTS, STATUS_TONE } from "@/lib/projects";
+import { resolvedEvents } from "@/lib/events";
+import { formatDate, isoDate } from "@/lib/content";
 
+/**
+ * Regional initiatives.
+ *
+ * The three items here were invented, and two of them were events dated in the
+ * coming weeks: a "Northern Tech Summit 2026" in Jaffna on 15 October, an
+ * "AgriTech Incubation Drive" in Kilinochchi, and a "Vavuniya IT Job Fair" on
+ * 5 November. The chamber is running none of them. They also carried a purple
+ * and an emerald badge, a second and third accent on a one accent site.
+ *
+ * Both columns now come from the same sources the projects page and the events
+ * page use, so nothing here can say something those pages do not.
+ */
 export default function ProjectsAndEvents() {
-  return (
-    <section className="py-24 bg-white relative">
-      <div className="container mx-auto px-4 md:px-6">
-        
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-12">
-          <motion.div 
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="max-w-2xl"
-          >
-            <h2 className="text-3xl font-bold text-ncit-ink tracking-tight mb-4">Regional Initiatives</h2>
-            <div className="w-12 h-1 bg-ncit-blue rounded-full mb-6"></div>
-            <p className="text-lg text-ncit-ink/70 font-light">
-              Explore ongoing projects and upcoming events driving the digital economy across the Northern districts.
-            </p>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-          >
-            <Link 
-              href="/what-we-do/projects" 
-              className="px-6 py-3 rounded-full border border-gray-200 text-ncit-ink font-medium hover:bg-ncit-cloud transition-colors"
-            >
-              View All Initiatives
-            </Link>
-          </motion.div>
-        </div>
+    const projects = PROJECTS.filter((project) => project.status !== "Completed").slice(0, 3);
+    const events = resolvedEvents().slice(0, 3);
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {initiatives.map((item, index) => (
-            <motion.div
-              key={item.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1, duration: 0.5 }}
-              className="bg-ncit-cloud rounded-3xl p-8 border border-gray-100 hover:shadow-lg hover:border-ncit-blue/20 transition-all duration-300"
-            >
-              <div className="flex items-center gap-2 mb-6">
-                <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold ${item.color}`}>
-                  {item.icon}
-                  {item.type}
-                </span>
-                <span className="text-xs font-bold text-ncit-ink/60 uppercase tracking-wider">
-                  &bull; {item.district}
-                </span>
-              </div>
-              
-              <h3 className="text-xl font-bold text-ncit-ink mb-4">{item.title}</h3>
-              
-              <p className="text-sm font-medium text-ncit-blue bg-ncit-blue/10 inline-block px-3 py-1 rounded-full">
-                {item.date}
-              </p>
-            </motion.div>
-          ))}
-        </div>
+    return (
+        <Section tone="paper" labelledBy="ecosystem-initiatives">
+            <SectionHeading
+                id="ecosystem-initiatives"
+                title="Regional initiatives"
+                lede="Programmes the chamber is running now, and the events it has held across the Northern districts."
+            />
 
-      </div>
-    </section>
-  );
+            <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
+                <div>
+                    <div className="mb-5 flex items-baseline justify-between gap-4">
+                        <h3 className="text-sm font-semibold text-ncit-ink">Current programmes</h3>
+                        <MoreLink href="/what-we-do/projects">All projects</MoreLink>
+                    </div>
+
+                    <ul className="border-t border-ncit-line">
+                        {projects.map((project) => (
+                            <li key={project.slug} className="border-b border-ncit-line py-5">
+                                <div className="mb-2">
+                                    <Chip tone={STATUS_TONE[project.status]}>{project.status}</Chip>
+                                </div>
+                                <h4 className="text-[0.95rem] font-medium text-ncit-ink">{project.title}</h4>
+                                <p className="mt-1 text-sm leading-relaxed text-ncit-ink-2">{project.description}</p>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+
+                <div>
+                    <div className="mb-5 flex items-baseline justify-between gap-4">
+                        <h3 className="text-sm font-semibold text-ncit-ink">Recent events</h3>
+                        <MoreLink href="/events">All events</MoreLink>
+                    </div>
+
+                    <ul className="border-t border-ncit-line">
+                        {events.map((event) => (
+                            <li key={event.slug} className="group relative border-b border-ncit-line py-5">
+                                <time
+                                    className="ncit-date text-ncit-ink-3"
+                                    dateTime={event.heldOn ?? isoDate(event.recordedOn)}
+                                >
+                                    {event.heldOnLabel ?? formatDate(event.recordedOn)}
+                                </time>
+                                <h4 className="mt-2 text-[0.95rem] font-medium text-ncit-ink">
+                                    <Link
+                                        href={`/insights/${event.slug}`}
+                                        className="after:absolute after:inset-0 after:content-[''] group-hover:text-ncit-blue"
+                                    >
+                                        {event.name}
+                                    </Link>
+                                </h4>
+                                <p className="mt-1 text-sm text-ncit-ink-3">{event.location}</p>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            </div>
+        </Section>
+    );
 }

@@ -1,18 +1,37 @@
 import type { Metadata } from "next";
-import { DM_Sans, Space_Grotesk } from "next/font/google";
+import { Geist, Geist_Mono, Noto_Sans_Tamil } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
 import { SITE, organizationSchema, websiteSchema, jsonLd } from "@/lib/seo";
 
-const dmSans = DM_Sans({
-  variable: "--font-sans",
+// One family carries the whole site. Geist is a neutral technical grotesque,
+// which suits a technology chamber without tipping into startup styling, and
+// using it for both display and body removes the mixed-family emphasis that
+// the previous design leaned on.
+const geist = Geist({
+  variable: "--font-geist",
   subsets: ["latin"],
+  display: "swap",
 });
 
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-heading",
+// Mono is reserved for metadata: publication dates, categories, counts and
+// reference numbers. It keeps figures aligned down a list of notices.
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap",
+});
+
+// Twelve of the published articles carry Tamil, so the stack has to render it
+// properly rather than falling back to whatever the device happens to have.
+// preload is off because no Tamil glyph appears above the fold on any page,
+// and preloading it would compete with the largest contentful paint.
+const notoTamil = Noto_Sans_Tamil({
+  variable: "--font-tamil",
+  subsets: ["tamil", "latin"],
+  display: "swap",
+  preload: false,
 });
 
 export const metadata: Metadata = {
@@ -66,8 +85,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${dmSans.variable} ${spaceGrotesk.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col font-sans mesh-bg text-ncit-ink selection:bg-ncit-blue/20">
+    <html
+      lang="en"
+      className={`${geist.variable} ${geistMono.variable} ${notoTamil.variable} h-full antialiased`}
+    >
+      <body className="min-h-full flex flex-col bg-ncit-paper font-sans text-ncit-ink selection:bg-ncit-blue/15">
         {/* Structured data describing the entity and the site as a whole, so
             it is correct on every page. The organisation and website nodes are
             referenced by @id from the article and gallery pages, which keeps
@@ -75,8 +97,13 @@ export default function RootLayout({
             the page whose visible content they describe, not here. */}
         <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(organizationSchema())} />
         <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(websiteSchema())} />
+        {/* First tab stop on every page, so a keyboard reader is not forced
+            through the whole navigation before reaching the content. */}
+        <a href="#main" className="ncit-skip">
+          Skip to main content
+        </a>
         <Header />
-        <main className="flex-1 relative z-10">
+        <main id="main" className="flex-1">
           {children}
         </main>
         <Footer />

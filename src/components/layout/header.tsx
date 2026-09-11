@@ -1,184 +1,227 @@
 "use client";
 
-import { useState } from 'react';
-import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import { Menu, X, ChevronDown } from 'lucide-react';
-import NcitLogo from '@/components/ui/ncit-logo';
+import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { ChevronDown, Menu, X } from "lucide-react";
 
-const navItems = [
-  { label: 'Home', href: '/' },
-  { 
-    label: 'About', 
-    href: '/about',
-    subItems: [
-      { label: 'Our History', href: '/about/history' },
-      { label: 'Board of Directors', href: '/about/board' },
-      { label: 'Governance & Documents', href: '/about/governance' },
-      { label: 'Bylaws', href: '/about/governance/bylaws' }
-    ]
-  },
-  { 
-    label: 'What We Do', 
-    href: '/what-we-do',
-    subItems: [
-      { label: 'Services', href: '/what-we-do/services' },
-      { label: 'Projects & Initiatives', href: '/what-we-do/projects' },
-      { label: 'Business Incubation', href: '/what-we-do/business-incubation-center' },
-      { label: 'Market Access', href: '/what-we-do/market-access' },
-      { label: 'Advocacy & Policy', href: '/what-we-do/advocacy' }
-    ]
-  },
-  { 
-    label: 'Membership', 
-    href: '/membership',
-    subItems: [
-      { label: 'Membership Overview', href: '/membership' },
-      { label: 'Member Benefits', href: '/membership/benefits' },
-      { label: 'Apply Now', href: '/membership/apply' },
-      { label: 'Member Directory', href: '/members' }
-    ]
-  },
-  { 
-    label: 'Ecosystem', 
-    href: '/ecosystem',
-    subItems: [
-      { label: 'The Tech Ecosystem', href: '/ecosystem' },
-      { label: 'Resources & Downloads', href: '/ecosystem/resources' },
-      { label: 'Photo Gallery', href: '/gallery' }
-    ]
-  },
-  { label: 'Invest', href: '/invest' },
-  { label: 'Insights', href: '/insights' }
-];
+import NcitLogo from "@/components/ui/ncit-logo";
+import { ActionLink } from "@/components/ui/action";
+import { NAV_GROUPS, NAV_SIMPLE } from "@/components/layout/nav-items";
+import { cn } from "@/lib/utils";
 
+/**
+ * Site header.
+ *
+ * The previous version opened its submenus on mouse hover only. A keyboard
+ * user could tab to the top level link but had no way to reach anything
+ * underneath it, which put five of the site's six sections out of reach
+ * without a mouse. Every submenu here is a real button with aria-expanded,
+ * opens on click or on hover, closes on Escape, and returns focus to its
+ * trigger when it does.
+ *
+ * The bar is 72px, inside the 80px ceiling, and the desktop navigation is one
+ * line at every width it is shown at. Below xl it collapses, because six
+ * group labels plus the logo and the join button do not fit on one line at
+ * 1024px without shrinking the text past comfortable reading.
+ */
 export default function Header() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+    const pathname = usePathname();
+    const [mobileOpen, setMobileOpen] = useState(false);
+    const [openGroup, setOpenGroup] = useState<string | null>(null);
+    const navRef = useRef<HTMLElement>(null);
 
-  return (
-    <header className="sticky top-0 z-50 w-full glass-header bg-white/80 backdrop-blur-xl border-b border-white/20">
-      <div className="container mx-auto flex h-20 items-center justify-between px-4 md:px-6">
-        <div className="flex items-center gap-2">
-          <Link href="/" className="flex items-center group">
-            <NcitLogo
-              priority
-              className="h-10 md:h-12 w-auto group-hover:scale-[1.02] transition-transform duration-300"
-            />
-          </Link>
-        </div>
+    // Any navigation closes whatever was open. Without this the submenu stayed
+    // open over the new page after a click. Adjusted during render rather than
+    // in an effect, so the new page never paints with the old menu still open.
+    const [lastPathname, setLastPathname] = useState(pathname);
+    if (pathname !== lastPathname) {
+        setLastPathname(pathname);
+        setMobileOpen(false);
+        setOpenGroup(null);
+    }
 
-        {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
-          {navItems.map((item) => (
-            <div 
-              key={item.label} 
-              className="relative group h-20 flex items-center"
-              onMouseEnter={() => setOpenDropdown(item.label)}
-              onMouseLeave={() => setOpenDropdown(null)}
-            >
-              <Link 
-                href={item.href} 
-                className="flex items-center gap-1 text-sm font-medium text-ncit-ink/80 hover:text-ncit-blue transition-colors relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-ncit-blue after:transition-all hover:after:w-full pb-1"
-              >
-                {item.label}
-                {item.subItems && (
-                  <ChevronDown className="w-4 h-4 opacity-50 group-hover:rotate-180 transition-transform duration-200" />
-                )}
-              </Link>
-              
-              {/* Dropdown Menu */}
-              {item.subItems && openDropdown === item.label && (
-                <div className="absolute top-[calc(100%-10px)] left-0 min-w-[240px] bg-white border border-gray-100 shadow-xl shadow-ncit-ink/5 rounded-2xl py-3 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
-                  {item.subItems.map((subItem) => (
-                    <Link
-                      key={subItem.label}
-                      href={subItem.href}
-                      onClick={() => setOpenDropdown(null)}
-                      className="block px-5 py-2.5 text-sm text-ncit-ink/80 hover:text-ncit-blue hover:bg-ncit-blue/5 transition-colors"
-                    >
-                      {subItem.label}
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
-          ))}
-        </nav>
+    // Escape closes the open submenu and hands focus back to its trigger.
+    useEffect(() => {
+        if (!openGroup && !mobileOpen) return;
 
-        {/* Utility Actions & Mobile Toggle */}
-        <div className="flex items-center gap-2 sm:gap-4">
-          <Link href="/portal" className="hidden sm:inline-flex">
-            <Button className="bg-ncit-ink hover:bg-ncit-blue text-white rounded-full px-6 shadow-md hover:shadow-lg transition-all">
-              Member Portal
-            </Button>
-          </Link>
-          
-          {/* Mobile Menu Toggle */}
-          <button 
-            className="lg:hidden text-ncit-ink p-2 min-w-11 min-h-11 flex items-center justify-center"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
-        </div>
-      </div>
+        const onKeyDown = (event: KeyboardEvent) => {
+            if (event.key !== "Escape") return;
 
-      {/* Mobile Menu Overlay */}
-      {mobileMenuOpen && (
-        <div className="lg:hidden absolute top-20 left-0 w-full h-[calc(100vh-5rem)] bg-white/95 backdrop-blur-xl border-t border-ncit-ink/10 overflow-y-auto">
-          <div className="flex flex-col p-6 gap-6">
-            <nav className="flex flex-col gap-2">
-              {navItems.map((item) => (
-                <div key={item.label} className="border-b border-ncit-ink/5 pb-2 mb-2">
-                  <div className="flex justify-between items-center py-2">
-                    <Link 
-                      href={item.href} 
-                      onClick={() => !item.subItems && setMobileMenuOpen(false)}
-                      className="flex-1 py-2.5 text-lg font-bold text-ncit-ink hover:text-ncit-blue transition-colors"
-                    >
-                      {item.label}
-                    </Link>
-                    {item.subItems && (
-                      <button 
-                        aria-label={`Show ${item.label} links`}
-                        aria-expanded={openDropdown === item.label}
-                        className="p-2 min-w-11 min-h-11 flex items-center justify-center"
-                        onClick={() => setOpenDropdown(openDropdown === item.label ? null : item.label)}
-                      >
-                        <ChevronDown className={`w-5 h-5 text-ncit-ink/50 transition-transform ${openDropdown === item.label ? 'rotate-180' : ''}`} />
-                      </button>
-                    )}
-                  </div>
-                  
-                  {item.subItems && openDropdown === item.label && (
-                    <div className="flex flex-col pl-4 mt-1 mb-2">
-                      {item.subItems.map((subItem) => (
+            if (openGroup) {
+                const trigger = navRef.current?.querySelector<HTMLButtonElement>(
+                    `[data-group-trigger="${openGroup}"]`,
+                );
+                setOpenGroup(null);
+                trigger?.focus();
+                return;
+            }
+
+            setMobileOpen(false);
+        };
+
+        document.addEventListener("keydown", onKeyDown);
+        return () => document.removeEventListener("keydown", onKeyDown);
+    }, [openGroup, mobileOpen]);
+
+    // A click outside the navigation closes the submenu.
+    useEffect(() => {
+        if (!openGroup) return;
+
+        const onPointerDown = (event: PointerEvent) => {
+            if (navRef.current?.contains(event.target as Node)) return;
+            setOpenGroup(null);
+        };
+
+        document.addEventListener("pointerdown", onPointerDown);
+        return () => document.removeEventListener("pointerdown", onPointerDown);
+    }, [openGroup]);
+
+    const isCurrent = (href: string) => pathname === href || (href !== "/" && pathname.startsWith(`${href}/`));
+
+    return (
+        <header className="sticky top-0 z-50 w-full glass-header">
+            <div className="ncit-container flex h-[72px] items-center justify-between gap-6">
+                <Link href="/" className="flex shrink-0 items-center" aria-label="NCIT home">
+                    <NcitLogo priority className="h-9 w-auto md:h-10" />
+                </Link>
+
+                <nav ref={navRef} aria-label="Main" className="hidden xl:flex xl:items-center xl:gap-1">
+                    {NAV_GROUPS.map((group) => {
+                        const open = openGroup === group.label;
+
+                        return (
+                            <div
+                                key={group.label}
+                                className="relative"
+                                onMouseEnter={() => setOpenGroup(group.label)}
+                                onMouseLeave={() => setOpenGroup(null)}
+                            >
+                                <button
+                                    type="button"
+                                    data-group-trigger={group.label}
+                                    aria-expanded={open}
+                                    aria-haspopup="true"
+                                    onClick={() => setOpenGroup(open ? null : group.label)}
+                                    className={cn(
+                                        "inline-flex h-[72px] items-center gap-1 px-3 text-sm font-medium transition-colors",
+                                        isCurrent(group.href) ? "text-ncit-blue" : "text-ncit-ink hover:text-ncit-blue",
+                                    )}
+                                >
+                                    {group.label}
+                                    <ChevronDown
+                                        className={cn("h-3.5 w-3.5 transition-transform", open && "rotate-180")}
+                                        aria-hidden="true"
+                                    />
+                                </button>
+
+                                {open ? (
+                                    <div className="absolute top-full left-0 w-[320px] rounded-lg border border-ncit-line bg-ncit-paper p-2 shadow-[0_12px_32px_rgb(16_24_40_/_0.10)]">
+                                        <ul>
+                                            {group.items.map((item) => (
+                                                <li key={item.href}>
+                                                    <Link
+                                                        href={item.href}
+                                                        className="block rounded-md px-3 py-2.5 transition-colors hover:bg-ncit-surface"
+                                                        aria-current={pathname === item.href ? "page" : undefined}
+                                                    >
+                                                        <span className="block text-sm font-medium text-ncit-ink">
+                                                            {item.label}
+                                                        </span>
+                                                        {item.description ? (
+                                                            <span className="mt-0.5 block text-xs leading-relaxed text-ncit-ink-3">
+                                                                {item.description}
+                                                            </span>
+                                                        ) : null}
+                                                    </Link>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                ) : null}
+                            </div>
+                        );
+                    })}
+
+                    {NAV_SIMPLE.map((item) => (
                         <Link
-                          key={subItem.label}
-                          href={subItem.href}
-                          onClick={() => setMobileMenuOpen(false)}
-                          className="flex items-center min-h-11 text-ncit-ink/70 hover:text-ncit-blue transition-colors text-base"
+                            key={item.href}
+                            href={item.href}
+                            aria-current={isCurrent(item.href) ? "page" : undefined}
+                            className={cn(
+                                "inline-flex h-[72px] items-center px-3 text-sm font-medium transition-colors",
+                                isCurrent(item.href) ? "text-ncit-blue" : "text-ncit-ink hover:text-ncit-blue",
+                            )}
                         >
-                          {subItem.label}
+                            {item.label}
                         </Link>
-                      ))}
-                    </div>
-                  )}
+                    ))}
+                </nav>
+
+                <div className="flex shrink-0 items-center gap-2">
+                    <ActionLink href="/membership/apply" variant="primary" className="hidden sm:inline-flex">
+                        Become a member
+                    </ActionLink>
+
+                    <button
+                        type="button"
+                        onClick={() => setMobileOpen((open) => !open)}
+                        aria-expanded={mobileOpen}
+                        aria-controls="mobile-nav"
+                        className="inline-flex h-11 w-11 items-center justify-center rounded-md border border-ncit-line text-ncit-ink xl:hidden"
+                    >
+                        {mobileOpen ? (
+                            <X className="h-5 w-5" aria-hidden="true" />
+                        ) : (
+                            <Menu className="h-5 w-5" aria-hidden="true" />
+                        )}
+                        <span className="sr-only">{mobileOpen ? "Close menu" : "Open menu"}</span>
+                    </button>
                 </div>
-              ))}
-            </nav>
-            
-            <div className="flex flex-col gap-4 mt-2 pt-2">
-              <Link href="/portal" onClick={() => setMobileMenuOpen(false)}>
-                <Button className="w-full bg-ncit-blue text-white rounded-xl h-12 text-lg shadow-md">
-                  Member Portal
-                </Button>
-              </Link>
             </div>
-          </div>
-        </div>
-      )}
-    </header>
-  );
+
+            {mobileOpen ? (
+                <div
+                    id="mobile-nav"
+                    className="max-h-[calc(100dvh-72px)] overflow-y-auto border-t border-ncit-line bg-ncit-paper xl:hidden"
+                >
+                    <nav aria-label="Main, mobile" className="ncit-container py-4">
+                        {NAV_GROUPS.map((group) => (
+                            <div key={group.label} className="border-b border-ncit-line py-3 last:border-b-0">
+                                <p className="ncit-meta mb-2 text-ncit-ink-3">{group.label}</p>
+                                <ul className="space-y-0.5">
+                                    {group.items.map((item) => (
+                                        <li key={item.href}>
+                                            <Link
+                                                href={item.href}
+                                                aria-current={pathname === item.href ? "page" : undefined}
+                                                className="block rounded-md py-2.5 text-[0.95rem] text-ncit-ink transition-colors hover:text-ncit-blue"
+                                            >
+                                                {item.label}
+                                            </Link>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        ))}
+
+                        <div className="mt-4 flex flex-col gap-3 border-t border-ncit-line pt-4">
+                            {NAV_SIMPLE.map((item) => (
+                                <Link
+                                    key={item.href}
+                                    href={item.href}
+                                    className="py-1 text-[0.95rem] font-medium text-ncit-ink"
+                                >
+                                    {item.label}
+                                </Link>
+                            ))}
+                            <ActionLink href="/membership/apply" variant="primary" className="sm:hidden">
+                                Become a member
+                            </ActionLink>
+                        </div>
+                    </nav>
+                </div>
+            ) : null}
+        </header>
+    );
 }

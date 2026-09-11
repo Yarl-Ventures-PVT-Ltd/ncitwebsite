@@ -1,86 +1,80 @@
-"use client";
+import { ActionLink } from "@/components/ui/action";
+import HeroSlideshow, { type HeroSlide } from "@/components/sections/hero-slideshow";
 
-import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { ArrowRight, Sparkles } from "lucide-react";
-
+/**
+ * Home page hero.
+ *
+ * This replaced a centred hero that sat over three blurred colour orbs, with a
+ * purple to pink gradient headline and four separately animated blocks. It was
+ * the default look, and it said nothing about the chamber.
+ *
+ * What it says now comes from NCIT's own words. "The unified voice of the
+ * Northern ICT industry" is the phrase the board used when announcing the
+ * 2026 to 2027 term, so the page opens in the organisation's register rather
+ * than in marketing language.
+ *
+ * The photographs rotate. All four come from the chamber's own archive at
+ * 1500px or wider, and between them they show what NCIT actually does: its
+ * stand at the national INFOTEL exhibition, a Startup Weekend, an international
+ * summit, and its pavilion of member companies at a trade exhibition. The
+ * first slide carries the largest contentful paint, so it is the only one
+ * marked priority and the rest load lazily.
+ *
+ * The slideshow itself is the only moving thing on the home page, and it can
+ * be paused. See hero-slideshow.tsx for how that obligation is met.
+ */
+const SLIDES: HeroSlide[] = [
+    {
+        src: "/wp-content/uploads/2017/11/ncit-infotel-2017-2017-01.jpg",
+        alt: "The Northern Chamber of Information Technology stand at the INFOTEL exhibition in 2017, with teams from member companies standing in front of the NCIT banner.",
+        caption: "INFOTEL exhibition, 2017",
+    },
+    {
+        src: "/wp-content/uploads/2017/11/ncit-startup-weekend-jaffna-2017-2017-01.jpg",
+        alt: "Participants and mentors gathered for a group photograph at Startup Weekend Jaffna in November 2017, beneath the NCIT and Techstars banners.",
+        caption: "Startup Weekend Jaffna, 2017",
+    },
+    {
+        src: "/wp-content/uploads/2020/02/ncit-first-ever-international-tech-summit-nextwork-2020-2020-09.jpg",
+        alt: "Industry delegates examining a demonstration on a tablet at NExTWORK, the international technology summit hosted by NCIT in Jaffna in February 2020.",
+        caption: "NExTWORK summit, Jaffna, 2020",
+    },
+    {
+        src: "/wp-content/uploads/2018/10/ncit-world-tourism-day-exhibition-2018-held-jaffna-2018-03.jpg",
+        alt: "The Northern Chamber of Information Technology pavilion at the 2018 World Tourism Day exhibition in Jaffna, with member company stands along the aisle.",
+        caption: "Chamber pavilion, Jaffna, 2018",
+    },
+];
 export default function HeroSection() {
-  return (
-    <section className="relative overflow-hidden pt-24 pb-32 md:pt-36 md:pb-40 lg:pt-48 lg:pb-48">
-      {/* Bright & Premium Background Elements */}
-      <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:24px_24px] opacity-40" />
-      
-      {/* Vibrant glowing orbs instead of muddy multiply blends */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-blue-100/70 rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute top-1/4 -right-20 w-[600px] h-[600px] bg-purple-100/60 rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute -bottom-32 -left-20 w-[700px] h-[700px] bg-cyan-100/50 rounded-full blur-[120px] pointer-events-none" />
+    return (
+        <section className="border-b border-ncit-line bg-ncit-paper">
+            <div className="ncit-container">
+                <div className="grid items-center gap-10 py-14 md:py-20 lg:grid-cols-12 lg:gap-14 lg:py-24">
+                    <div className="lg:col-span-7">
+                        <h1 className="ncit-display text-balance text-ncit-ink">
+                            The unified voice of the Northern ICT industry.
+                        </h1>
 
-      <div className="container relative z-10 mx-auto px-4 md:px-6 flex flex-col items-center text-center">
-        
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-          className="mb-8"
-        >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-white/60 text-sm font-medium text-ncit-blue shadow-sm">
-            <Sparkles className="h-4 w-4" />
-            <span className="tracking-wide">Northern Chamber of Information Technology</span>
-          </div>
-        </motion.div>
+                        <p className="ncit-lede mt-6 max-w-xl">
+                            NCIT represents technology companies, educators, startups and professionals across the five
+                            districts of Sri Lanka&rsquo;s Northern Province.
+                        </p>
 
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.1, ease: [0.21, 1.02, 0.73, 1] }}
-          className="max-w-5xl"
-        >
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tighter text-ncit-ink mb-8 leading-[1.1]">
-            Northern Sri Lanka’s Gateway to <span className="text-transparent bg-clip-text bg-gradient-to-r from-ncit-blue via-ncit-purple to-ncit-pink">Technology, Talent & Global Opportunity.</span>
-          </h1>
-        </motion.div>
+                        <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+                            <ActionLink href="/membership/apply" variant="primary" withArrow>
+                                Become a member
+                            </ActionLink>
+                            <ActionLink href="/about" variant="secondary">
+                                Explore NCIT
+                            </ActionLink>
+                        </div>
+                    </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
-          className="max-w-3xl mb-12"
-        >
-          <p className="text-lg md:text-xl text-ncit-ink/70 leading-relaxed font-light">
-            NCIT connects companies, professionals, educators, startups, freelancers, students, investors, government and development partners across Jaffna, Kilinochchi, Mannar, Mullaitivu and Vavuniya - building a stronger, globally connected digital economy.
-          </p>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.3, ease: "easeOut" }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12 w-full"
-        >
-          <Button size="lg" className="bg-ncit-ink text-white hover:bg-ncit-blue w-full sm:w-auto h-14 px-8 text-base font-medium rounded-full shadow-[0_8px_30px_rgb(37,99,235,0.2)] hover:shadow-[0_8px_30px_rgb(37,99,235,0.4)] hover:-translate-y-1 transition-all duration-300 group">
-            Explore the Northern Tech Ecosystem
-            <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-          </Button>
-          <Button size="lg" variant="outline" className="w-full sm:w-auto h-14 px-8 text-base font-medium rounded-full text-ncit-ink bg-white/60 border border-ncit-blue/20 hover:bg-white hover:border-ncit-blue/40 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
-            Join NCIT
-          </Button>
-        </motion.div>
-
-        {/* Trust Line */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.4, ease: "easeOut" }}
-          className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm font-medium text-ncit-ink/50 uppercase tracking-widest"
-        >
-          <span>Established 2016</span>
-          <span className="w-1.5 h-1.5 rounded-full bg-ncit-blue/50" />
-          <span>Northern Province, Sri Lanka</span>
-          <span className="w-1.5 h-1.5 rounded-full bg-ncit-blue/50" />
-          <span>From the North to the World</span>
-        </motion.div>
-
-      </div>
-    </section>
-  );
+                    <div className="lg:col-span-5">
+                        <HeroSlideshow slides={SLIDES} />
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
 }

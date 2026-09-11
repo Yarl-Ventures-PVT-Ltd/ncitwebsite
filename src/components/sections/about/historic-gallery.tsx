@@ -1,88 +1,127 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { ArrowRight, Download, Image as ImageIcon } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
+import { Download } from "lucide-react";
 
-const publications = [
-  { year: "2019", title: "NCIT Annual Tech Report", type: "PDF" },
-  { year: "2018", title: "Startup Incubation Guidelines", type: "PDF" },
-  { year: "2017", title: "Inaugural Chamber Newsletter", type: "PDF" },
+import { MoreLink } from "@/components/ui/action";
+import { DOCUMENT_GROUPS } from "@/lib/resources";
+
+/**
+ * Publications and photographs from the chamber's early years.
+ *
+ * What was here before was invented. The publications list named three PDFs
+ * that exist nowhere in the archive, an "NCIT Annual Tech Report" for 2019,
+ * "Startup Incubation Guidelines" for 2018 and an "Inaugural Chamber
+ * Newsletter" for 2017, each dressed as a download with a file type and a
+ * download icon, and none of them carried a link. The gallery beside it
+ * rendered four empty grey boxes from [1, 2, 3, 4] under a heading promising
+ * moments from the founding years.
+ *
+ * Both now draw on what the chamber actually holds: the publications and
+ * speeches carried over from the previous site, and photographs from the
+ * February 2016 inauguration and the first Startup Weekend.
+ */
+const FOUNDING_PHOTOGRAPHS = [
+    {
+        src: "/wp-content/uploads/2016/02/ncit-inauguration-meeting-held-22-feb-2016-2016-01.jpg",
+        alt: "The NCIT inauguration meeting held on 22 February 2016 in Jaffna",
+    },
+    {
+        src: "/wp-content/uploads/2016/02/ncit-inauguration-meeting-held-22-feb-2016-2016-02.jpg",
+        alt: "Attendees at the NCIT inauguration meeting, February 2016",
+    },
+    {
+        src: "/wp-content/uploads/2016/02/ncit-inauguration-meeting-held-22-feb-2016-2016-03.jpg",
+        alt: "Members of the newly formed chamber at the February 2016 inauguration",
+    },
+    {
+        src: "/wp-content/uploads/2016/06/ncit-startup-weekend-jaffna-2016-01.png",
+        alt: "Participants at the first Startup Weekend Jaffna, June 2016",
+    },
 ];
 
 export default function HistoricGallery() {
-  return (
-    <section className="py-24 bg-white relative">
-      <div className="container mx-auto px-4 md:px-6">
-        <div className="max-w-6xl mx-auto">
-          
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-            
-            {/* Historic Publications */}
-            <div>
-              <div className="mb-8">
-                <h2 className="text-3xl font-bold text-ncit-ink mb-4">Historic Publications</h2>
-                <p className="text-ncit-ink/70">
-                  A collection of past newsletters, guidelines, and reports published by the Chamber.
-                </p>
-              </div>
+    // Publications and recorded speeches are the two groups that belong on a
+    // history page. Forms and proposal templates do not.
+    const archiveDocuments = DOCUMENT_GROUPS.filter((group) =>
+        ["publications", "speeches"].includes(group.slug),
+    ).flatMap((group) => group.items);
 
-              <div className="space-y-4">
-                {publications.map((pub, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: index * 0.1 }}
-                    className="flex items-center justify-between p-5 rounded-2xl border border-gray-200 hover:border-ncit-blue hover:shadow-sm transition-all group cursor-pointer"
-                  >
+    return (
+        <section aria-labelledby="history-archive" className="border-t border-ncit-line bg-ncit-paper py-16 md:py-24">
+            <div className="ncit-container">
+                <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
                     <div>
-                      <span className="text-xs font-bold text-ncit-blue mb-1 block">{pub.year}</span>
-                      <h4 className="font-semibold text-ncit-ink group-hover:text-ncit-blue transition-colors">{pub.title}</h4>
+                        <h2 id="history-archive" className="ncit-h2">
+                            Publications and speeches
+                        </h2>
+                        <p className="ncit-lede mt-4">
+                            Newsletters, brochures and conference keynotes kept from the chamber&rsquo;s archive.
+                        </p>
+
+                        <ul className="mt-8 border-t border-ncit-line">
+                            {archiveDocuments.map((item) => (
+                                <li key={item.href}>
+                                    <a
+                                        href={item.href}
+                                        className="group flex items-center gap-4 border-b border-ncit-line py-4 transition-colors hover:bg-ncit-surface"
+                                    >
+                                        <Download
+                                            className="h-4 w-4 shrink-0 text-ncit-ink-3 group-hover:text-ncit-blue"
+                                            aria-hidden="true"
+                                        />
+                                        <span className="min-w-0 flex-1 text-sm font-medium text-ncit-ink group-hover:text-ncit-blue">
+                                            {item.name}
+                                            <span className="sr-only">
+                                                , {item.kind}
+                                                {item.size ? `, ${item.size}` : ""}
+                                            </span>
+                                        </span>
+                                        <span className="ncit-meta shrink-0 text-ncit-ink-3" aria-hidden="true">
+                                            {item.note}
+                                        </span>
+                                    </a>
+                                </li>
+                            ))}
+                        </ul>
+
+                        <div className="mt-6">
+                            <MoreLink href="/resources">All documents</MoreLink>
+                        </div>
                     </div>
-                    <div className="flex items-center gap-2 text-ncit-ink/50 group-hover:text-ncit-blue transition-colors">
-                      <span className="text-xs font-medium uppercase tracking-wider">{pub.type}</span>
-                      <Download className="w-4 h-4" />
+
+                    <div>
+                        <h2 className="ncit-h2">From the founding years</h2>
+                        <p className="ncit-lede mt-4">
+                            The inauguration in February 2016, and the first Startup Weekend held in Jaffna that June.
+                        </p>
+
+                        <ul className="mt-8 grid grid-cols-2 gap-4">
+                            {FOUNDING_PHOTOGRAPHS.map((photo) => (
+                                <li key={photo.src}>
+                                    <Link
+                                        href="/gallery"
+                                        className="group block overflow-hidden rounded-lg border border-ncit-line"
+                                    >
+                                        <span className="relative block aspect-[4/3] bg-ncit-surface-2">
+                                            <Image
+                                                src={photo.src}
+                                                alt={photo.alt}
+                                                fill
+                                                sizes="(max-width: 1024px) 45vw, 260px"
+                                                className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                                            />
+                                        </span>
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+
+                        <div className="mt-6">
+                            <MoreLink href="/gallery">Full photo gallery</MoreLink>
+                        </div>
                     </div>
-                  </motion.div>
-                ))}
-              </div>
+                </div>
             </div>
-
-            {/* Historic Gallery Placeholder */}
-            <div>
-              <div className="mb-8">
-                <h2 className="text-3xl font-bold text-ncit-ink mb-4">Archive Gallery</h2>
-                <p className="text-ncit-ink/70">
-                  Moments from our founding years, early hackathons, and first general meetings.
-                </p>
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                {[1, 2, 3, 4].map((item) => (
-                  <div key={item} className="aspect-square bg-gray-100 rounded-2xl flex items-center justify-center border border-gray-200 overflow-hidden relative group">
-                    <ImageIcon className="w-8 h-8 text-gray-300" />
-                    <div className="absolute inset-0 bg-ncit-blue/90 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                      <p className="text-white font-medium text-sm">View Image</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-          </div>
-
-          {/* Archive Disclaimer */}
-          <div className="mt-24 p-8 bg-gray-50 rounded-2xl border border-gray-200 text-center">
-            <h4 className="font-bold text-ncit-ink mb-2">Archive Disclaimer</h4>
-            <p className="text-sm text-ncit-ink/60 max-w-2xl mx-auto">
-              The information in this historical archive reflects the Chamber's activities and publications at the time of their creation. Documents, policies, and roles listed here may no longer be current. For current information, please navigate to our active sections.
-            </p>
-          </div>
-
-        </div>
-      </div>
-    </section>
-  );
+        </section>
+    );
 }

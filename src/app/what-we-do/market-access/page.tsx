@@ -1,7 +1,7 @@
 import { Metadata } from "next";
-import MarketAccessHero from "@/components/sections/what-we-do/market-access-hero";
 import MarketPillars from "@/components/sections/what-we-do/market-pillars";
 import SuccessStory from "@/components/sections/what-we-do/success-story";
+import PageHeader from "@/components/layout/page-header";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/what-we-do/market-access" },
@@ -12,7 +12,11 @@ export const metadata: Metadata = {
 export default function MarketAccessPage() {
   return (
     <>
-      <MarketAccessHero />
+      <PageHeader
+        title="Market Access"
+        lede="Trusted pathways for member companies and professionals to reach partners, customers, expertise and procurement opportunities."
+        crumbs={[{ name: "What we do", path: "/what-we-do" }, { name: "Market access", path: "/what-we-do/market-access" }]}
+      />
       <MarketPillars />
       <SuccessStory />
     </>

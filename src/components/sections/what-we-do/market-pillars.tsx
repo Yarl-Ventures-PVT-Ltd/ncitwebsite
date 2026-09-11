@@ -77,7 +77,7 @@ export default function MarketPillars() {
               <h3 className="text-2xl font-bold text-ncit-ink mb-1">Latest Opportunities</h3>
               <p className="text-sm text-ncit-ink/60">Procurement and partnership alerts for NCIT members.</p>
             </div>
-            <Link href="/portal" className="text-sm font-semibold text-ncit-blue hover:underline whitespace-nowrap">
+            <Link href="/portal" className="inline-block min-h-[24px] py-1 text-sm font-semibold whitespace-nowrap text-ncit-blue hover:underline">
               View All in Portal →
             </Link>
           </div>

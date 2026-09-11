@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import AboutHero from "@/components/sections/about/about-hero";
 import OriginAndCoverage from "@/components/sections/about/origin-and-coverage";
 import VisionMission from "@/components/sections/about/vision-mission";
 import ObjectivesAndSectors from "@/components/sections/about/objectives-and-sectors";
@@ -9,6 +8,7 @@ import HistoryTimeline from "@/components/sections/about/history-timeline";
 import OrganisationFaq from "@/components/sections/about/organisation-faq";
 import AboutCTA from "@/components/sections/about/about-cta";
 import { ORGANISATION_FAQ, faqSchema, jsonLd } from "@/lib/seo";
+import PageHeader from "@/components/layout/page-header";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/about" },
@@ -19,7 +19,11 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <>
-      <AboutHero />
+      <PageHeader
+        title="One Chamber for Northern Sri Lanka’s Technology Ecosystem."
+        lede="Established on 22 February 2016, NCIT brings the Northern Province’s technology associations, businesses, institutions and professionals under one platform. It serves Jaffna, Kilinochchi, Mannar, Mullaitivu and Vavuniya."
+        crumbs={[{ name: "About", path: "/about" }]}
+      />
       <OriginAndCoverage />
       <VisionMission />
       <ObjectivesAndSectors />

@@ -1,60 +1,73 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { Building2 } from "lucide-react";
 import Link from "next/link";
-import { LINKED_MEMBERS } from "@/lib/members";
+import { ArrowUpRight } from "lucide-react";
 
+import { Section, SectionHeading } from "@/components/ui/section";
+import { MoreLink } from "@/components/ui/action";
+import { LINKED_MEMBERS, MEMBER_COUNT } from "@/lib/members";
+
+/**
+ * Member companies.
+ *
+ * This replaced an infinitely scrolling marquee that duplicated the whole
+ * member array to fake a seamless loop. It moved forever, could not be read at
+ * its own pace, printed every company name twice into the page, and sat under
+ * a heading calling members "organisations that trust NCIT", which is not what
+ * a member is.
+ *
+ * It is now a plain index. Only members with a public website appear, because
+ * that link is the one claim on the list a reader can go and check for
+ * themselves. The full directory, including members without a site, is one
+ * click away.
+ */
 export default function FeaturedMembers() {
-  // Sourced from the real directory. The hand-written list this replaced had
-  // drifted: it advertised a company that is not a member, under a heading that
-  // calls every name on it a member, and it carried sector labels the chamber
-  // has no record of. Only members with a public website appear, because that
-  // link is the one claim the strip makes that a reader can check.
-  const members = LINKED_MEMBERS;
+    const members = LINKED_MEMBERS;
 
-  return (
-    <section className="relative z-10 py-16 overflow-hidden">
-      <div className="container mx-auto px-4 md:px-6 mb-8 text-center">
-        <h2 className="text-xl font-bold font-heading text-ncit-ink tracking-tight">
-          Trusted by Northern Sri Lanka&apos;s Leading Tech Organizations
-        </h2>
-      </div>
-      
-      {/* Auto-scrolling marquee wrapper */}
-      <div className="flex overflow-hidden relative w-full">
-        <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-[#F4F7FF] to-transparent z-10" />
-        <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-[#F4F7FF] to-transparent z-10" />
-        
-        <motion.div 
-          className="flex gap-6 px-3"
-          animate={{ x: ["0%", "-50%"] }}
-          transition={{ repeat: Infinity, duration: members.length * 5, ease: "linear" }}
-        >
-          {[...members, ...members].map((member, i) => (
-            <div 
-              key={i} 
-              className="glass border border-white/60 rounded-2xl p-6 min-w-[280px] flex items-center gap-4 shadow-sm hover:shadow-md transition-shadow cursor-default"
-            >
-              <div className="w-12 h-12 rounded-xl bg-ncit-blue/10 flex items-center justify-center text-ncit-blue flex-shrink-0">
-                <Building2 className="w-5 h-5" />
-              </div>
-              <div>
-                <p className="font-bold text-ncit-ink text-sm">{member.name}</p>
-                {member.info && (
-                  <p className="text-xs text-ncit-ink/60 font-medium">{member.info}</p>
-                )}
-              </div>
-            </div>
-          ))}
-        </motion.div>
-      </div>
+    return (
+        <Section tone="surface" labelledBy="home-members">
+            <SectionHeading
+                id="home-members"
+                title="Member companies"
+                lede={`${MEMBER_COUNT} organisations are listed in the NCIT directory. Those with a public website are shown here.`}
+                action={<MoreLink href="/members">Full directory</MoreLink>}
+            />
 
-      <div className="mt-10 text-center">
-        <Link href="/members" className="text-sm font-semibold text-ncit-blue hover:text-ncit-purple transition-colors">
-          View full member directory &rarr;
-        </Link>
-      </div>
-    </section>
-  );
+            <ul className="grid gap-px overflow-hidden rounded-lg border border-ncit-line bg-ncit-line sm:grid-cols-2 lg:grid-cols-3">
+                {members.map((member) => (
+                    <li key={member.name} className="bg-ncit-paper">
+                        <a
+                            href={member.link ?? undefined}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="group flex h-full items-start justify-between gap-3 p-5 transition-colors hover:bg-ncit-surface"
+                        >
+                            <span className="min-w-0">
+                                <span className="block text-sm font-medium text-ncit-ink group-hover:text-ncit-blue">
+                                    {member.name}
+                                </span>
+                                {member.info ? (
+                                    <span className="ncit-meta mt-1.5 block text-ncit-ink-3">{member.info}</span>
+                                ) : null}
+                            </span>
+                            <ArrowUpRight
+                                className="mt-0.5 h-4 w-4 shrink-0 text-ncit-ink-3 transition-colors group-hover:text-ncit-blue"
+                                aria-hidden="true"
+                            />
+                            <span className="sr-only">opens in a new tab</span>
+                        </a>
+                    </li>
+                ))}
+            </ul>
+
+            <p className="mt-6 text-sm text-ncit-ink-3">
+                Listing follows the membership categories set out in the{" "}
+                <Link
+                    href="/about/governance/bylaws"
+                    className="text-ncit-blue underline underline-offset-4 hover:no-underline"
+                >
+                    chamber bylaws
+                </Link>
+                .
+            </p>
+        </Section>
+    );
 }

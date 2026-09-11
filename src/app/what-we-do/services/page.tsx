@@ -73,7 +73,6 @@ export default function ServicesPage() {
     <div className="bg-ncit-cloud min-h-screen pb-20">
       {/* Hero Section */}
       <section className="bg-[#040D17] text-white pt-32 pb-20 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-ncit-blue/20 rounded-full blur-[120px] pointer-events-none -translate-y-1/2 translate-x-1/3" />
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 font-heading">
@@ -111,7 +110,7 @@ export default function ServicesPage() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <Link href={service.link}>
+                  <Link href={service.link} className="block">
                     <Button variant="outline" className="w-full mt-4 group-hover:bg-ncit-ink group-hover:text-white transition-colors">
                       {service.linkLabel}
                     </Button>
@@ -123,7 +122,6 @@ export default function ServicesPage() {
 
           {/* Contact Banner */}
           <div className="mt-20 bg-white border border-gray-100 rounded-3xl p-8 md:p-12 text-center shadow-xl shadow-ncit-ink/5 max-w-4xl mx-auto relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-ncit-blue/5 rounded-full blur-3xl pointer-events-none -translate-y-1/2 translate-x-1/3" />
             <div className="relative z-10">
               <h2 className="text-3xl font-bold text-ncit-ink mb-4 font-heading">Need a custom service?</h2>
               <p className="text-ncit-ink/70 mb-8 max-w-xl mx-auto">

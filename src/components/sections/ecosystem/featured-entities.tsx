@@ -27,8 +27,6 @@ const featured = MEMBER_CATEGORIES.find((c) => c.key === "full")!
 export default function FeaturedEntities() {
   return (
     <section className="py-24 bg-ncit-ink text-white relative overflow-hidden">
-      <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-ncit-blue/10 rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-ncit-purple/10 rounded-full blur-[100px] pointer-events-none" />
 
       <div className="container relative z-10 mx-auto px-4 md:px-6">
 
@@ -39,7 +37,7 @@ export default function FeaturedEntities() {
             viewport={{ once: true }}
             className="max-w-2xl"
           >
-            <div className="inline-flex items-center gap-2 text-ncit-blue mb-4">
+            <div className="mb-4 inline-flex items-center gap-2 text-white/80">
               <Star className="w-4 h-4 fill-current" />
               <span className="text-sm font-bold tracking-widest uppercase">Spotlight</span>
             </div>
@@ -52,7 +50,7 @@ export default function FeaturedEntities() {
 
           <Link
             href="/members"
-            className="text-sm font-semibold text-ncit-blue hover:text-white transition-colors whitespace-nowrap"
+            className="inline-block min-h-[24px] py-1 text-sm font-semibold whitespace-nowrap text-white/85 transition-colors hover:text-white"
           >
             View the full directory &rarr;
           </Link>

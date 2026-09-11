@@ -44,8 +44,6 @@ const stakeholders = [
 export default function StakeholderEcosystem() {
   return (
     <section className="py-24 bg-ncit-ink text-white relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-ncit-blue/10 rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-ncit-purple/10 rounded-full blur-[100px] pointer-events-none" />
 
       <div className="container relative z-10 mx-auto px-4 md:px-6">
         

@@ -1,105 +1,172 @@
-import Link from 'next/link';
-import { Phone } from 'lucide-react';
-import NcitLogo from '@/components/ui/ncit-logo';
+import Link from "next/link";
+import NcitLogo from "@/components/ui/ncit-logo";
+import { FacebookIcon, LinkedInIcon } from "@/components/ui/social-icons";
+import { Users } from "lucide-react";
+import { NAV_GROUPS } from "@/components/layout/nav-items";
+import { SITE } from "@/lib/seo";
 
+/**
+ * Site footer.
+ *
+ * The link columns are generated from the same navigation definition the
+ * header uses, so a page added to the header cannot go missing down here. The
+ * previous footer had its own hand written list and was already one URL out of
+ * date.
+ *
+ * Contrast on navy: white 17.7:1, white at 70 percent 12.0:1, both well clear
+ * of AA. The address and the registered name are repeated here because this is
+ * where people look for them, and because a chamber that does not state its
+ * own address reads as unserious to exactly the audience it needs.
+ *
+ * The three social accounts are the ones NCIT actually runs. They come from
+ * SITE.social in lib/seo.ts, which is also the sameAs array in the
+ * organisation structured data, so the links a person follows and the profiles
+ * search engines are told about are the same list and cannot drift apart.
+ */
+const SOCIAL_LINKS = [
+    { href: "https://www.facebook.com/NCITLK/", label: "NCIT on Facebook", icon: FacebookIcon },
+    { href: "https://www.linkedin.com/company/ncitsl/", label: "NCIT on LinkedIn", icon: LinkedInIcon },
+    { href: "https://www.facebook.com/groups/190201704676007/", label: "NCIT members group on Facebook", icon: Users },
+];
 export default function Footer() {
-  return (
-    <footer className="bg-[#040D17] text-ncit-cloud pt-20 pb-10 relative overflow-hidden">
-      {/* Decorative Blur Orbs */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-ncit-blue/10 rounded-full blur-[100px] pointer-events-none -translate-y-1/2 translate-x-1/3" />
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-ncit-purple/10 rounded-full blur-[100px] pointer-events-none translate-y-1/2 -translate-x-1/4" />
+    const year = new Date().getFullYear();
 
-      <div className="container mx-auto px-4 md:px-6 relative z-10">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-8 lg:gap-12 mb-16">
-          {/* Brand & About */}
-          <div className="sm:col-span-2">
-            <Link href="/" className="inline-block mb-6">
-              <NcitLogo variant="white" className="h-10 md:h-12 w-auto hover:opacity-80 transition-opacity" />
-            </Link>
-            <p className="text-white font-heading font-semibold text-base mb-3">
-              Northern Chamber of Information Technology
-            </p>
-            <p className="text-white/60 text-sm leading-relaxed max-w-sm mb-8 font-light">
-              Northern Sri Lanka’s Gateway to Technology, Talent & Global Opportunity. Connecting the ecosystem across Jaffna, Kilinochchi, Mannar, Mullaitivu, and Vavuniya.
-            </p>
-            <div className="flex items-center gap-4 text-white/50">
-              <Link href="tel:+94770869328" className="hover:text-white hover:-translate-y-1 transition-all" aria-label="Phone">
-                <Phone className="h-5 w-5" />
-              </Link>
-              <Link href="https://wa.me/94770869328" target="_blank" className="hover:text-white hover:-translate-y-1 transition-all" aria-label="WhatsApp">
-                <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-              </Link>
-              <Link href="https://www.facebook.com/NCITLK/" target="_blank" className="hover:text-white hover:-translate-y-1 transition-all" aria-label="Facebook">
-                <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/></svg>
-              </Link>
-              <Link href="https://www.linkedin.com/company/ncitsl/" target="_blank" className="hover:text-white hover:-translate-y-1 transition-all" aria-label="LinkedIn">
-                <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-              </Link>
+    return (
+        <footer className="bg-ncit-navy text-white">
+            <div className="ncit-container py-14 md:py-16">
+                <div className="grid gap-12 lg:grid-cols-12 lg:gap-8">
+                    <div className="lg:col-span-4">
+                        <Link href="/" aria-label="NCIT home" className="inline-block">
+                            <NcitLogo variant="white" className="h-10 w-auto" />
+                        </Link>
+
+                        <p className="mt-5 max-w-xs text-sm leading-relaxed text-white/70">
+                            {SITE.legalName}. The industry chamber for information and communication technology in
+                            Northern Sri Lanka, established {SITE.founded}.
+                        </p>
+
+                        <address className="mt-6 text-sm leading-relaxed text-white/70 not-italic">
+                            {SITE.address.street}
+                            <br />
+                            {SITE.address.locality} {SITE.address.postalCode}
+                            <br />
+                            {SITE.address.region}, Sri Lanka
+                        </address>
+
+                        <dl className="mt-5 space-y-1.5 text-sm">
+                            <div className="flex gap-2">
+                                <dt className="sr-only">Email</dt>
+                                <dd>
+                                    <a
+                                        href={`mailto:${SITE.email}`}
+                                        className="inline-block py-1 text-white/70 underline-offset-4 transition-colors hover:text-white hover:underline"
+                                    >
+                                        {SITE.email}
+                                    </a>
+                                </dd>
+                            </div>
+                            <div className="flex gap-2">
+                                <dt className="sr-only">Telephone</dt>
+                                <dd>
+                                    <a
+                                        href={`tel:${SITE.telephone}`}
+                                        className="inline-block py-1 text-white/70 underline-offset-4 transition-colors hover:text-white hover:underline"
+                                    >
+                                        {SITE.telephone}
+                                    </a>
+                                </dd>
+                            </div>
+                        </dl>
+
+                        <nav aria-label="NCIT on social media" className="mt-6">
+                            <ul className="flex items-center gap-2">
+                                {SOCIAL_LINKS.map((social) => (
+                                    <li key={social.href}>
+                                        <a
+                                            href={social.href}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="inline-flex h-11 w-11 items-center justify-center rounded-md border border-white/20 text-white/70 transition-colors hover:border-white/50 hover:bg-white/10 hover:text-white"
+                                        >
+                                            <social.icon className="h-[18px] w-[18px]" aria-hidden="true" />
+                                            <span className="sr-only">{social.label}, opens in a new tab</span>
+                                        </a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <nav aria-label="Footer" className="lg:col-span-8">
+                        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-5">
+                            {NAV_GROUPS.map((group) => (
+                                <div key={group.label}>
+                                    <h2 className="ncit-meta text-white/70">{group.label}</h2>
+                                    <ul className="mt-3 space-y-2">
+                                        {group.items.map((item) => (
+                                            <li key={item.href}>
+                                                <Link
+                                                    href={item.href}
+                                                    className="inline-block py-1 text-sm text-white/75 underline-offset-4 transition-colors hover:text-white hover:underline"
+                                                >
+                                                    {item.label}
+                                                </Link>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            ))}
+                        </div>
+                    </nav>
+                </div>
+
+                <div className="mt-12 flex flex-col gap-4 border-t border-white/15 pt-6 sm:flex-row sm:items-center sm:justify-between">
+                    <div className="space-y-1">
+                        <p className="text-sm text-white/60">
+                            © {year} {SITE.legalName}. All rights reserved.
+                        </p>
+                        <p className="text-sm text-white/50">
+                            Developed by{" "}
+                            <a
+                                href="https://yarlventures.com/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="underline-offset-4 transition-colors hover:text-white hover:underline"
+                            >
+                                Yarl Ventures (PVT) Ltd
+                                <span className="sr-only"> (opens in a new tab)</span>
+                            </a>
+                        </p>
+                    </div>
+
+                    <ul className="flex flex-wrap gap-x-6 gap-y-2">
+                        <li>
+                            <Link
+                                href="/contact"
+                                className="inline-block py-1 text-sm text-white/60 underline-offset-4 transition-colors hover:text-white hover:underline"
+                            >
+                                Contact
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                href="/about/governance/bylaws"
+                                className="inline-block py-1 text-sm text-white/60 underline-offset-4 transition-colors hover:text-white hover:underline"
+                            >
+                                Bylaws
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                href="/portal"
+                                className="inline-block py-1 text-sm text-white/60 underline-offset-4 transition-colors hover:text-white hover:underline"
+                            >
+                                Member portal
+                            </Link>
+                        </li>
+                    </ul>
+                </div>
             </div>
-          </div>
-
-          {/* About Links */}
-          <div>
-            <h2 className="text-white font-medium mb-6 font-heading">About NCIT</h2>
-            <ul className="space-y-4 text-sm text-white/60">
-              <li><Link href="/about" className="hover:text-white transition-colors">About NCIT</Link></li>
-              <li><Link href="/about/history" className="hover:text-white transition-colors">Our History</Link></li>
-              <li><Link href="/about/board" className="hover:text-white transition-colors">Board of Directors</Link></li>
-              <li><Link href="/about/governance" className="hover:text-white transition-colors">Governance</Link></li>
-              <li><Link href="/about/governance/bylaws" className="hover:text-white transition-colors">NCIT Bylaws</Link></li>
-              <li><Link href="/contact" className="hover:text-white transition-colors">Contact Us</Link></li>
-            </ul>
-          </div>
-
-          {/* What We Do Links */}
-          <div>
-            <h2 className="text-white font-medium mb-6 font-heading">What We Do</h2>
-            <ul className="space-y-4 text-sm text-white/60">
-              <li><Link href="/what-we-do" className="hover:text-white transition-colors">What We Do</Link></li>
-              <li><Link href="/what-we-do/services" className="hover:text-white transition-colors">Services</Link></li>
-              <li><Link href="/what-we-do/projects" className="hover:text-white transition-colors">Projects & Initiatives</Link></li>
-              <li><Link href="/what-we-do/business-incubation-center" className="hover:text-white transition-colors">Business Incubation</Link></li>
-              <li><Link href="/what-we-do/market-access" className="hover:text-white transition-colors">Market Access</Link></li>
-              <li><Link href="/what-we-do/advocacy" className="hover:text-white transition-colors">Advocacy & Policy</Link></li>
-            </ul>
-          </div>
-
-          {/* Membership Links */}
-          <div>
-            <h2 className="text-white font-medium mb-6 font-heading">Membership</h2>
-            <ul className="space-y-4 text-sm text-white/60">
-              <li><Link href="/membership" className="hover:text-white transition-colors">Overview</Link></li>
-              <li><Link href="/membership/benefits" className="hover:text-white transition-colors">Benefits</Link></li>
-              <li><Link href="/membership/apply" className="hover:text-white transition-colors">Apply Now</Link></li>
-              <li><Link href="/members" className="hover:text-white transition-colors">Member Directory</Link></li>
-            </ul>
-          </div>
-
-          {/* Ecosystem Links */}
-          <div>
-            <h2 className="text-white font-medium mb-6 font-heading">Ecosystem</h2>
-            <ul className="space-y-4 text-sm text-white/60">
-              <li><Link href="/insights" className="hover:text-white transition-colors">Insights & News</Link></li>
-              <li><Link href="/invest" className="hover:text-white transition-colors">Invest in the North</Link></li>
-              <li><Link href="/ecosystem" className="hover:text-white transition-colors">The Ecosystem</Link></li>
-              <li><Link href="/ecosystem/resources" className="hover:text-white transition-colors">Resources</Link></li>
-              <li><Link href="/gallery" className="hover:text-white transition-colors">Photo Gallery</Link></li>
-            </ul>
-          </div>
-        </div>
-
-        {/* Copyright */}
-        <div className="border-t border-white/10 pt-8 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
-          <div className="flex flex-col items-start gap-2">
-            <div className="text-sm text-white/40 font-light">
-              &copy; {new Date().getFullYear()} Northern Chamber of Information Technology. All rights reserved.
-            </div>
-            <div className="text-xs text-white/30 font-light">
-              Developed by <a href="https://yarlventures.com/" target="_blank" rel="noopener noreferrer" className="text-white/50 hover:text-white underline decoration-white/20 underline-offset-4 transition-colors">Yarl Ventures</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </footer>
-  );
+        </footer>
+    );
 }

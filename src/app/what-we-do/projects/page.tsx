@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+import { Chip } from '@/components/ui/chip';
 import { Rocket, Users, Building2, Briefcase, Presentation, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 
@@ -60,7 +60,6 @@ export default function ProjectsPage() {
     <div className="bg-ncit-cloud min-h-screen pb-20">
       {/* Hero Section */}
       <section className="bg-[#040D17] text-white pt-32 pb-20 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-ncit-blue/20 rounded-full blur-[120px] pointer-events-none -translate-y-1/2 translate-x-1/3" />
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 font-heading">
@@ -84,17 +83,15 @@ export default function ProjectsPage() {
                     <div className="w-12 h-12 bg-ncit-blue/10 rounded-2xl flex items-center justify-center">
                       {project.icon}
                     </div>
-                    <Badge variant={
-                      project.status === 'Completed' ? 'default' : 
-                      project.status === 'Ongoing' ? 'secondary' : 
-                      project.status === 'In Progress' ? 'outline' : 'secondary'
-                    } className={
-                      project.status === 'Completed' ? 'bg-green-500 hover:bg-green-600' :
-                      project.status === 'Ongoing' ? 'bg-blue-100 text-blue-700 hover:bg-blue-200' :
-                      project.status === 'Planned' ? 'bg-gray-100 text-gray-700 hover:bg-gray-200' : ''
-                    }>
+                    {/* Status uses the site's one chip, not a per-status
+                        colour. The previous version set a green, a blue and a
+                        grey badge by hand, which broke the single accent rule
+                        and left the "Completed" badge rendering white text on
+                        a background class that never applied, so it read as
+                        white on white. */}
+                    <Chip tone={project.status === 'Completed' ? 'neutral' : 'accent'}>
                       {project.status}
-                    </Badge>
+                    </Chip>
                   </div>
                   <CardTitle className="text-xl font-bold text-ncit-ink leading-tight">
                     {project.title}

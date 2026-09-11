@@ -38,7 +38,7 @@ export default function ContactForm() {
             
             {/* Sidebar Routes */}
             <div className="lg:w-1/3 bg-ncit-cloud p-6 md:p-8 border-r border-gray-100">
-              <h3 className="text-lg font-bold text-ncit-ink mb-6">Select Inquiry Type</h3>
+              <h2 className="text-lg font-bold text-ncit-ink mb-6">Select Inquiry Type</h2>
               <div className="flex flex-col gap-2">
                 {routes.map((route) => (
                   <button
@@ -125,7 +125,7 @@ export default function ContactForm() {
                     </div>
 
                     <div className="flex items-start gap-3">
-                      <input type="checkbox" id="consent" required className="mt-1 w-4 h-4 text-ncit-blue rounded border-gray-300 focus:ring-ncit-blue" />
+                      <input type="checkbox" id="consent" required className="mt-0.5 h-6 w-6 rounded border-gray-300 text-ncit-blue focus:ring-ncit-blue" />
                       <label htmlFor="consent" className="text-xs text-ncit-ink/60 leading-relaxed">
                         By submitting this form, I consent to the Northern Chamber of Information Technology processing my data in accordance with the Privacy Policy to handle my inquiry. Protected by reCAPTCHA.
                       </label>

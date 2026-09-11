@@ -1,7 +1,8 @@
 "use client";
 
+import { FacebookIcon, LinkedInIcon, WhatsAppIcon } from "@/components/ui/social-icons";
 import { motion } from "framer-motion";
-import { Mail, MapPin, Phone, Clock, MessageCircle } from "lucide-react";
+import { Mail, MapPin, Phone, Clock } from "lucide-react";
 import Link from "next/link";
 
 export default function ContactDetails() {
@@ -29,7 +30,7 @@ export default function ContactDetails() {
                   <div>
                     <h3 className="font-bold text-ncit-ink mb-1">Email Us</h3>
                     <p className="text-sm text-ncit-ink/70 mb-1">General Inquiries: <a href="mailto:support@ncit.lk" className="text-ncit-blue hover:underline">support@ncit.lk</a></p>
-                    <p className="text-sm text-ncit-ink/70">Chairman's Office: <a href="mailto:chairman@ncit.lk" className="text-ncit-blue hover:underline">chairman@ncit.lk</a></p>
+                    <p className="text-sm text-ncit-ink/70">Chairman&rsquo;s Office: <a href="mailto:chairman@ncit.lk" className="text-ncit-blue hover:underline">chairman@ncit.lk</a></p>
                   </div>
                 </div>
 
@@ -69,14 +70,14 @@ export default function ContactDetails() {
                   <Link href="tel:+94770869328" className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-ncit-ink/60 hover:text-white hover:bg-ncit-blue shadow-sm transition-all" aria-label="Call Us">
                     <Phone className="w-4 h-4" />
                   </Link>
-                  <Link href="https://www.linkedin.com/company/ncitsl/" target="_blank" className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-ncit-ink/60 hover:text-white hover:bg-[#0A66C2] shadow-sm transition-all">
-                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                  <Link href="https://www.linkedin.com/company/ncitsl/" target="_blank" rel="noopener noreferrer" aria-label="NCIT on LinkedIn, opens in a new tab" className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-ncit-ink/60 hover:text-white hover:bg-[#0A66C2] shadow-sm transition-all">
+                    <LinkedInIcon className="w-4 h-4" />
                   </Link>
-                  <Link href="https://www.facebook.com/NCITLK/" target="_blank" className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-ncit-ink/60 hover:text-white hover:bg-[#1877F2] shadow-sm transition-all">
-                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/></svg>
+                  <Link href="https://www.facebook.com/NCITLK/" target="_blank" rel="noopener noreferrer" aria-label="NCIT on Facebook, opens in a new tab" className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-ncit-ink/60 hover:text-white hover:bg-[#1877F2] shadow-sm transition-all">
+                    <FacebookIcon className="w-4 h-4" />
                   </Link>
-                  <Link href="https://wa.me/94770869328" target="_blank" className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-ncit-ink/60 hover:text-white hover:bg-[#25D366] shadow-sm transition-all">
-                    <MessageCircle className="w-4 h-4" />
+                  <Link href="https://wa.me/94770869328" target="_blank" rel="noopener noreferrer" aria-label="Message NCIT on WhatsApp, opens in a new tab" className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-ncit-ink/60 hover:text-white hover:bg-[#25D366] shadow-sm transition-all">
+                    <WhatsAppIcon className="w-4 h-4" />
                   </Link>
                 </div>
               </div>
@@ -91,12 +92,14 @@ export default function ContactDetails() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="bg-white p-4 rounded-3xl shadow-sm border border-gray-100 h-[400px] lg:h-auto min-h-[400px] relative overflow-hidden"
           >
-            {/* Embedded Google Map (Placeholder for actual iframe) */}
+            {/* The office at Parameswara Junction. The coordinates here match the
+                geo node in lib/seo.ts, so the map and the structured data
+                cannot point at two different places. */}
             <iframe 
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15730.0195591931!2d79.99961501487625!3d9.69742513470659!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3afe541094052dd5%3A0x6b09315bc3cbdd25!2sParameswara%20Junction%2C%20Jaffna!5e0!3m2!1sen!2slk!4v1710000000000!5m2!1sen!2slk" 
               width="100%" 
               height="100%" 
-              style={{ border: 0, borderRadius: '1.25rem' }} 
+              style={{ border: 0, borderRadius: 8 }} 
               allowFullScreen={false} 
               loading="lazy" 
               referrerPolicy="no-referrer-when-downgrade"

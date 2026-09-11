@@ -48,8 +48,6 @@ export default function OriginAndCoverage() {
             <div className="absolute inset-0 bg-gradient-to-tr from-blue-50 to-purple-50 rounded-3xl transform rotate-3"></div>
             <div className="relative bg-white border border-gray-100 shadow-xl rounded-3xl p-8 md:p-12 overflow-hidden">
               {/* Abstract decorative nodes */}
-              <div className="absolute top-10 right-10 w-32 h-32 bg-ncit-blue/5 rounded-full blur-2xl"></div>
-              <div className="absolute bottom-10 left-10 w-40 h-40 bg-ncit-purple/5 rounded-full blur-2xl"></div>
               
               <h3 className="text-2xl font-bold text-ncit-ink mb-2">Five Districts.</h3>
               <h3 className="text-2xl font-bold text-ncit-blue mb-8">One Network.</h3>

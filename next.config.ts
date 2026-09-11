@@ -315,20 +315,14 @@ const legacyRedirects = [
     destination: "/members"
   },
   {
-    source: "/resources",
-    destination: "/ecosystem/resources"
-  },
-  {
-    source: "/useful-links",
-    destination: "/ecosystem/resources"
-  },
-  {
-    source: "/notice-board",
-    destination: "/insights"
-  },
-  {
     source: "/calendar",
-    destination: "/insights"
+    destination: "/events"
+  },
+  {
+    // Resources moved back to the top level URL the previous site used, so the
+    // interim path under /ecosystem does not become a second copy of the page.
+    source: "/ecosystem/resources",
+    destination: "/resources"
   },
   {
     source: "/business-incubation-center/img-20180406-wa0017",

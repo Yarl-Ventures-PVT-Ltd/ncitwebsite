@@ -1,9 +1,16 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import Image from "next/image";
+
 import { getArticleBySlug, getAllArticles } from "@/lib/mock-data/insights";
-import Link from "next/link";
-import { ArrowLeft, Calendar, Globe2, Clock, Share2 } from "lucide-react";
-import { SITE, absoluteUrl, articleSchema, breadcrumbSchema, jsonLd } from "@/lib/seo";
+import PageHeader from "@/components/layout/page-header";
+import { Section, SectionHeading } from "@/components/ui/section";
+import { Chip } from "@/components/ui/chip";
+import { ArticleCard } from "@/components/content/article-card";
+import { ShareButton } from "@/components/content/share-button";
+import { MoreLink } from "@/components/ui/action";
+import { formatDate, isoDate, relatedArticles } from "@/lib/content";
+import { SITE, absoluteUrl, articleSchema, jsonLd } from "@/lib/seo";
 
 // In this version of Next.js, params is a promise and has to be awaited.
 interface InsightArticlePageProps {
@@ -99,16 +106,17 @@ export default async function InsightArticlePage({ params }: InsightArticlePageP
     notFound();
   }
 
-  const breadcrumb = breadcrumbSchema([
-    { name: "Home", path: "/" },
-    { name: "Insights", path: "/insights" },
-    { name: article.title, path: `/insights/${article.slug}` },
-  ]);
+  // Related reading is the same category first, then the newest of anything
+  // else. Without the fallback an article in a thin category such as Press
+  // showed one related item, or none.
+  const related = relatedArticles(article, 3);
 
   return (
-    <article className="pb-24 bg-white">
-      {/* Structured data: a dated, attributed article plus its breadcrumb
-          trail, both linked to the organisation node in the root layout. */}
+    <>
+      {/* Structured data: a dated, attributed article, linked to the
+          organisation node in the root layout. The breadcrumb list is emitted
+          by PageHeader alongside the trail a reader can actually see, so the
+          two cannot disagree. */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={jsonLd(
@@ -125,83 +133,48 @@ export default async function InsightArticlePage({ params }: InsightArticlePageP
           })
         )}
       />
-      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(breadcrumb)} />
 
-      {/* Article Header */}
-      <header className="pt-32 pb-16 md:pt-40 md:pb-20 bg-ncit-ink text-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-cover bg-center opacity-20" style={{ backgroundImage: `url(${article.imageUrl})` }} />
-        <div className="absolute inset-0 bg-gradient-to-t from-ncit-ink via-ncit-ink/80 to-ncit-ink/40" />
-        
-        <div className="container relative z-10 mx-auto px-4 md:px-6">
-          <div className="max-w-4xl mx-auto">
-            <Link 
-              href="/insights"
-              className="inline-flex items-center text-white/70 hover:text-white mb-8 transition-colors text-sm font-medium"
-            >
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to Insights
-            </Link>
+      <PageHeader
+        title={article.title}
+        crumbs={[
+          { name: "News and Insights", path: "/insights" },
+          { name: article.seoTitle || article.title, path: `/insights/${article.slug}` },
+        ]}
+      />
 
-            <div className="flex flex-wrap items-center gap-4 mb-6">
-              <span className="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-ncit-blue text-white shadow-sm">
-                {article.category}
-              </span>
-              <span className="flex items-center gap-1.5 text-xs font-medium text-white/70 uppercase tracking-wider">
-                <Calendar className="w-3.5 h-3.5" />
-                {new Date(article.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
-              </span>
-              <span className="flex items-center gap-1.5 text-xs font-medium text-white/70 uppercase tracking-wider">
-                <Globe2 className="w-3.5 h-3.5" />
-                {article.language}
-              </span>
-              {article.updatedAt && (
-                <span className="flex items-center gap-1.5 text-xs font-medium text-amber-400 uppercase tracking-wider">
-                  <Clock className="w-3.5 h-3.5" />
-                  Updated: {new Date(article.updatedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
-                </span>
-              )}
-            </div>
+      <Section tone="paper">
+        <div className="mx-auto max-w-3xl">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-3 border-b border-ncit-line pb-6">
+            <Chip tone="accent">{article.category}</Chip>
 
-            <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 leading-[1.1]">
-              {article.title}
-            </h1>
+            <time className="ncit-date text-ncit-ink-3" dateTime={isoDate(article.date)}>
+              {formatDate(article.date)}
+            </time>
 
-            <p className="text-lg md:text-xl text-white/80 font-light leading-relaxed mb-8 max-w-3xl">
-              {article.excerpt}
-            </p>
+            {article.language !== "English" ? (
+              <span className="ncit-date text-ncit-ink-3">{article.language}</span>
+            ) : null}
 
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between pt-8 border-t border-white/10 gap-4">
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white font-bold text-lg border border-white/20">
-                  {article.author.charAt(0)}
-                </div>
-                <div>
-                  <div className="text-base font-bold text-white">{article.author}</div>
-                  <div className="text-sm text-white/60">{article.organization}</div>
-                </div>
-              </div>
-              
-              <button className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 transition-colors text-sm font-medium border border-white/10">
-                <Share2 className="w-4 h-4" />
-                Share Article
-              </button>
+            <div className="ml-auto">
+              <ShareButton title={article.title} />
             </div>
           </div>
-        </div>
-      </header>
 
-      {/* Article Content */}
-      <div className="container mx-auto px-4 md:px-6 pt-16">
-        <div className="max-w-3xl mx-auto">
-          {/* Main Image */}
-          <div className="w-full h-64 md:h-96 rounded-3xl overflow-hidden mb-12 -mt-24 relative z-20 shadow-2xl">
-            <div 
-              className="w-full h-full bg-cover bg-center"
-              style={{ backgroundImage: `url(${article.imageUrl})` }}
-            />
-          </div>
+          <p className="ncit-lede mt-8 text-lg">{article.excerpt}</p>
 
-          {/* Prose Content */}
+          <figure className="mt-8">
+            <div className="relative aspect-[16/9] overflow-hidden rounded-lg bg-ncit-surface-2">
+              <Image
+                src={article.imageUrl}
+                alt={article.imageAlt || article.title}
+                fill
+                priority
+                sizes="(max-width: 768px) 100vw, 768px"
+                className="object-cover"
+              />
+            </div>
+          </figure>
+
           {/* Twelve of these articles are written in Tamil or in both Tamil and
               English. Marking the language lets a screen reader pick the right
               voice; the document lang alone would claim English for all of
@@ -210,14 +183,42 @@ export default async function InsightArticlePage({ params }: InsightArticlePageP
               versions of one another, they are separate posts. */}
           <div
             lang={article.language === "Tamil" ? "ta" : "en"}
-            className="prose prose-lg prose-blue max-w-none break-words prose-headings:text-ncit-ink prose-p:text-gray-600 prose-a:text-ncit-blue prose-li:text-gray-600 prose-table:block prose-table:overflow-x-auto"
+            className="prose prose-lg mt-10 max-w-none break-words prose-headings:text-ncit-ink prose-headings:font-semibold prose-p:text-ncit-ink-2 prose-p:leading-relaxed prose-a:text-ncit-blue prose-a:underline-offset-4 prose-li:text-ncit-ink-2 prose-strong:text-ncit-ink prose-img:rounded-lg prose-table:block prose-table:overflow-x-auto"
             dangerouslySetInnerHTML={{
               __html:
                 article.language === "English" ? article.content : markTamilPassages(article.content),
             }}
           />
+
+          <footer className="mt-12 border-t border-ncit-line pt-6">
+            <p className="text-sm text-ncit-ink-3">
+              Published by {article.organization}
+              {article.updatedAt && isoDate(article.updatedAt) !== isoDate(article.date)
+                ? `. Updated ${formatDate(article.updatedAt)}.`
+                : "."}
+            </p>
+            <div className="mt-4">
+              <MoreLink href="/insights">Back to all updates</MoreLink>
+            </div>
+          </footer>
         </div>
-      </div>
-    </article>
+      </Section>
+
+      {related.length > 0 ? (
+        <Section tone="surface" labelledBy="related-updates">
+          <SectionHeading
+            id="related-updates"
+            title="Related updates"
+            action={<MoreLink href="/insights">All updates</MoreLink>}
+          />
+
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {related.map((item) => (
+              <ArticleCard key={item.slug} article={item} />
+            ))}
+          </div>
+        </Section>
+      ) : null}
+    </>
   );
 }

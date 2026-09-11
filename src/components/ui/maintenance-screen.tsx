@@ -18,8 +18,6 @@ export default function MaintenanceScreen({
     <div className="min-h-[80vh] flex items-center justify-center bg-ncit-cloud relative overflow-hidden px-4 py-20">
       
       {/* Decorative background elements */}
-      <div className="absolute top-0 right-1/4 w-96 h-96 bg-ncit-blue/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-ncit-purple/5 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-2xl w-full mx-auto text-center relative z-10">
         

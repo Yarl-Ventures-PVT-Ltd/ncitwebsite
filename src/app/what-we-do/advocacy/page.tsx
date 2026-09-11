@@ -1,7 +1,7 @@
 import { Metadata } from "next";
-import AdvocacyHero from "@/components/sections/what-we-do/advocacy-hero";
 import PolicyThemes from "@/components/sections/what-we-do/policy-themes";
 import PolicyProcess from "@/components/sections/what-we-do/policy-process";
+import PageHeader from "@/components/layout/page-header";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/what-we-do/advocacy" },
@@ -12,7 +12,11 @@ export const metadata: Metadata = {
 export default function AdvocacyPage() {
   return (
     <>
-      <AdvocacyHero />
+      <PageHeader
+        title="A Stronger Voice for Northern Technology"
+        lede="The chamber consolidates industry priorities from the Northern technology community and puts them to public, private and development stakeholders."
+        crumbs={[{ name: "What we do", path: "/what-we-do" }, { name: "Advocacy", path: "/what-we-do/advocacy" }]}
+      />
       <PolicyThemes />
       <PolicyProcess />
     </>

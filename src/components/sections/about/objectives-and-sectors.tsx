@@ -78,7 +78,7 @@ export default function ObjectivesAndSectors() {
               className="bg-white rounded-3xl p-8 shadow-xl border border-gray-100 h-full"
             >
               <h2 className="text-2xl font-bold text-ncit-ink tracking-tight mb-4">Represented Sectors</h2>
-              <div className="w-12 h-1 bg-ncit-purple rounded-full mb-8"></div>
+              <div className="w-12 h-1 bg-ncit-blue rounded-full mb-8"></div>
               
               <div className="space-y-8">
                 <div>

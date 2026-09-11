@@ -1,7 +1,7 @@
 import { Metadata } from "next";
-import ContactHero from "@/components/sections/contact/contact-hero";
 import ContactForm from "@/components/sections/contact/contact-form";
 import ContactDetails from "@/components/sections/contact/contact-details";
+import PageHeader from "@/components/layout/page-header";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/contact" },
@@ -12,7 +12,11 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <>
-      <ContactHero />
+      <PageHeader
+        title="Contact NCIT"
+        lede="To join, partner, invest, collaborate or request support, choose the route below and the enquiry will reach the right people."
+        crumbs={[{ name: "Contact", path: "/contact" }]}
+      />
       <ContactForm />
       <ContactDetails />
     </>

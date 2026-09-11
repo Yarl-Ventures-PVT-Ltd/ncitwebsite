@@ -4,10 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "node scripts/check-article-html.mjs && next build",
     "start": "next start",
     "lint": "eslint",
-    "check:links": "./scripts/check-links.sh"
+    "check:links": "./scripts/check-links.sh",
+    "check:content": "node scripts/check-article-html.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",
