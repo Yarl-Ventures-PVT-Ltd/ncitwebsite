@@ -1,4 +1,5 @@
 import { ORGANISATION_FAQ } from "@/lib/seo";
+import { linkifyPlainText } from "@/lib/linkify-contacts";
 
 /**
  * The core questions about NCIT, rendered as real page text.
@@ -31,7 +32,13 @@ export default function OrganisationFaq() {
                 <dt className="font-heading text-xl font-bold text-ncit-ink mb-3">
                   {item.question}
                 </dt>
-                <dd className="text-ncit-ink/75 leading-relaxed">{item.answer}</dd>
+                {/* The answers name the office email and telephone. They are
+                    our own constants, escaped before the contacts are linked,
+                    so a reader can dial or write without copying by hand. */}
+                <dd
+                  className="text-ncit-ink/75 leading-relaxed [&_a]:text-ncit-blue [&_a]:underline [&_a]:underline-offset-4 [&_a]:hover:no-underline"
+                  dangerouslySetInnerHTML={{ __html: linkifyPlainText(item.answer) }}
+                />
               </div>
             ))}
           </dl>

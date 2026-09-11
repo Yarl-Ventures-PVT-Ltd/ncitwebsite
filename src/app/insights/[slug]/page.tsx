@@ -10,6 +10,7 @@ import { ArticleCard } from "@/components/content/article-card";
 import { ShareButton } from "@/components/content/share-button";
 import { MoreLink } from "@/components/ui/action";
 import { formatDate, isoDate, relatedArticles } from "@/lib/content";
+import { linkifyContacts, linkifyPlainText } from "@/lib/linkify-contacts";
 import { SITE, SHARE_IMAGE, absoluteUrl, articleSchema, jsonLd } from "@/lib/seo";
 import { ARTICLES_WITHOUT_A_SOCIAL_IMAGE, ARTICLE_IMAGE_SIZE } from "@/lib/social-images";
 
@@ -181,7 +182,10 @@ export default async function InsightArticlePage({ params }: InsightArticlePageP
             </div>
           </div>
 
-          <p className="ncit-lede mt-8 text-lg">{article.excerpt}</p>
+          <p
+            className="ncit-lede mt-8 text-lg [&_a]:text-ncit-blue [&_a]:underline [&_a]:underline-offset-4 [&_a]:hover:no-underline"
+            dangerouslySetInnerHTML={{ __html: linkifyPlainText(article.excerpt) }}
+          />
 
           <figure className="mt-8">
             <div className="relative aspect-[16/9] overflow-hidden rounded-lg bg-ncit-surface-2">
@@ -206,8 +210,9 @@ export default async function InsightArticlePage({ params }: InsightArticlePageP
             lang={article.language === "Tamil" ? "ta" : "en"}
             className="prose prose-lg mt-10 max-w-none break-words prose-headings:text-ncit-ink prose-headings:font-semibold prose-p:text-ncit-ink-2 prose-p:leading-relaxed prose-a:text-ncit-blue prose-a:underline-offset-4 prose-li:text-ncit-ink-2 prose-strong:text-ncit-ink prose-img:rounded-lg prose-table:block prose-table:overflow-x-auto"
             dangerouslySetInnerHTML={{
-              __html:
+              __html: linkifyContacts(
                 article.language === "English" ? article.content : markTamilPassages(article.content),
+              ),
             }}
           />
 

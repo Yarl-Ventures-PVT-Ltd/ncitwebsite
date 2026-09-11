@@ -41,8 +41,7 @@ export default function ContactDetails() {
                   <div>
                     <h3 className="font-bold text-ncit-ink mb-1">Headquarters</h3>
                     <p className="text-sm text-ncit-ink/70 leading-relaxed">
-                      136/1 Palaly Road,<br />
-                      Parameswara Junction,<br />
+                      No.95, KKS Road,<br />
                       Jaffna, Northern Province,<br />
                       Sri Lanka
                     </p>
@@ -92,11 +91,13 @@ export default function ContactDetails() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="bg-white p-4 rounded-3xl shadow-sm border border-gray-100 h-[400px] lg:h-auto min-h-[400px] relative overflow-hidden"
           >
-            {/* The office at Parameswara Junction. The coordinates here match the
-                geo node in lib/seo.ts, so the map and the structured data
-                cannot point at two different places. */}
-            <iframe 
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15730.0195591931!2d79.99961501487625!3d9.69742513470659!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3afe541094052dd5%3A0x6b09315bc3cbdd25!2sParameswara%20Junction%2C%20Jaffna!5e0!3m2!1sen!2slk!4v1710000000000!5m2!1sen!2slk" 
+            {/* The map searches for the same address string the block above
+                prints and the PostalAddress in lib/seo.ts carries, so the three
+                cannot drift apart. A pinned coordinate is deliberately not used
+                here: none is confirmed for this building. */}
+            <iframe
+              title="Map showing the NCIT office at No.95, KKS Road, Jaffna"
+              src="https://www.google.com/maps?q=No.95,+KKS+Road,+Jaffna,+Sri+Lanka&output=embed" 
               width="100%" 
               height="100%" 
               style={{ border: 0, borderRadius: 8 }} 

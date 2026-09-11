@@ -7,7 +7,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata: Metadata = pageMetadata({
   title: "Contact NCIT",
   socialTitle: "Contact NCIT",
-  description: "Reach the chamber secretariat at 136/1 Palaly Road, Parameswara Junction, Jaffna, for membership, partnership or media enquiries.",
+  description: "Reach the chamber secretariat at No.95, KKS Road, Jaffna, for membership, partnership or media enquiries.",
   path: "/contact",
 });
 

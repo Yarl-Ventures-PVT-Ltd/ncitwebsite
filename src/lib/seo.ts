@@ -8,9 +8,9 @@
  *    JSON-LD they can quote without guessing.
  *
  * Every value below is confirmed by NCIT. The office address matches the
- * visible contact page and its map pin; the previous site published an older
- * K.K.S Road address which is superseded. Nothing here is invented: if a fact
- * is not known, it is left out rather than filled in with a placeholder.
+ * visible contact page and the map embed; a Palaly Road variant appeared on an
+ * earlier build of this site and is superseded. Nothing here is invented: if a
+ * fact is not known, it is left out rather than filled in with a placeholder.
  */
 
 export const SITE = {
@@ -22,7 +22,7 @@ export const SITE = {
   locale: "en_LK",
   founded: "2016",
   address: {
-    street: "136/1 Palaly Road, Parameswara Junction",
+    street: "No.95, KKS Road",
     locality: "Jaffna",
     region: "Northern Province",
     postalCode: "40000",
@@ -93,13 +93,9 @@ export function organizationSchema() {
       postalCode: SITE.address.postalCode,
       addressCountry: SITE.address.country,
     },
-    // Coordinates taken from the map embed on the contact page, so the pin a
-    // visitor sees and the one a search engine reads are the same point.
-    geo: {
-      "@type": "GeoCoordinates",
-      latitude: 9.697425,
-      longitude: 79.999615,
-    },
+    // No geo node. The map embed resolves the address by text, and no
+    // confirmed coordinate exists for this building. A pin on the wrong
+    // building sends a visitor to the wrong door, so none is published.
     // The contact page displays these hours; the markup only restates them.
     openingHoursSpecification: [
       {
@@ -306,12 +302,12 @@ export const ORGANISATION_FAQ = [
   {
     question: "What is NCIT?",
     answer:
-      "NCIT is the Northern Chamber of Information Technology, the industry chamber representing the information and communication technology sector in Northern Sri Lanka. It was founded in 2016 and is based at 136/1 Palaly Road, Parameswara Junction, Jaffna.",
+      "NCIT is the Northern Chamber of Information Technology, the industry chamber representing the information and communication technology sector in Northern Sri Lanka. It was founded in 2016 and is based at No.95, KKS Road, Jaffna.",
   },
   {
     question: "Where is NCIT located?",
     answer:
-      "NCIT is located at 136/1 Palaly Road, Parameswara Junction, Jaffna, in the Northern Province of Sri Lanka. It serves Jaffna, Kilinochchi, Mullaitivu, Mannar and Vavuniya.",
+      "NCIT is located at No.95, KKS Road, Jaffna, in the Northern Province of Sri Lanka. It serves Jaffna, Kilinochchi, Mullaitivu, Mannar and Vavuniya.",
   },
   {
     question: "Who can join NCIT?",
@@ -326,7 +322,7 @@ export const ORGANISATION_FAQ = [
   {
     question: "How do I contact NCIT?",
     answer:
-      "NCIT can be reached by email at support@ncit.lk, or by telephone on +94 77 086 9328. The chamber office is at 136/1 Palaly Road, Parameswara Junction, Jaffna, Sri Lanka.",
+      "NCIT can be reached by email at support@ncit.lk, or by telephone on +94 77 086 9328. The chamber office is at No.95, KKS Road, Jaffna, Sri Lanka.",
   },
 ];
 

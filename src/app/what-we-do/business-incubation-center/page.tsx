@@ -126,17 +126,22 @@ export default function IncubationCenterPage() {
                   <div className="mt-8">
                     <h3 className="text-sm font-bold text-white mb-2 uppercase tracking-wider">Location</h3>
                     <p className="text-sm text-white/70">
-                      121/1 Power House Road<br />
-                      Jaffna Town<br />
-                      (Behind Bus Stand)
+                      No.95, KKS Road<br />
+                      Jaffna<br />
+                      Sri Lanka
                     </p>
                   </div>
                   
                   <div className="mt-8">
                     <h3 className="text-sm font-bold text-white mb-2 uppercase tracking-wider">Contact</h3>
                     <p className="text-sm text-white/70">
-                      +94 21 222 9600<br />
-                      support@ncit.lk
+                      <a href="tel:+94770869328" className="underline underline-offset-4 hover:text-white">
+                        +94 77 086 9328
+                      </a>
+                      <br />
+                      <a href="mailto:support@ncit.lk" className="underline underline-offset-4 hover:text-white">
+                        support@ncit.lk
+                      </a>
                     </p>
                   </div>
                 </CardContent>
