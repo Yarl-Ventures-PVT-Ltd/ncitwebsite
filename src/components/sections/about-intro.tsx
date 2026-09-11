@@ -41,7 +41,7 @@ export default function AboutIntro() {
                 </div>
 
                 <div className="lg:col-span-7">
-                    <p className="text-lg leading-relaxed text-ncit-ink md:text-xl">
+                    <p className="ncit-justify text-lg leading-relaxed text-ncit-ink md:text-xl">
                         The Northern Chamber of Information Technology was established in 2016 to give the technology
                         sector of Sri Lanka&rsquo;s Northern Province one organised voice. It brings together software
                         companies, ICT educators, associations, startups and individual professionals so the region can

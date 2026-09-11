@@ -313,6 +313,22 @@
     }
   }
 
+  /* Long body copy set flush on both edges, on phones only. A 40 character
+     line justified without hyphenation opens rivers of white space between
+     words, so hyphens: auto comes with it and the root lang="en" gives the
+     browser the dictionary. Past 640px the column is wide enough that ragged
+     right reads better, and the setting reverts. */
+  @media (max-width: 639px) {
+    .ncit-justify {
+      text-align: justify;
+      hyphens: auto;
+      /* Without a floor the browser breaks short words too, and three
+         hyphenated lines stack up in a row. Eight characters minimum, with at
+         least four kept on each side of the break. */
+      hyphenate-limit-chars: 8 4 4;
+    }
+  }
+
   /* -- Rules ------------------------------------------------------------- */
   .ncit-rule {
     border-top: 1px solid var(--color-ncit-line);
