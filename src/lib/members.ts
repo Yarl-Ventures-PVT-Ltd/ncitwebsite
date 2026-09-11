@@ -7,6 +7,12 @@
  * page claimed "over 40+" members against a real list of 33. One source now
  * feeds both, and the count is derived rather than typed.
  *
+ * Link policy: a member's site is linked only while the domain resolves.
+ * Six entries were unlinked on 2026-09-11 after their domains returned
+ * NXDOMAIN from three separate resolvers. The companies remain listed,
+ * because membership is a fact and a lapsed domain is not a resignation.
+ * Restore the link if the member confirms a new address.
+ *
  * The category names are NCIT's own membership classes from the bylaws, not
  * sectors. Only the `info` line describes what a member actually does, and it is
  * only present where the chamber recorded it. Nothing here is inferred from a
@@ -33,17 +39,17 @@ export const MEMBER_CATEGORIES: MemberCategory[] = [
     key: "full",
     title: "Category I (Full Members)",
     members: [
-      { name: "Speed IT net", link: "http://en.speeditnet.com/" },
-      { name: "Innovay", link: "http://www.innovay.com/" },
+      { name: "Speed IT net", link: "https://en.speeditnet.com/" },
+      { name: "Innovay", link: "https://www.innovay.com/" },
       { name: "MCS IT Campus", info: "ICT Education", link: "http://www.mcsitcampus.com/" },
-      { name: "College of ICT", info: "ICT Education", link: "http://www.cictjaffna.com/" },
+      { name: "College of ICT", info: "ICT Education", link: "https://www.cictjaffna.com/" },
       { name: "Business Network System", link: null },
-      { name: "Iconic Coder", link: "http://iconiccoder.com/" },
-      { name: "Kale Systems", link: "http://www.kalesystems.com/" },
+      { name: "Iconic Coder", link: null },
+      { name: "Kale Systems", link: "https://www.kalesystems.com/" },
       { name: "ePixcell Solutions", link: "http://epixcell.com/" },
       { name: "Sun Microcreators(Pte) Ltd", link: "https://algoinn.com/" },
-      { name: "ezBooking", link: "http://www.ezbooking.io/" },
-      { name: "AppsLanka", link: "http://appslanka.lk/" },
+      { name: "ezBooking", link: "https://www.ezbooking.io/" },
+      { name: "AppsLanka", link: "https://appslanka.lk/" },
       { name: "Loncey Tech", link: "https://lonceytech.com/" },
       { name: "3axislabs", link: "https://3axislabs.com/" },
       { name: "Apptimus Tech", link: "https://apptimustech.com/" },
@@ -55,14 +61,14 @@ export const MEMBER_CATEGORIES: MemberCategory[] = [
     key: "second",
     title: "Category II",
     members: [
-      { name: "DMI Computer Education", info: "ICT Education", link: "http://itdmi.com/" },
+      { name: "DMI Computer Education", info: "ICT Education", link: null },
       { name: "Apex of Computer Technology", link: null },
       { name: "Winsoft Technology", link: "https://www.facebook.com/winsoftlk/" },
       { name: "UMK Web Design", link: "http://umkwebdesign.com/" },
-      { name: "Yazhi Innovations (private) Limited", link: "http://www.yazhii.net/" },
-      { name: "Future Clicks Pvt Ltd", link: "http://www.futureclicks.lk/" },
+      { name: "Yazhi Innovations (private) Limited", link: null },
+      { name: "Future Clicks Pvt Ltd", link: null },
       { name: "Evergreen Buzz", link: null },
-      { name: "AKAMATHI Group", link: "http://www.akamathi.com/" },
+      { name: "AKAMATHI Group", link: "https://www.akamathi.com/" },
       { name: "Infonits", link: "https://infonits.io/" },
     ],
   },
@@ -72,8 +78,8 @@ export const MEMBER_CATEGORIES: MemberCategory[] = [
     description: "All members of Associate members will be NCIT Ordinary Members",
     members: [
       { name: "MANFICT", info: "Mannar Federation of Information Communication Technology", link: "https://www.facebook.com/manfict/" },
-      { name: "VICTA", info: "Vavuniya Information & Communication Association", link: "http://www.victa.org/" },
-      { name: "Aaruthal", link: "http://www.aaruthal.lk/" },
+      { name: "VICTA", info: "Vavuniya Information & Communication Association", link: "https://www.victa.org/" },
+      { name: "Aaruthal", link: null },
     ],
   },
   {
@@ -88,9 +94,9 @@ export const MEMBER_CATEGORIES: MemberCategory[] = [
     key: "offshore",
     title: "Category V (Offshore)",
     members: [
-      { name: "Micro PC Systems", link: "http://www.micropcsystems.com/" },
-      { name: "Ceymplon", link: "http://www.ceymplon.lk/" },
-      { name: "IDM Nations Campus", link: "http://www.idmedu.lk/" },
+      { name: "Micro PC Systems", link: "https://www.micropcsystems.com/" },
+      { name: "Ceymplon", link: null },
+      { name: "IDM Nations Campus", link: "https://www.idmedu.lk/" },
     ],
   },
   {

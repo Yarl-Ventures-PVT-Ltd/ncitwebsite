@@ -10,7 +10,8 @@ import { ArticleCard } from "@/components/content/article-card";
 import { ShareButton } from "@/components/content/share-button";
 import { MoreLink } from "@/components/ui/action";
 import { formatDate, isoDate, relatedArticles } from "@/lib/content";
-import { SITE, absoluteUrl, articleSchema, jsonLd } from "@/lib/seo";
+import { SITE, SHARE_IMAGE, absoluteUrl, articleSchema, jsonLd } from "@/lib/seo";
+import { ARTICLES_WITHOUT_A_SOCIAL_IMAGE, ARTICLE_IMAGE_SIZE } from "@/lib/social-images";
 
 // In this version of Next.js, params is a promise and has to be awaited.
 interface InsightArticlePageProps {
@@ -39,7 +40,27 @@ export async function generateMetadata({ params }: InsightArticlePageProps): Pro
   }
 
   const canonical = `/insights/${article.slug}`;
-  const image = article.imageUrl?.startsWith("/") ? absoluteUrl(article.imageUrl) : article.imageUrl;
+
+  // The social card falls back to the branded image when the article's own
+  // picture is too small to render one. Seven of the migrated images are under
+  // 600x315 and two are under Facebook's 200px floor, which means no image at
+  // all rather than a small one. The originals were not kept at a larger size,
+  // so a fallback is the only fix. Sizes come from a generated map so the card
+  // can declare width and height without measuring the file at request time.
+  const ownImage = ARTICLES_WITHOUT_A_SOCIAL_IMAGE.has(article.slug) ? null : article.imageUrl;
+  const measured = ownImage ? ARTICLE_IMAGE_SIZE[article.slug] : undefined;
+  const social = {
+    url: absoluteUrl(ownImage ?? SHARE_IMAGE.url),
+    width: measured?.width ?? SHARE_IMAGE.width,
+    height: measured?.height ?? SHARE_IMAGE.height,
+    alt: ownImage ? (article.imageAlt ?? article.title) : SITE.legalName,
+  };
+
+  // The migrated WordPress headlines carry double spaces and stray
+  // punctuation. The SERP title already uses the cleaned seoTitle where one
+  // exists; the social card, which is the one a human actually reads, was
+  // still getting the raw string.
+  const cardTitle = (article.seoTitle || article.title).replace(/\s+/g, " ").trim();
 
   // The full headline stays as the page's H1; search results get the shorter
   // variant where one exists, because the migrated WordPress headlines run to
@@ -51,7 +72,7 @@ export async function generateMetadata({ params }: InsightArticlePageProps): Pro
     alternates: { canonical },
     openGraph: {
       type: "article",
-      title: article.title,
+      title: cardTitle,
       description: article.excerpt,
       url: absoluteUrl(canonical),
       siteName: SITE.legalName,
@@ -60,13 +81,13 @@ export async function generateMetadata({ params }: InsightArticlePageProps): Pro
       modifiedTime: article.updatedAt || article.date,
       authors: [SITE.legalName],
       section: article.category,
-      images: image ? [{ url: image, alt: article.imageAlt || article.title }] : undefined,
+      images: [social],
     },
     twitter: {
       card: "summary_large_image",
-      title: article.title,
+      title: cardTitle,
       description: article.excerpt,
-      images: image ? [image] : undefined,
+      images: [social.url],
     },
   };
 }

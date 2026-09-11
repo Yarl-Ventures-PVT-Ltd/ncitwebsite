@@ -37,6 +37,18 @@ export const SITE = {
   ],
 } as const;
 
+/**
+ * The default social card. 1200x630 is the size Facebook, LinkedIn and X all
+ * lay out correctly, and declaring width and height means a scraper can build
+ * the card without downloading the file first, which is why a first share so
+ * often renders with no image.
+ */
+export const SHARE_IMAGE = {
+  url: "/og/ncit-share.png",
+  width: 1200,
+  height: 630,
+} as const;
+
 /** Area served, stated explicitly so local and generative search can use it. */
 export const SERVICE_AREA = [
   "Jaffna",
@@ -181,6 +193,94 @@ export function breadcrumbSchema(trail: Array<{ name: string; path: string }>) {
       name: item.name,
       item: absoluteUrl(item.path),
     })),
+  };
+}
+
+/**
+ * Builds a complete metadata object for one page.
+ *
+ * This exists because of a real defect, not for tidiness. The root layout used
+ * to set openGraph.url, openGraph.title and openGraph.description. In the App
+ * Router a page that does not declare its own `openGraph` inherits the parent's
+ * whole object, so twenty five pages shipped `og:url` pointing at the home
+ * page and the home page's title and description. Canonicals were correct, so
+ * no crawler report showed it: only the social graph was wrong, and every
+ * LinkedIn, Facebook or WhatsApp share of an interior page collapsed into one
+ * home page object.
+ *
+ * It is the same trap as the root `alternates.canonical` that once made every
+ * page claim the home page. The lesson both times: a metadata default at the
+ * root is inherited literally, so the root must declare only what is true for
+ * every page, and anything page-specific must be set per page. Everything
+ * page-specific now comes through here, where it cannot be forgotten.
+ *
+ * Pass `path` exactly as the route is served, with a leading slash.
+ */
+export function pageMetadata({
+  title,
+  socialTitle,
+  description,
+  path,
+  image,
+  imageAlt,
+  type = "website",
+  keywords,
+  noIndex = false,
+}: {
+  /** The browser title. An object form opts out of the site-wide suffix. */
+  title: string | { absolute: string };
+  /**
+   * Title for the social card. A share preview has no room for the brand
+   * suffix a SERP title carries, and a page using the absolute form has no
+   * plain string to fall back on, so it is passed explicitly.
+   */
+  socialTitle?: string;
+  description: string;
+  path: string;
+  image?: string;
+  imageAlt?: string;
+  type?: "website" | "article";
+  keywords?: string[];
+  noIndex?: boolean;
+}) {
+  const url = absoluteUrl(path);
+
+  // Always an explicit image. Next's file-convention opengraph-image.png
+  // attaches on its own segment but stops doing so once a page declares its
+  // own openGraph object, which silently left twenty four pages with no
+  // og:image at all. Depending on that cascade is the same mistake as
+  // depending on inherited canonicals, so the URL is stated outright.
+  const social = absoluteUrl(image ?? SHARE_IMAGE.url);
+  const cardTitle = socialTitle ?? (typeof title === "string" ? title : title.absolute);
+
+  return {
+    title,
+    description,
+    ...(keywords ? { keywords } : {}),
+    alternates: { canonical: path },
+    ...(noIndex ? { robots: { index: false, follow: true } } : {}),
+    openGraph: {
+      type,
+      siteName: SITE.legalName,
+      locale: SITE.locale,
+      title: cardTitle,
+      description,
+      url,
+      images: [
+        {
+          url: social,
+          width: SHARE_IMAGE.width,
+          height: SHARE_IMAGE.height,
+          alt: imageAlt ?? cardTitle,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image" as const,
+      title: cardTitle,
+      description,
+      images: [social],
+    },
   };
 }
 

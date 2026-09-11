@@ -129,6 +129,10 @@ export const DOCUMENT_GROUPS: ResourceGroup[] = [
 ];
 
 /**
+ * Every link here is checked to serve HTTPS before it is published. A
+ * chamber pointing members at a government portal over plaintext is a small
+ * thing that reads badly, and ICTA redirects from http anyway.
+ *
  * Outward links, kept separate from the documents because they behave
  * differently: they leave the site, they are not dated, and they are the
  * places a member is most often trying to reach.
@@ -141,25 +145,25 @@ export const USEFUL_LINK_GROUPS: ResourceGroup[] = [
         items: [
             {
                 name: "ICT Agency of Sri Lanka (ICTA)",
-                href: "http://www.icta.lk/",
+                href: "https://www.icta.lk/",
                 kind: "LINK",
                 note: "National ICT agency",
             },
             {
                 name: "Sri Lanka Export Development Board",
-                href: "http://www.edb.gov.lk/",
+                href: "https://www.edb.gov.lk/",
                 kind: "LINK",
                 note: "Export development",
             },
             {
                 name: "Department for Registration of Companies",
-                href: "http://www.drc.gov.lk/",
+                href: "https://www.drc.gov.lk/",
                 kind: "LINK",
                 note: "Company registration",
             },
             {
                 name: "Ministry of Finance, Treasury",
-                href: "http://treasury.gov.lk/",
+                href: "https://treasury.gov.lk/",
                 kind: "LINK",
                 note: "Public finance",
             },

@@ -7,14 +7,14 @@ import { Chip } from "@/components/ui/chip";
 import { ActionLink } from "@/components/ui/action";
 import { resolvedEvents } from "@/lib/events";
 import { formatDate, isoDate } from "@/lib/content";
-import { absoluteUrl, jsonLd, SITE } from "@/lib/seo";
+import { absoluteUrl, jsonLd, SITE, pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-    alternates: { canonical: "/events" },
-    title: "Events",
-    description:
-        "Summits, Startup Weekends, workshops, seminars and forums run by the Northern Chamber of Information Technology in Jaffna and across the Northern Province since 2016.",
-};
+export const metadata: Metadata = pageMetadata({
+  title: "Events",
+  socialTitle: "Events",
+  description: "Summits, Startup Weekends, workshops and forums NCIT has run across the Northern Province since 2016, with the chamber's own account of each.",
+  path: "/events",
+});
 
 /**
  * Events.

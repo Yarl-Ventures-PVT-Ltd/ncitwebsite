@@ -3,12 +3,15 @@ import Link from 'next/link';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Building2, MonitorPlay, Wifi, Users, Presentation, Car } from 'lucide-react';
+import { pageMetadata } from "@/lib/seo";
+import Image from 'next/image';
 
-export const metadata: Metadata = {
-  alternates: { canonical: "/what-we-do/business-incubation-center" },
+export const metadata: Metadata = pageMetadata({
   title: "Business Incubation Center",
-  description: 'The NCIT Business Incubation Center in Jaffna, run with IE-NESL, gave startups workspace and mentorship. A record of the programme, closed since 2020.',
-};
+  socialTitle: "Business Incubation Center",
+  description: "The co-working and incubation space NCIT established for members in Jaffna with funding support from IE NESL.",
+  path: "/what-we-do/business-incubation-center",
+});
 
 const facilities = [
   { icon: <Presentation className="w-5 h-5" />, text: "Training Hall (40 seats) + Projector + Sound System" },
@@ -20,12 +23,12 @@ const facilities = [
 ];
 
 const gallery = [
-  "/wp-content/uploads/2018/06/IMG-20180406-WA0017-180x300.jpg",
-  "/wp-content/uploads/2018/06/IMG-20180427-WA0013-180x300.jpg",
-  "/wp-content/uploads/2018/06/IMG-20180531-WA0004-300x225.jpg",
-  "/wp-content/uploads/2018/06/IMG-20180531-WA0005-300x225.jpg",
-  "/wp-content/uploads/2018/06/IMG-20180531-WA0006-300x225.jpg",
-  "/wp-content/uploads/2018/06/IMG-20180531-WA0009-300x225.jpg",
+  { src: "/wp-content/uploads/2018/06/IMG-20180406-WA0017-180x300.jpg", alt: "Inside the NCIT Business Incubation Center in Jaffna, April 2018", w: 180, h: 300 },
+  { src: "/wp-content/uploads/2018/06/IMG-20180427-WA0013-180x300.jpg", alt: "Workspace at the NCIT Business Incubation Center, April 2018", w: 180, h: 300 },
+  { src: "/wp-content/uploads/2018/06/IMG-20180531-WA0004-300x225.jpg", alt: "Members working at the incubation centre, May 2018", w: 300, h: 225 },
+  { src: "/wp-content/uploads/2018/06/IMG-20180531-WA0005-300x225.jpg", alt: "Desks and equipment at the incubation centre, May 2018", w: 300, h: 225 },
+  { src: "/wp-content/uploads/2018/06/IMG-20180531-WA0006-300x225.jpg", alt: "A session under way at the incubation centre, May 2018", w: 300, h: 225 },
+  { src: "/wp-content/uploads/2018/06/IMG-20180531-WA0009-300x225.jpg", alt: "The incubation centre meeting area, May 2018", w: 300, h: 225 },
 ];
 
 export default function IncubationCenterPage() {
@@ -143,12 +146,14 @@ export default function IncubationCenterPage() {
                 <CardContent className="p-6">
                   <h3 className="text-lg font-bold mb-4 font-heading text-ncit-ink">Gallery</h3>
                   <div className="grid grid-cols-2 gap-3">
-                    {gallery.map((src, idx) => (
-                      <div key={idx} className="aspect-square rounded-xl overflow-hidden bg-gray-100 relative group">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img 
-                          src={src} 
-                          alt="Incubation Center" 
+                    {gallery.map((photo) => (
+                      <div key={photo.src} className="aspect-square rounded-xl overflow-hidden bg-gray-100 relative group">
+                        <Image
+                          src={photo.src}
+                          alt={photo.alt}
+                          width={photo.w}
+                          height={photo.h}
+                          sizes="(max-width: 768px) 45vw, 160px"
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                         />
                       </div>

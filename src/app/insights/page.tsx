@@ -1,16 +1,20 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
+import Link from "next/link";
 
 import PageHeader from "@/components/layout/page-header";
 import { Section } from "@/components/ui/section";
-import { ArticleBrowser } from "@/components/content/article-browser";
+import { ArticleFilters } from "@/components/content/article-filters";
+import { ArticleCard, FeatureArticleCard } from "@/components/content/article-card";
 import { ALL_ARTICLES, ACTIVE_CATEGORIES, ARTICLE_COUNT, archiveYears } from "@/lib/content";
-import { SITE, absoluteUrl } from "@/lib/seo";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
     title: "News and Insights",
+    socialTitle: "News and Insights",
     description:
         "News and announcements from NCIT: ICT industry developments, chamber events and member stories across Jaffna and the Northern Province of Sri Lanka.",
+    path: "/insights",
     keywords: [
         "NCIT news",
         "ICT news Jaffna",
@@ -18,32 +22,50 @@ export const metadata: Metadata = {
         "Sri Lanka ICT industry updates",
         "NCIT announcements",
     ],
-    alternates: { canonical: "/insights" },
-    openGraph: {
-        type: "website",
-        title: "News and Insights | NCIT",
-        description:
-            "News, announcements and reports from the Northern Chamber of Information Technology, Jaffna, Sri Lanka.",
-        url: absoluteUrl("/insights"),
-        siteName: SITE.legalName,
-        locale: SITE.locale,
-    },
-};
+});
 
 /**
  * The article archive.
  *
- * The page shell is a server component and only the filter island is
- * interactive, so the full list is in the HTML for a crawler and for anyone
- * whose JavaScript has not arrived yet.
+ * The list is rendered on the SERVER from the query string. That is the whole
+ * point of this file and it must stay that way.
  *
- * The non-functional newsletter form that used to close this page has been
- * removed. It called preventDefault and did nothing else, so a reader who
- * entered an address believed they had subscribed to something that did not
- * exist.
+ * It did not always. The filtering used to live in a client component that
+ * called useSearchParams, which forced the entire island to render on the
+ * client. The server then shipped the Suspense fallback, so /insights, the
+ * only complete index of the 59 articles, sent a crawler the string "Loading
+ * the archive" and not one article link. The list arriving at hydration also
+ * pushed the footer down, which was a cumulative layout shift of 0.30, the
+ * single worst metric on the site and the only page that shifted at all.
+ *
+ * A page receives searchParams as a prop, so no client component is needed to
+ * read them. Only the controls are interactive, and they live in
+ * ArticleFilters. If you add anything to this page, render it here, not there.
  */
-export default function InsightsPage() {
+export default async function InsightsPage({
+    searchParams,
+}: {
+    searchParams: Promise<{ q?: string; category?: string }>;
+}) {
+    const { q, category } = await searchParams;
     const years = archiveYears();
+
+    const needle = (q ?? "").trim().toLowerCase();
+    const activeCategory = category ?? "All";
+
+    const results = ALL_ARTICLES.filter((article) => {
+        if (activeCategory !== "All" && article.category !== activeCategory) return false;
+        if (!needle) return true;
+        return (
+            article.title.toLowerCase().includes(needle) ||
+            article.excerpt.toLowerCase().includes(needle) ||
+            article.category.toLowerCase().includes(needle) ||
+            (article.keywords ?? []).some((keyword) => keyword.toLowerCase().includes(needle))
+        );
+    });
+
+    const isUnfiltered = activeCategory === "All" && needle === "";
+    const [lead, ...rest] = results;
 
     return (
         <>
@@ -55,9 +77,52 @@ export default function InsightsPage() {
             />
 
             <Section tone="paper">
-                <Suspense fallback={<p className="text-sm text-ncit-ink-3">Loading the archive.</p>}>
-                    <ArticleBrowser articles={ALL_ARTICLES} categories={ACTIVE_CATEGORIES} />
+                {/* useSearchParams needs a Suspense boundary, but only the
+                    controls sit inside it now, so the articles below are in the
+                    server HTML either way. */}
+                <Suspense
+                    fallback={<div className="h-[184px] border-b border-ncit-line" aria-hidden="true" />}
+                >
+                    <ArticleFilters
+                        categories={ACTIVE_CATEGORIES}
+                        total={ARTICLE_COUNT}
+                        shown={results.length}
+                    />
                 </Suspense>
+
+                {results.length === 0 ? (
+                    <div className="mt-8 rounded-lg border border-ncit-line bg-ncit-surface p-8 text-center">
+                        <h2 className="text-base font-semibold text-ncit-ink">No updates match that search</h2>
+                        <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-ncit-ink-2">
+                            Try a shorter phrase, or clear the filters to see the full archive.
+                        </p>
+                        <Link
+                            href="/insights"
+                            className="mt-5 inline-flex min-h-[44px] items-center rounded-md border border-ncit-line-strong bg-ncit-paper px-5 text-sm font-medium text-ncit-ink hover:bg-ncit-surface-2"
+                        >
+                            Clear filters
+                        </Link>
+                    </div>
+                ) : (
+                    <div className="mt-8">
+                        {isUnfiltered && lead ? (
+                            <>
+                                <FeatureArticleCard article={lead} priority />
+                                <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                                    {rest.map((article) => (
+                                        <ArticleCard key={article.slug} article={article} />
+                                    ))}
+                                </div>
+                            </>
+                        ) : (
+                            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                                {results.map((article, index) => (
+                                    <ArticleCard key={article.slug} article={article} priority={index < 3} />
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                )}
             </Section>
         </>
     );

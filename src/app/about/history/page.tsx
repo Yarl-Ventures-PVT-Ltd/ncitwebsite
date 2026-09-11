@@ -3,12 +3,14 @@ import HistoryTimeline from "@/components/sections/about/timeline";
 import PastBoards from "@/components/sections/about/past-boards";
 import HistoricGallery from "@/components/sections/about/historic-gallery";
 import PageHeader from "@/components/layout/page-header";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  alternates: { canonical: "/about/history" },
-  title: "History & Archive",
-  description: "Explore the history, past boards, and archive of the Northern Chamber of Information Technology since 2016.",
-};
+export const metadata: Metadata = pageMetadata({
+  title: "History and Archive",
+  socialTitle: "History and Archive",
+  description: "The chamber's record since its inauguration in Jaffna in February 2016: milestones, past boards, publications and photographs.",
+  path: "/about/history",
+});
 
 export default function HistoryPage() {
   return (

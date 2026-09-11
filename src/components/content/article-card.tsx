@@ -72,7 +72,18 @@ export function ArticleCard({
  * The lead story. Same data, a wider composition, used once at the top of a
  * list so the first item does not read as just another card in the grid.
  */
-export function FeatureArticleCard({ article }: { article: InsightArticle }) {
+export function FeatureArticleCard({
+    article,
+    priority = false,
+}: {
+    article: InsightArticle;
+    /**
+     * Only set this where the card is genuinely above the fold. It used to be
+     * hardcoded true, which preloaded an image sitting at y=1734 on the home
+     * page in competition with the actual hero.
+     */
+    priority?: boolean;
+}) {
     return (
         <article className="group relative grid overflow-hidden rounded-lg border border-ncit-line bg-ncit-paper transition-colors hover:border-ncit-line-strong focus-within:border-ncit-blue md:grid-cols-2">
             <div className="relative aspect-[16/10] overflow-hidden bg-ncit-surface-2 md:aspect-auto md:min-h-[320px]">
@@ -81,7 +92,7 @@ export function FeatureArticleCard({ article }: { article: InsightArticle }) {
                     alt={article.imageAlt ?? article.title}
                     fill
                     sizes="(max-width: 768px) 100vw, 620px"
-                    priority
+                    priority={priority}
                     className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
                 />
             </div>

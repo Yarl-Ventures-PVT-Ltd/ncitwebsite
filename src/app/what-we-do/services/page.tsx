@@ -3,12 +3,14 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Building2, LineChart, Users, BookOpen, Globe2, ShieldCheck } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  alternates: { canonical: "/what-we-do/services" },
-  title: "Our Services",
-  description: 'Explore the range of services offered by the Northern Chamber of Information Technology to its members and the community.',
-};
+export const metadata: Metadata = pageMetadata({
+  title: "Services",
+  socialTitle: "Services",
+  description: "What members can draw on: incubation, market access, policy advocacy, capacity building, industry events and investment support.",
+  path: "/what-we-do/services",
+});
 
 interface Service {
   title: string;

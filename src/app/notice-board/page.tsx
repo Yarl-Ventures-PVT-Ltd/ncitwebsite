@@ -6,13 +6,14 @@ import { Section } from "@/components/ui/section";
 import { ArticleRow } from "@/components/content/article-card";
 import { ActionLink } from "@/components/ui/action";
 import { noticeBoardItems } from "@/lib/notices";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-    alternates: { canonical: "/notice-board" },
-    title: "Notice Board",
-    description:
-        "Official notices from the Northern Chamber of Information Technology: calls for bids, vacancies, calls for applications and selection results.",
-};
+export const metadata: Metadata = pageMetadata({
+  title: "Notice Board",
+  socialTitle: "Notice Board",
+  description: "Calls for bids, vacancies, calls for applications and selection results issued by the Northern Chamber of Information Technology.",
+  path: "/notice-board",
+});
 
 /**
  * Notice board.

@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 
+import { pageMetadata } from "@/lib/seo";
+
 import HeroSection from "@/components/sections/hero";
 import CredibilityStrip from "@/components/sections/credibility-strip";
 import AboutIntro from "@/components/sections/about-intro";
@@ -11,9 +13,17 @@ import FeaturedMembers from "@/components/sections/featured-members";
 import ResourcesPreview from "@/components/sections/resources-preview";
 import ConversionBand from "@/components/sections/conversion-band";
 
-export const metadata: Metadata = {
-    alternates: { canonical: "/" },
-};
+// The home page declares its own metadata like every other page. It used to
+// rely on the root layout's openGraph, and when those inherited values were
+// removed to stop twenty five interior pages claiming the home page URL, the
+// home page would otherwise have been left with no og:url at all.
+export const metadata: Metadata = pageMetadata({
+    title: { absolute: "NCIT | Northern Sri Lanka's Technology Chamber" },
+    socialTitle: "Northern Chamber of Information Technology",
+    description:
+        "The industry chamber for information and communication technology in Northern Sri Lanka, representing companies, educators and startups since 2016.",
+    path: "/",
+});
 
 /**
  * Home page.

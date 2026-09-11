@@ -6,14 +6,14 @@ import { ArticleRow } from "@/components/content/article-card";
 import { ActionLink } from "@/components/ui/action";
 import { pressItems } from "@/lib/notices";
 import { DOCUMENT_GROUPS } from "@/lib/resources";
-import { SITE } from "@/lib/seo";
+import { SITE, pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-    alternates: { canonical: "/press" },
-    title: "Press and Official Statements",
-    description:
-        "Official statements from the Northern Chamber of Information Technology, including AGM outcomes, board decisions and partnership announcements, with media contact details.",
-};
+export const metadata: Metadata = pageMetadata({
+  title: "Press and Official Statements",
+  socialTitle: "Press and Official Statements",
+  description: "AGM outcomes, board decisions and partnership announcements published by NCIT, with media contact details for the secretariat.",
+  path: "/press",
+});
 
 /**
  * Press.

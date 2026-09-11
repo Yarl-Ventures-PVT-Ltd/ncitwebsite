@@ -4,14 +4,15 @@ import MembershipPlans from "@/components/sections/membership/membership-plans";
 import HowItWorks from "@/components/sections/membership/how-it-works";
 import MembershipFAQ from "@/components/sections/membership/membership-faq";
 import { MEMBERSHIP_FAQS } from "@/lib/membership-faqs";
-import { faqSchema, jsonLd } from "@/lib/seo";
+import { faqSchema, jsonLd, pageMetadata } from "@/lib/seo";
 import PageHeader from "@/components/layout/page-header";
 
-export const metadata: Metadata = {
-  alternates: { canonical: "/membership" },
+export const metadata: Metadata = pageMetadata({
   title: "Membership",
-  description: "Join the Network Building Northern Sri Lanka’s Technology Future. Discover NCIT membership plans for companies, professionals, startups, and students.",
-};
+  socialTitle: "Membership",
+  description: "Membership is open to technology companies, ICT educators, associations, offshore firms, startups and individual professionals.",
+  path: "/membership",
+});
 
 export default function MembershipPage() {
   return (

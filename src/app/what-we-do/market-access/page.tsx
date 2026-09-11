@@ -2,12 +2,14 @@ import { Metadata } from "next";
 import MarketPillars from "@/components/sections/what-we-do/market-pillars";
 import SuccessStory from "@/components/sections/what-we-do/success-story";
 import PageHeader from "@/components/layout/page-header";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  alternates: { canonical: "/what-we-do/market-access" },
-  title: "Business & Market Access",
-  description: "NCIT creates trusted pathways for member companies to discover partners, customers, expertise, procurement opportunities, and market connections.",
-};
+export const metadata: Metadata = pageMetadata({
+  title: "Market Access",
+  socialTitle: "Market Access",
+  description: "How NCIT puts Northern technology firms in front of buyers, through national exhibitions such as INFOTEL and the IT SME expos.",
+  path: "/what-we-do/market-access",
+});
 
 export default function MarketAccessPage() {
   return (

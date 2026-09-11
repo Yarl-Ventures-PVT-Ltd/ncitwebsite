@@ -2,12 +2,14 @@ import { Metadata } from "next";
 import PolicyThemes from "@/components/sections/what-we-do/policy-themes";
 import PolicyProcess from "@/components/sections/what-we-do/policy-process";
 import PageHeader from "@/components/layout/page-header";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  alternates: { canonical: "/what-we-do/advocacy" },
-  title: "Advocacy & Policy",
-  description: "NCIT consolidates industry priorities and engages stakeholders on the conditions required for sustainable digital growth in Northern Sri Lanka.",
-};
+export const metadata: Metadata = pageMetadata({
+  title: "Advocacy",
+  socialTitle: "Advocacy",
+  description: "How NCIT forms a policy position from member input and puts it to public, private and development stakeholders.",
+  path: "/what-we-do/advocacy",
+});
 
 export default function AdvocacyPage() {
   return (

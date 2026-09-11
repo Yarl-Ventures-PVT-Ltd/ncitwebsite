@@ -1,14 +1,14 @@
+import type { Metadata } from "next";
 import MaintenanceScreen from "@/components/ui/maintenance-screen";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata = {
-  alternates: { canonical: "/portal" },
+export const metadata: Metadata = pageMetadata({
   title: "Member Portal",
-  description: 'Login to the Northern Chamber of Information Technology member portal.',
-  // A login page has nothing to rank for. noindex keeps it out of results while
-  // still allowing the crawl, which is what makes the directive readable at all:
-  // a robots.txt block would hide this tag and leave the bare URL indexable.
-  robots: { index: false, follow: true },
-};
+  socialTitle: "Member Portal",
+  description: "The NCIT member portal for applications, invoices and member records. Sign in with the credentials issued by the chamber.",
+  path: "/portal",
+  noIndex: true,
+});
 
 export default function PortalPage() {
   return (

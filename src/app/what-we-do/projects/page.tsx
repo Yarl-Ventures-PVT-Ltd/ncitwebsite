@@ -3,12 +3,14 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Chip } from '@/components/ui/chip';
 import { Rocket, Users, Building2, Briefcase, Presentation, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  alternates: { canonical: "/what-we-do/projects" },
-  title: "Projects & Initiatives",
-  description: 'Explore the key projects and initiatives driven by the Northern Chamber of Information Technology.',
-};
+export const metadata: Metadata = pageMetadata({
+  title: "Projects and Initiatives",
+  socialTitle: "Projects and Initiatives",
+  description: "Startup Weekends, the Business Incubation Center, the monthly tech talk, the ICT Job Bank and the chamber's investor forums.",
+  path: "/what-we-do/projects",
+});
 
 const projects = [
   {

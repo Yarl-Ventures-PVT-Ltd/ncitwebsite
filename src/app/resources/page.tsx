@@ -5,13 +5,14 @@ import PageHeader from "@/components/layout/page-header";
 import { Section } from "@/components/ui/section";
 import { ResourceList } from "@/components/content/resource-list";
 import { DOCUMENT_GROUPS, DOCUMENT_COUNT } from "@/lib/resources";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-    alternates: { canonical: "/resources" },
-    title: "Resources and Downloads",
-    description:
-        "Membership forms in English and Tamil, project proposal formats, newsletters, brochures and conference speeches published by the Northern Chamber of Information Technology.",
-};
+export const metadata: Metadata = pageMetadata({
+  title: "Resources and Downloads",
+  socialTitle: "Resources and Downloads",
+  description: "Membership forms in English and Tamil, proposal formats, chamber newsletters and conference speeches from the NCIT archive.",
+  path: "/resources",
+});
 
 /**
  * Resources.

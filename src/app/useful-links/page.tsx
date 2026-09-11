@@ -5,13 +5,14 @@ import PageHeader from "@/components/layout/page-header";
 import { Section } from "@/components/ui/section";
 import { ResourceList } from "@/components/content/resource-list";
 import { USEFUL_LINK_GROUPS, USEFUL_LINK_COUNT } from "@/lib/resources";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-    alternates: { canonical: "/useful-links" },
-    title: "Useful Links",
-    description:
-        "Government and regulatory bodies a Northern Province technology business deals with: ICTA, the Export Development Board, the Department for Registration of Companies and the Treasury.",
-};
+export const metadata: Metadata = pageMetadata({
+  title: "Useful Links",
+  socialTitle: "Useful Links",
+  description: "Government and regulatory bodies a Northern Province technology business deals with: ICTA, the EDB, the Registrar of Companies and the Treasury.",
+  path: "/useful-links",
+});
 
 /**
  * Useful links.

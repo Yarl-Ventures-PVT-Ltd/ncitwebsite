@@ -2,12 +2,14 @@ import { Metadata } from "next";
 import ContactForm from "@/components/sections/contact/contact-form";
 import ContactDetails from "@/components/sections/contact/contact-details";
 import PageHeader from "@/components/layout/page-header";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  alternates: { canonical: "/contact" },
-  title: "Contact Us",
-  description: "Connect with the Northern Chamber of Information Technology for inquiries regarding membership, partnerships, investments, and more.",
-};
+export const metadata: Metadata = pageMetadata({
+  title: "Contact NCIT",
+  socialTitle: "Contact NCIT",
+  description: "Reach the chamber secretariat at 136/1 Palaly Road, Parameswara Junction, Jaffna, for membership, partnership or media enquiries.",
+  path: "/contact",
+});
 
 export default function ContactPage() {
   return (

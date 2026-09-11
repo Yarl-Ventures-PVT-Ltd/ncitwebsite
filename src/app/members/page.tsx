@@ -3,13 +3,16 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ExternalLink, Building2, Users, User, Rocket, Globe } from 'lucide-react';
 import { MEMBER_CATEGORIES, MEMBER_COUNT, type MemberCategory } from '@/lib/members';
-import { SITE, absoluteUrl, jsonLd } from '@/lib/seo';
+import Link from 'next/link';
+import { SITE, absoluteUrl, jsonLd, pageMetadata } from '@/lib/seo';
+import { ActionLink } from '@/components/ui/action';
 
-export const metadata: Metadata = {
-  alternates: { canonical: "/members" },
+export const metadata: Metadata = pageMetadata({
   title: "Member Directory",
-  description: 'Directory of all registered members of the Northern Chamber of Information Technology.',
-};
+  socialTitle: "Member Directory",
+  description: "The 34 organisations listed in the NCIT directory, grouped by the six membership categories set out in the chamber bylaws.",
+  path: "/members",
+});
 
 // Icons live here rather than in the data module so the data stays plain and
 // importable from anywhere, including the home page strip.
@@ -120,11 +123,36 @@ export default function MembersDirectoryPage() {
               </div>
             ))}
 
-            <div className="bg-blue-50 border border-blue-100 rounded-2xl p-6 text-center shadow-inner mt-12">
-              <p className="text-ncit-ink/70 font-medium">
-                We are currently reviewing new applications. The final member list will be updated regularly. 
-                For feedback or inquiries, contact us at <a href="mailto:hello@ncit.lk" className="text-ncit-blue hover:underline">hello@ncit.lk</a>
+            {/* The address here was hello@ncit.lk, which appears nowhere else
+                on the site and is not the address the contact page, the footer
+                and the organisation schema all publish. An enquiry sent to an
+                address the chamber does not advertise is an enquiry nobody
+                reads, so this uses the one documented inbox.
+
+                The panel also gives the directory the outbound links it had
+                none of: a visitor who reaches the end of the member list and
+                wants to join had no route from here. */}
+            <div className="mt-12 rounded-lg border border-ncit-line bg-ncit-surface p-6">
+              <h2 className="text-base font-semibold text-ncit-ink">About this directory</h2>
+              <p className="mt-2 text-sm leading-relaxed text-ncit-ink-2">
+                The directory lists organisations admitted under the membership categories set out in the{" "}
+                <Link href="/about/governance/bylaws" className="text-ncit-blue underline underline-offset-4 hover:no-underline">
+                  chamber bylaws
+                </Link>
+                . It is updated as applications are approved. To correct an entry or ask about listing, write to{" "}
+                <a href={`mailto:${SITE.email}`} className="text-ncit-blue underline underline-offset-4 hover:no-underline">
+                  {SITE.email}
+                </a>
+                .
               </p>
+              <div className="mt-5 flex flex-col gap-3 sm:flex-row">
+                <ActionLink href="/membership/apply" variant="primary" withArrow>
+                  Become a member
+                </ActionLink>
+                <ActionLink href="/membership" variant="secondary">
+                  Membership categories
+                </ActionLink>
+              </div>
             </div>
 
           </div>

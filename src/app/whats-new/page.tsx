@@ -9,13 +9,14 @@ import { MoreLink } from "@/components/ui/action";
 import { latestArticles, archiveYears, ARTICLE_COUNT } from "@/lib/content";
 import { resolvedEvents } from "@/lib/events";
 import { noticeBoardItems } from "@/lib/notices";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-    alternates: { canonical: "/whats-new" },
-    title: "What's New",
-    description:
-        "The most recent updates from the Northern Chamber of Information Technology in one place: news, open notices and the latest events on record.",
-};
+export const metadata: Metadata = pageMetadata({
+  title: "What's New",
+  socialTitle: "What's New",
+  description: "The latest news, open notices and events from the Northern Chamber of Information Technology, gathered on one page.",
+  path: "/whats-new",
+});
 
 /**
  * What's New.

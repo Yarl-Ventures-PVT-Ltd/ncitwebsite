@@ -58,18 +58,18 @@ export const metadata: Metadata = {
   authors: [{ name: SITE.legalName, url: SITE.url }],
   creator: SITE.legalName,
   publisher: SITE.legalName,
+  // Only what is true of EVERY page belongs here. title, description and url
+  // are deliberately absent: a page that declares no openGraph of its own
+  // inherits this object literally, and setting them here shipped og:url
+  // pointing at the home page on twenty five interior pages. Page-specific
+  // values come from pageMetadata() in lib/seo.ts instead.
   openGraph: {
     type: "website",
     siteName: SITE.legalName,
-    title: "NCIT | Northern Sri Lanka’s Technology Chamber",
-    description: SITE.description,
-    url: SITE.url,
     locale: SITE.locale,
   },
   twitter: {
     card: "summary_large_image",
-    title: "NCIT | Northern Sri Lanka’s Technology Chamber",
-    description: SITE.description,
   },
   robots: {
     index: true,

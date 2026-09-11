@@ -33,7 +33,7 @@ export default function PastBoards() {
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-ncit-ink mb-4">Past Leadership</h2>
             <p className="text-ncit-ink/70 max-w-2xl mx-auto">
-              Recognizing the dedication of our past Boards of Directors who laid the foundation for the Chamber's growth.
+              Recognizing the dedication of our past Boards of Directors who laid the foundation for the Chamber&rsquo;s growth.
             </p>
           </div>
 

@@ -5,12 +5,14 @@ import HowNcitSupports from "@/components/sections/invest/how-ncit-supports";
 import PartnershipPathways from "@/components/sections/invest/partnership-pathways";
 import InvestInquiryForm from "@/components/sections/invest/invest-inquiry-form";
 import PageHeader from "@/components/layout/page-header";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  alternates: { canonical: "/invest" },
-  title: "Invest & Partner",
-  description: "Discover technology opportunities in Northern Sri Lanka. NCIT provides a trusted gateway to companies, talent, institutions, startups and partnerships.",
-};
+export const metadata: Metadata = pageMetadata({
+  title: "Invest and Partner",
+  socialTitle: "Invest and Partner",
+  description: "A route into the Northern Province for investors and partners: companies, talent, institutions and the local stakeholders who can introduce them.",
+  path: "/invest",
+});
 
 export default function InvestPage() {
   return (

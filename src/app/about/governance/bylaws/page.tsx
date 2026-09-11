@@ -2,12 +2,14 @@ import { Metadata } from 'next';
 import { Card, CardContent } from '@/components/ui/card';
 import { ScrollText, Users, Building, Briefcase, Target } from 'lucide-react';
 import Link from 'next/link';
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  alternates: { canonical: "/about/governance/bylaws" },
+export const metadata: Metadata = pageMetadata({
   title: "Bylaws and Constitution",
-  description: 'The official bylaws of the Northern Chamber of Information Technology: membership classes, the board, elections, meetings and the rules the chamber runs by.',
-};
+  socialTitle: "Bylaws and Constitution",
+  description: "The chamber's constitution: membership classes, the board, elections, general meetings and the rules NCIT is run by.",
+  path: "/about/governance/bylaws",
+});
 
 export default function BylawsPage() {
   return (

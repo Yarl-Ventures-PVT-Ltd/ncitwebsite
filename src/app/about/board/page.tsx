@@ -3,12 +3,15 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Mail, Globe } from 'lucide-react';
 import PreviousBoards from '@/components/sections/about/previous-boards';
+import { pageMetadata } from "@/lib/seo";
+import { ActionLink } from '@/components/ui/action';
 
-export const metadata: Metadata = {
-  alternates: { canonical: "/about/board" },
+export const metadata: Metadata = pageMetadata({
   title: "Board of Directors",
-  description: 'Meet the dedicated leadership team driving the Northern Chamber of Information Technology.',
-};
+  socialTitle: "Board of Directors",
+  description: "The nine directors and office bearers elected to lead the Northern Chamber of Information Technology for the 2026 to 2027 term.",
+  path: "/about/board",
+});
 
 const boardMembers = [
   {
@@ -138,18 +141,34 @@ export default function BoardPage() {
             </div>
           </div>
 
-          {/* Professional Partners */}
-          <div className="bg-white rounded-3xl p-8 md:p-12 border border-gray-100 shadow-xl shadow-ncit-ink/5">
-            <h3 className="text-2xl font-bold text-ncit-ink mb-8 font-heading text-center">Professional Partners</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-center max-w-2xl mx-auto">
-              <div>
-                <p className="text-ncit-ink/50 text-sm font-medium uppercase tracking-wider mb-2">Auditors</p>
-                <p className="text-xl font-semibold text-ncit-ink">Peninsula Consultants</p>
-              </div>
-              <div>
-                <p className="text-ncit-ink/50 text-sm font-medium uppercase tracking-wider mb-2">Bankers</p>
-                <p className="text-xl font-semibold text-ncit-ink">NDB Jaffna</p>
-              </div>
+          {/* A "Professional Partners" panel stood here naming Peninsula
+              Consultants as the chamber's auditors and NDB Jaffna as its
+              bankers. Peninsula Consultants appears nowhere in anything NCIT
+              has published, and the only NDB-adjacent string in the archive is
+              "HNB Jaffna Auditorium", a venue and a different bank.
+
+              NCIT's own AGM record of 23 February 2019 names the auditors as
+              JA Partners and the company secretary as Abaya Law firm (Pvt)
+              Ltd. Those are correctly recorded against the 2018/2019 term in
+              previous-boards.tsx. Who audits the 2026/2027 board is not
+              published anywhere on this site, so naming anyone here would be a
+              guess. Restore the panel when NCIT confirms the current firms.
+
+              The links below replace it, because the page previously ended
+              with no route onward at all. */}
+          <div className="rounded-lg border border-ncit-line bg-ncit-surface p-6 md:p-8">
+            <h3 className="text-base font-semibold text-ncit-ink">How the board is constituted</h3>
+            <p className="mt-2 max-w-2xl text-sm leading-relaxed text-ncit-ink-2">
+              Directors are elected by the membership at the annual general meeting, and the board appoints its
+              office bearers. The rules governing elections, terms and meetings are set out in the chamber bylaws.
+            </p>
+            <div className="mt-5 flex flex-col gap-3 sm:flex-row">
+              <ActionLink href="/about/governance/bylaws" variant="primary" withArrow>
+                Read the bylaws
+              </ActionLink>
+              <ActionLink href="/press" variant="secondary">
+                AGM announcements
+              </ActionLink>
             </div>
           </div>
 

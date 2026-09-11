@@ -7,12 +7,14 @@ import TalentAndTraining from "@/components/sections/ecosystem/talent-and-traini
 import ProjectsAndEvents from "@/components/sections/ecosystem/projects-and-events";
 import EcosystemCTA from "@/components/sections/ecosystem/ecosystem-cta";
 import PageHeader from "@/components/layout/page-header";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  alternates: { canonical: "/ecosystem" },
-  title: "Northern Tech Ecosystem",
-  description: "Discover verified technology businesses, institutions, startups, professionals and opportunities across Jaffna, Kilinochchi, Mannar, Mullaitivu and Vavuniya.",
-};
+export const metadata: Metadata = pageMetadata({
+  title: "Northern Technology Ecosystem",
+  socialTitle: "Northern Technology Ecosystem",
+  description: "Technology businesses, institutions, startups and professionals across Jaffna, Kilinochchi, Mannar, Mullaitivu and Vavuniya.",
+  path: "/ecosystem",
+});
 
 export default function EcosystemPage() {
   return (

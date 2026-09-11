@@ -7,14 +7,15 @@ import StakeholderEcosystem from "@/components/sections/about/stakeholder-ecosys
 import HistoryTimeline from "@/components/sections/about/history-timeline";
 import OrganisationFaq from "@/components/sections/about/organisation-faq";
 import AboutCTA from "@/components/sections/about/about-cta";
-import { ORGANISATION_FAQ, faqSchema, jsonLd } from "@/lib/seo";
+import { ORGANISATION_FAQ, faqSchema, jsonLd, pageMetadata } from "@/lib/seo";
 import PageHeader from "@/components/layout/page-header";
 
-export const metadata: Metadata = {
-  alternates: { canonical: "/about" },
+export const metadata: Metadata = pageMetadata({
   title: { absolute: "About NCIT | Northern Chamber of Information Technology" },
-  description: "Learn how NCIT unites and represents the technology ecosystem across Sri Lanka’s Northern Province.",
-};
+  socialTitle: "About NCIT",
+  description: "NCIT was founded on 22 February 2016 to represent the technology sector across the five districts of Sri Lanka's Northern Province.",
+  path: "/about",
+});
 
 export default function AboutPage() {
   return (
