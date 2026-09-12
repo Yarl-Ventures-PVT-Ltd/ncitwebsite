@@ -44,6 +44,10 @@ export const SITE = {
   },
   email: "support@ncit.lk",
   telephone: "+94770869328",
+  // The same number written for a person to read. tel: and wa.me need the
+  // compact form; a visitor reading it off the screen needs the grouping.
+  // Keep them in step: they are one number.
+  telephoneDisplay: "+94 77 086 9328",
   social: [
     "https://www.facebook.com/NCITLK/",
     "https://www.facebook.com/groups/190201704676007/",

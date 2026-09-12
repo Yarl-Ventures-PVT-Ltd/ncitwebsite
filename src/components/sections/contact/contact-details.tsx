@@ -5,6 +5,8 @@ import { motion } from "framer-motion";
 import { Mail, MapPin, Phone, Clock } from "lucide-react";
 import Link from "next/link";
 
+import { SITE } from "@/lib/seo";
+
 export default function ContactDetails() {
   return (
     <section className="py-24 bg-ncit-cloud relative border-t border-gray-100">
@@ -54,7 +56,7 @@ export default function ContactDetails() {
                   </div>
                   <div>
                     <h3 className="font-bold text-ncit-ink mb-1">Call Us</h3>
-                    <p className="text-sm text-ncit-ink/70 mb-2">Main Office: <a href="tel:+94770869328" className="text-ncit-blue hover:underline">+94 77 086 9328</a></p>
+                    <p className="text-sm text-ncit-ink/70 mb-2">Main Office: <a href={`tel:${SITE.telephone}`} className="text-ncit-blue hover:underline">{SITE.telephoneDisplay}</a></p>
                     <div className="inline-flex items-center gap-1.5 text-xs font-medium bg-emerald-50 text-emerald-700 px-2.5 py-1 rounded-full">
                       <Clock className="w-3.5 h-3.5" />
                       Mon - Fri, 9:00 AM - 5:00 PM (LKT)

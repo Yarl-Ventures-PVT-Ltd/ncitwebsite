@@ -67,11 +67,11 @@ export default function BenefitMatrix() {
           <table className="w-full min-w-[900px] text-left border-collapse">
             <thead>
               <tr>
-                <th className="p-4 border-b-2 border-gray-200 bg-gray-50 text-ncit-ink font-bold w-1/4 sticky left-0 z-10">
+                <th className="p-4 border-b-2 border-gray-200 bg-gray-50 text-ncit-blue font-bold w-1/4 sticky left-0 z-10">
                   Feature
                 </th>
                 {categories.map((cat, idx) => (
-                  <th key={idx} className="p-4 border-b-2 border-gray-200 bg-white text-ncit-ink font-bold text-center text-sm">
+                  <th key={idx} className="p-4 border-b-2 border-gray-200 bg-white text-ncit-blue font-bold text-center text-sm">
                     {cat}
                   </th>
                 ))}
@@ -83,7 +83,7 @@ export default function BenefitMatrix() {
                   <tr>
                     <td 
                       colSpan={8} 
-                      className="p-4 bg-gray-50 font-bold text-ncit-ink text-sm uppercase tracking-wider sticky left-0"
+                      className="p-4 bg-gray-50 font-bold text-ncit-blue text-sm uppercase tracking-wider sticky left-0"
                     >
                       {group.group}
                     </td>
