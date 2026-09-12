@@ -43,6 +43,10 @@ export const SITE = {
     country: "LK",
   },
   email: "support@ncit.lk",
+  // Membership applications go to their own inbox, not to the general one.
+  // A completed form and a payment receipt landing in the support queue is
+  // how an application waits a fortnight behind a password reset.
+  applicationsEmail: "hello@ncit.lk",
   telephone: "+94770869328",
   // The same number written for a person to read. tel: and wa.me need the
   // compact form; a visitor reading it off the screen needs the grouping.

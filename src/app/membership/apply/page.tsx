@@ -78,11 +78,31 @@ const FORMS = [
 
 const STEPS = [
     { n: "1", title: "Choose a category", body: "Pick the membership class your organisation or profile is eligible for." },
-    { n: "2", title: "Complete the form", body: "Download the form in English or Tamil and fill it in with your supporting documents." },
-    { n: "3", title: "Send it to the secretariat", body: "Return the completed form and documents to the chamber by email or in person." },
-    { n: "4", title: "Verification", body: "The secretariat checks the documents against the eligibility rules in the bylaws." },
-    { n: "5", title: "Board approval", body: "The board formally approves the application." },
-    { n: "6", title: "Fee and activation", body: "An invoice is issued for the annual fee, and membership begins once it is settled." },
+    {
+        n: "2",
+        title: "Complete the form",
+        body: "Download the form in English or Tamil and fill it in with your supporting documents.",
+    },
+    {
+        n: "3",
+        title: "Pay the membership fee",
+        body: "Ask the secretariat for the fee for your category and the payment details, then keep the receipt.",
+    },
+    {
+        n: "4",
+        title: "Email the form and the receipt together",
+        body: "Send the completed form, your supporting documents and the payment receipt in one email. An application without the receipt waits.",
+    },
+    {
+        n: "5",
+        title: "Verification",
+        body: "The secretariat checks the documents against the eligibility rules in the bylaws and confirms the payment.",
+    },
+    {
+        n: "6",
+        title: "Approval and activation",
+        body: "The board approves the application and the membership is activated.",
+    },
 ];
 
 export default function ApplyPage() {
@@ -146,12 +166,26 @@ export default function ApplyPage() {
                         <div className="rounded-lg border border-ncit-line bg-ncit-surface p-6">
                             <h2 className="text-base font-semibold text-ncit-ink">Where to send it</h2>
                             <p className="mt-2 text-sm leading-relaxed text-ncit-ink-2">
-                                Return the completed form and your supporting documents to the chamber secretariat.
+                                Email the completed form, your supporting documents and the payment receipt together,
+                                in one message, to the applications inbox. The secretariat reviews and approves from
+                                that email.
                             </p>
 
                             <dl className="mt-5 space-y-4 text-sm">
                                 <div>
-                                    <dt className="ncit-meta text-ncit-ink-3">Email</dt>
+                                    <dt className="ncit-meta text-ncit-ink-3">Applications</dt>
+                                    <dd className="mt-1 flex items-center gap-2">
+                                        <Mail className="h-4 w-4 text-ncit-ink-3" aria-hidden="true" />
+                                        <a
+                                            href={`mailto:${SITE.applicationsEmail}?subject=NCIT%20membership%20application`}
+                                            className="inline-block py-1 text-ncit-blue underline underline-offset-4 hover:no-underline"
+                                        >
+                                            {SITE.applicationsEmail}
+                                        </a>
+                                    </dd>
+                                </div>
+                                <div>
+                                    <dt className="ncit-meta text-ncit-ink-3">General enquiries</dt>
                                     <dd className="mt-1 flex items-center gap-2">
                                         <Mail className="h-4 w-4 text-ncit-ink-3" aria-hidden="true" />
                                         <a
@@ -170,7 +204,7 @@ export default function ApplyPage() {
                                             href={`tel:${SITE.telephone}`}
                                             className="inline-block py-1 text-ncit-blue underline underline-offset-4 hover:no-underline"
                                         >
-                                            {SITE.telephone}
+                                            {SITE.telephoneDisplay}
                                         </a>
                                     </dd>
                                 </div>
