@@ -3,8 +3,10 @@ import { Geist, Geist_Mono, Noto_Sans_Tamil } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
-import { SITE, GA_MEASUREMENT_ID, organizationSchema, websiteSchema, jsonLd } from "@/lib/seo";
-import { GoogleAnalytics } from "@next/third-parties/google";
+import { SITE, organizationSchema, websiteSchema, jsonLd } from "@/lib/seo";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+
+import CookieConsent from "@/components/layout/cookie-consent";
 
 // One family carries the whole site. Geist is a neutral technical grotesque,
 // which suits a technology chamber without tipping into startup styling, and
@@ -108,13 +110,15 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
-        {/* @next/third-parties loads gtag after hydration, so it stays off the
-            critical path. Skipped in development: a local run would otherwise
-            report your own page views as real traffic. The ID lives in
+        {/* Analytics loads only after someone accepts, so the gate owns the
+            tag rather than the layout. Skipped in development either way: a
+            local run would otherwise report as real traffic. The ID lives in
             lib/seo.ts and the CSP origins it needs are in next.config.ts. */}
-        {GA_MEASUREMENT_ID && process.env.NODE_ENV === "production" ? (
-          <GoogleAnalytics gaId={GA_MEASUREMENT_ID} />
-        ) : null}
+        {process.env.NODE_ENV === "production" ? <CookieConsent /> : null}
+        {/* Core Web Vitals from real visitors. Same origin, so it needs no CSP
+            allowance and sets no cookie, which keeps it outside the consent
+            question. */}
+        <SpeedInsights />
       </body>
     </html>
   );
