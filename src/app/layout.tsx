@@ -3,7 +3,8 @@ import { Geist, Geist_Mono, Noto_Sans_Tamil } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
-import { SITE, organizationSchema, websiteSchema, jsonLd } from "@/lib/seo";
+import { SITE, GA_MEASUREMENT_ID, organizationSchema, websiteSchema, jsonLd } from "@/lib/seo";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 // One family carries the whole site. Geist is a neutral technical grotesque,
 // which suits a technology chamber without tipping into startup styling, and
@@ -107,6 +108,13 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        {/* @next/third-parties loads gtag after hydration, so it stays off the
+            critical path. Skipped in development: a local run would otherwise
+            report your own page views as real traffic. The ID lives in
+            lib/seo.ts and the CSP origins it needs are in next.config.ts. */}
+        {GA_MEASUREMENT_ID && process.env.NODE_ENV === "production" ? (
+          <GoogleAnalytics gaId={GA_MEASUREMENT_ID} />
+        ) : null}
       </body>
     </html>
   );

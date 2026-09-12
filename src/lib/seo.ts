@@ -13,6 +13,20 @@
  * fact is not known, it is left out rather than filled in with a placeholder.
  */
 
+/**
+ * Google Analytics 4 measurement ID.
+ *
+ * Hard coded on purpose. It is not a secret: every site running GA serves this
+ * string in its page source, so there is nothing an environment variable would
+ * be hiding. Keeping it here means one file to change and no deploy setting to
+ * forget.
+ *
+ * Empty string turns analytics off. The Content-Security-Policy in
+ * next.config.ts already allows the Google origins, so pasting an ID here is
+ * the only change needed.
+ */
+export const GA_MEASUREMENT_ID = "G-NHLCZKK609";
+
 export const SITE = {
   name: "NCIT",
   legalName: "Northern Chamber of Information Technology",

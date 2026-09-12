@@ -471,6 +471,14 @@ const legacyRedirects = [
 // production build, so the shipped policy stays strict and only dev relaxes.
 const isDevelopment = process.env.NODE_ENV === "development";
 
+// The origins Google Analytics needs. Kept as named pieces so the policy below
+// stays readable, and so turning analytics on is one edit in lib/seo.ts rather
+// than a hunt through this file.
+const ANALYTICS_SCRIPT_SRC = " https://www.googletagmanager.com";
+const ANALYTICS_IMG_SRC = " https://www.google-analytics.com https://www.googletagmanager.com";
+const ANALYTICS_CONNECT_SRC =
+  " https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com";
+
 const nextConfig: NextConfig = {
   images: {
     // Next ships a srcset for every entry here on every image. The defaults run
@@ -496,6 +504,12 @@ const nextConfig: NextConfig = {
    *
    * frame-src allows google.com for the map embed on the contact page.
    * HSTS does nothing until the real host serves HTTPS.
+   *
+   * Both Google Analytics halves are allowed and both are needed: gtag is
+   * fetched from googletagmanager.com and beacons to google-analytics.com. A
+   * policy missing either one drops every hit with nothing in the browser UI
+   * to say so, and the symptom is a report that stays empty, which reads as
+   * "analytics was never installed" rather than as a blocked request.
    */
   async headers() {
     return [
@@ -506,12 +520,12 @@ const nextConfig: NextConfig = {
             key: "Content-Security-Policy",
             value: [
               "default-src 'self'",
-              `script-src 'self' 'unsafe-inline'${isDevelopment ? " 'unsafe-eval'" : ""}`,
+              `script-src 'self' 'unsafe-inline'${isDevelopment ? " 'unsafe-eval'" : ""}${ANALYTICS_SCRIPT_SRC}`,
               "style-src 'self' 'unsafe-inline'",
-              "img-src 'self' data:",
+              `img-src 'self' data:${ANALYTICS_IMG_SRC}`,
               "font-src 'self' data:",
               "frame-src 'self' https://www.google.com",
-              `connect-src 'self'${isDevelopment ? " ws: http://localhost:*" : ""}`,
+              `connect-src 'self'${isDevelopment ? " ws: http://localhost:*" : ""}${ANALYTICS_CONNECT_SRC}`,
               "object-src 'none'",
               "base-uri 'self'",
               "form-action 'self'",
