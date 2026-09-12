@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Building2, LineChart, Users, BookOpen, Globe2, ShieldCheck } from 'lucide-react';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
@@ -28,7 +28,7 @@ const services: Service[] = [
   {
     title: "Business Incubation",
     description: "The chamber ran an incubation centre in Jaffna with IE-NESL, giving young entrepreneurs workspace, mentorship and resources. It has been closed since September 2020.",
-    icon: <Building2 className="w-8 h-8 text-ncit-blue" />,
+    icon: <Building2 className="w-8 h-8" />,
     link: "/what-we-do/business-incubation-center",
     linkLabel: "About the incubation centre",
     status: "Closed since September 2020",
@@ -36,35 +36,35 @@ const services: Service[] = [
   {
     title: "Market Access & Networking",
     description: "Connecting local IT businesses with national and global markets through B2B expos and delegations.",
-    icon: <Globe2 className="w-8 h-8 text-ncit-blue" />,
+    icon: <Globe2 className="w-8 h-8" />,
     link: "/what-we-do/market-access",
     linkLabel: "Explore market access"
   },
   {
     title: "Policy Advocacy",
     description: "Representing the interests of the Northern IT sector to government bodies and policymakers.",
-    icon: <ShieldCheck className="w-8 h-8 text-ncit-blue" />,
+    icon: <ShieldCheck className="w-8 h-8" />,
     link: "/what-we-do/advocacy",
     linkLabel: "See our advocacy work"
   },
   {
     title: "Capacity Building",
     description: "Organizing workshops, seminars, and training programs to upskill IT professionals and entrepreneurs.",
-    icon: <BookOpen className="w-8 h-8 text-ncit-blue" />,
+    icon: <BookOpen className="w-8 h-8" />,
     link: "/what-we-do/projects",
     linkLabel: "Browse training and projects"
   },
   {
     title: "Industry Events",
     description: "Hosting tech summits, hackathons, and Startup Weekends to foster a culture of innovation.",
-    icon: <Users className="w-8 h-8 text-ncit-blue" />,
+    icon: <Users className="w-8 h-8" />,
     link: "/insights",
     linkLabel: "See past events"
   },
   {
     title: "Investment Facilitation",
     description: "Assisting investors in navigating the Northern IT landscape and matching them with promising startups.",
-    icon: <LineChart className="w-8 h-8 text-ncit-blue" />,
+    icon: <LineChart className="w-8 h-8" />,
     link: "/invest",
     linkLabel: "Investment opportunities"
   }
@@ -92,12 +92,21 @@ export default function ServicesPage() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map((service, index) => (
-              <Card key={index} className="border border-gray-100 shadow-md hover:shadow-xl transition-all duration-300 group">
+              <Card
+                key={index}
+                className="flex h-full flex-col border border-gray-100 shadow-md hover:shadow-xl transition-all duration-300 group"
+              >
                 <CardHeader>
-                  <div className="w-16 h-16 bg-ncit-blue/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-ncit-blue group-hover:text-white transition-colors duration-300">
-                    <div className="group-hover:text-white transition-colors duration-300 text-ncit-blue">
+                  {/* The resting colour and the hover colour sit on different
+                      elements on purpose. When both were on one element the
+                      glyph stayed blue on a blue box and disappeared, because
+                      the two colour rules competed and the resting one won.
+                      The box owns blue, the span owns white on hover, and
+                      nothing overrides anything. */}
+                  <div className="w-16 h-16 bg-ncit-blue/10 rounded-2xl flex items-center justify-center mb-6 text-ncit-blue transition-colors duration-300 group-hover:bg-ncit-blue">
+                    <span className="transition-colors duration-300 group-hover:text-white">
                       {service.icon}
-                    </div>
+                    </span>
                   </div>
                   <CardTitle className="text-2xl font-bold text-ncit-ink mb-2">
                     {service.title}
@@ -111,11 +120,35 @@ export default function ServicesPage() {
                     {service.description}
                   </CardDescription>
                 </CardHeader>
-                <CardContent>
-                  <Link href={service.link} className="block">
-                    <Button variant="outline" className="w-full mt-4 group-hover:bg-ncit-ink group-hover:text-white transition-colors">
-                      {service.linkLabel}
-                    </Button>
+                {/* mt-auto pins every action to the bottom of its card, so the
+                    six buttons line up across the row however long the copy
+                    above them runs. A Button inside a Link was also invalid
+                    nesting, interactive content inside an anchor, so the link
+                    now carries the button styling itself and is a single tab
+                    stop. */}
+                <CardContent className="mt-auto">
+                  <Link
+                    href={service.link}
+                    /* Styled directly rather than through buttonVariants. The
+                       outline variant declares its own hover:bg-muted, and a
+                       second hover background on the same element does not
+                       reliably beat it: the text went white while the
+                       background stayed grey, which is an unreadable label.
+                       With no competing rule there is nothing to lose to.
+
+                       Both hover states are listed because they are reached
+                       differently. The group rule covers a pointer anywhere on
+                       the card; the direct rule covers the pointer on the
+                       button itself. */
+                    className={cn(
+                      "mt-4 inline-flex h-11 w-full items-center justify-center rounded-lg border",
+                      "border-ncit-line-strong bg-ncit-surface text-sm font-medium text-ncit-ink",
+                      "transition-colors",
+                      "group-hover:border-ncit-blue group-hover:bg-ncit-blue group-hover:text-white",
+                      "hover:border-ncit-blue hover:bg-ncit-blue hover:text-white",
+                    )}
+                  >
+                    {service.linkLabel}
                   </Link>
                 </CardContent>
               </Card>
@@ -129,10 +162,15 @@ export default function ServicesPage() {
               <p className="text-ncit-ink/70 mb-8 max-w-xl mx-auto">
                 Whether you are an investor looking for opportunities or a startup needing specific support, our team is here to help.
               </p>
-              <Link href="/contact">
-                <Button size="lg" className="bg-ncit-ink hover:bg-ncit-blue text-white rounded-xl px-8 shadow-md">
-                  Get in Touch
-                </Button>
+              <Link
+                href="/contact"
+                className={cn(
+                  "inline-flex h-12 items-center justify-center rounded-xl px-8",
+                  "bg-ncit-blue text-sm font-medium text-white shadow-md transition-colors",
+                  "hover:bg-ncit-blue-hover",
+                )}
+              >
+                Get in Touch
               </Link>
             </div>
           </div>
