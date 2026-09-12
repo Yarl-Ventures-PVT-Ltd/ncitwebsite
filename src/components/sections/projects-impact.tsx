@@ -1,7 +1,7 @@
 import { Section, SectionHeading } from "@/components/ui/section";
 import { Chip } from "@/components/ui/chip";
 import { MoreLink } from "@/components/ui/action";
-import { PROJECTS, STATUS_TONE } from "@/lib/projects";
+import { PROJECTS } from "@/lib/projects";
 
 /**
  * Projects and initiatives, on the home page.
@@ -25,7 +25,7 @@ export default function ProjectsImpact() {
                 {PROJECTS.map((project) => (
                     <li key={project.slug} className="flex flex-col bg-ncit-paper p-6">
                         <div className="mb-4">
-                            <Chip tone={STATUS_TONE[project.status]}>{project.status}</Chip>
+                            <Chip>{project.status}</Chip>
                         </div>
 
                         <h3 className="text-base font-semibold text-ncit-ink">{project.title}</h3>

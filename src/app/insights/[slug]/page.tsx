@@ -167,7 +167,7 @@ export default async function InsightArticlePage({ params }: InsightArticlePageP
       <Section tone="paper">
         <div className="mx-auto max-w-3xl">
           <div className="flex flex-wrap items-center gap-x-4 gap-y-3 border-b border-ncit-line pb-6">
-            <Chip tone="accent">{article.category}</Chip>
+            <Chip>{article.category}</Chip>
 
             <time className="ncit-date text-ncit-ink-3" dateTime={isoDate(article.date)}>
               {formatDate(article.date)}

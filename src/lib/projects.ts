@@ -74,10 +74,5 @@ export const PROJECTS: Project[] = [
     },
 ];
 
-/** Status drives the chip styling, so the mapping lives with the data. */
-export const STATUS_TONE: Record<ProjectStatus, "neutral" | "accent"> = {
-    Completed: "neutral",
-    Ongoing: "accent",
-    "In progress": "accent",
-    Planned: "neutral",
-};
+/* Status no longer drives the chip styling from here. The chip resolves its
+   own tone from its label, so one status cannot be two colours on two pages. */

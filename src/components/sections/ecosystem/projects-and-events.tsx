@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Section, SectionHeading } from "@/components/ui/section";
 import { Chip } from "@/components/ui/chip";
 import { MoreLink } from "@/components/ui/action";
-import { PROJECTS, STATUS_TONE } from "@/lib/projects";
+import { PROJECTS } from "@/lib/projects";
 import { resolvedEvents } from "@/lib/events";
 import { formatDate, isoDate } from "@/lib/content";
 
@@ -42,7 +42,7 @@ export default function ProjectsAndEvents() {
                         {projects.map((project) => (
                             <li key={project.slug} className="border-b border-ncit-line py-5">
                                 <div className="mb-2">
-                                    <Chip tone={STATUS_TONE[project.status]}>{project.status}</Chip>
+                                    <Chip>{project.status}</Chip>
                                 </div>
                                 <h4 className="text-[0.95rem] font-medium text-ncit-ink">{project.title}</h4>
                                 <p className="mt-1 text-sm leading-relaxed text-ncit-ink-2">{project.description}</p>

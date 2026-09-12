@@ -99,7 +99,7 @@ export function FeatureArticleCard({
 
             <div className="flex flex-col justify-center p-6 md:p-10">
                 <div className="mb-4 flex flex-wrap items-center gap-x-3 gap-y-2">
-                    <Chip tone="accent">{article.category}</Chip>
+                    <Chip>{article.category}</Chip>
                     <time className="ncit-date text-ncit-ink-3" dateTime={isoDate(article.date)}>
                         {formatDate(article.date)}
                     </time>

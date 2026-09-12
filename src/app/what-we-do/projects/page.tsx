@@ -44,7 +44,7 @@ const projects = [
   {
     title: "ICT Job Bank",
     description: "Creating a centralized repository and matching system for IT talent and employers in the Northern Province.",
-    status: "In Progress",
+    status: "In progress",
     icon: <Briefcase className="w-6 h-6 text-ncit-blue" />,
     details: ["Platform development and initial data collection ongoing."]
   },
@@ -91,7 +91,7 @@ export default function ProjectsPage() {
                         and left the "Completed" badge rendering white text on
                         a background class that never applied, so it read as
                         white on white. */}
-                    <Chip tone={project.status === 'Completed' ? 'neutral' : 'accent'}>
+                    <Chip >
                       {project.status}
                     </Chip>
                   </div>
