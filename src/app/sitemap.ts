@@ -37,6 +37,7 @@ const STATIC_ROUTES: string[] = [
   "/gallery",
   "/invest",
   "/contact",
+  "/privacy",
 ];
 
 // Static pages have no per-page change history to draw on, so they share one

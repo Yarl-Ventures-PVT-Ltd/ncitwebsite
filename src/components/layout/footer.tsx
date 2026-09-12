@@ -158,6 +158,14 @@ export default function Footer() {
                         </li>
                         <li>
                             <Link
+                                href="/privacy"
+                                className="inline-block py-1 text-sm text-white/60 underline-offset-4 transition-colors hover:text-white hover:underline"
+                            >
+                                Privacy
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
                                 href="/portal"
                                 className="inline-block py-1 text-sm text-white/60 underline-offset-4 transition-colors hover:text-white hover:underline"
                             >
