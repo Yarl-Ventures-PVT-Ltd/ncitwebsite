@@ -111,6 +111,14 @@ export default function PrivacyPage() {
                             address, and anything you attach. Nothing more is gathered from you in the background.
                         </p>
                         <p>
+                            <strong>The contact form.</strong> When you send an enquiry through the{" "}
+                            <Link href="/contact">contact page</Link>, the form collects your name, your email address,
+                            your organisation, the inquiry type, a subject and your message, and optionally a telephone
+                            number and member ID. It is sent as a single email to the secretariat at{" "}
+                            <a href={`mailto:${SITE.email}`}>{SITE.email}</a>, addressed so that a reply comes back to
+                            you. The website itself stores none of it: the email is the only copy.
+                        </p>
+                        <p>
                             A membership application is the main case. Applicants download a form, complete it, and
                             email it to <a href={`mailto:${SITE.applicationsEmail}`}>{SITE.applicationsEmail}</a> with
                             supporting documents and a payment receipt. That correspondence contains the details the
@@ -189,7 +197,7 @@ export default function PrivacyPage() {
                         <ConsentControl />
 
                         <h2 id="sharing">7. Who we share information with</h2>
-                        <p>Two service providers are involved in running this site, and no others:</p>
+                        <p>Three service providers are involved in running this site, and no others:</p>
                         <ul>
                             <li>
                                 <strong>Google</strong>, which provides Google Analytics, and only where you have
@@ -197,6 +205,10 @@ export default function PrivacyPage() {
                             </li>
                             <li>
                                 <strong>Vercel</strong>, which hosts the site and provides the page speed measurement.
+                            </li>
+                            <li>
+                                <strong>Amazon Web Services</strong>, whose email service delivers contact form
+                                enquiries to the secretariat.
                             </li>
                         </ul>
                         <p>
@@ -259,10 +271,12 @@ export default function PrivacyPage() {
 
                         <h2 id="children">12. Children</h2>
                         <p>
-                            This website is aimed at businesses, professionals and institutions. It is not directed at
-                            children and collects nothing from them directly, because no form on this site submits
-                            anything. Where a membership category involves a student, the application is made by the
-                            applicant or their institution to the secretariat by email.
+                            This website is aimed at businesses, professionals and institutions, and it is not
+                            directed at children. Beyond the analytics and server logs described in section 3, which
+                            apply to every visitor alike, the only personal details it receives are the ones a person
+                            types into the contact form and chooses to send.
+                            Where a membership category involves a student, the application is made by the applicant or
+                            their institution to the secretariat by email.
                         </p>
 
                         <h2 id="changes">13. Changes to this notice</h2>

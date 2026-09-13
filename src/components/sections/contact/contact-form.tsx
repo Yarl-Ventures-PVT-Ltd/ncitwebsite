@@ -1,150 +1,294 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { Send, Users, Briefcase, Landmark, Megaphone, HelpCircle, MessageSquare } from "lucide-react";
+import { Send, Users, Briefcase, Landmark, Megaphone, HelpCircle, MessageSquare, CheckCircle2, AlertCircle } from "lucide-react";
 
-type ContactRoute = "General" | "Membership" | "Investment" | "Government" | "Media" | "Support";
+import { FIELD_LIMITS, INQUIRY_TYPES, type InquiryType } from "@/lib/contact";
 
-const routes = [
-  { id: "General", label: "General Inquiry", icon: <MessageSquare className="w-5 h-5" /> },
-  { id: "Membership", label: "Membership", icon: <Users className="w-5 h-5" /> },
-  { id: "Investment", label: "Investment & Partnerships", icon: <Briefcase className="w-5 h-5" /> },
-  { id: "Government", label: "Government / Institutional", icon: <Landmark className="w-5 h-5" /> },
-  { id: "Media", label: "Media & Press", icon: <Megaphone className="w-5 h-5" /> },
-  { id: "Support", label: "Member Support", icon: <HelpCircle className="w-5 h-5" /> },
-] as const;
+const ICONS: Record<InquiryType, React.ReactNode> = {
+  General: <MessageSquare className="w-5 h-5" />,
+  Membership: <Users className="w-5 h-5" />,
+  Investment: <Briefcase className="w-5 h-5" />,
+  Government: <Landmark className="w-5 h-5" />,
+  Media: <Megaphone className="w-5 h-5" />,
+  Support: <HelpCircle className="w-5 h-5" />,
+};
 
+/**
+ * One line of guidance per inquiry type. The investment line used to promise a
+ * reply "within 24 hours", a commitment nobody at the chamber had made, so it
+ * now describes the route instead of guaranteeing a response time.
+ */
+const INTROS: Record<InquiryType, React.ReactNode> = {
+  General: "Have a question? We're here to help.",
+  Membership: (
+    <>
+      To apply, use the{" "}
+      <Link href="/membership/apply" className="text-ncit-blue underline underline-offset-4 hover:no-underline">
+        membership application
+      </Link>
+      . Use this form for questions about joining.
+    </>
+  ),
+  Investment: "For investment, partnership and sponsorship enquiries.",
+  Government: "For official communications and policy matters.",
+  Media: "For press enquiries, interview requests and media assets.",
+  Support: "Include your member ID or registered email and we can find your record faster.",
+};
+
+const EMPTY = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  phone: "",
+  organisation: "",
+  memberId: "",
+  subject: "",
+  message: "",
+  consent: false,
+  website: "",
+};
+
+type Status = { state: "idle" } | { state: "sending" } | { state: "sent" } | { state: "error"; message: string };
+
+const INPUT =
+  "w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-ncit-ink focus:outline-none focus:ring-2 focus:ring-ncit-blue/50 focus:border-ncit-blue transition-all";
+
+/**
+ * Contact form.
+ *
+ * The fields live in one state object held above the animated area. Before,
+ * the whole form sat inside a motion element keyed on the inquiry type, so
+ * changing the type remounted the form and erased everything the visitor had
+ * typed. Only the heading animates now.
+ *
+ * It used to report success after a timer and never sent anything, and it
+ * claimed reCAPTCHA protection the site does not have. It now posts to
+ * /api/contact and shows the real outcome.
+ */
 export default function ContactForm() {
-  const [selectedRoute, setSelectedRoute] = useState<ContactRoute>("General");
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [inquiryType, setInquiryType] = useState<InquiryType>("General");
+  const [fields, setFields] = useState(EMPTY);
+  const [status, setStatus] = useState<Status>({ state: "idle" });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    // Mock submission delay
-    setTimeout(() => {
-      setIsSubmitting(false);
-      alert("Thank you for your inquiry. Our team will respond shortly.");
-    }, 1500);
+  const set = (name: keyof typeof EMPTY) => (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const value = event.target.type === "checkbox" ? (event.target as HTMLInputElement).checked : event.target.value;
+    setFields((current) => ({ ...current, [name]: value }));
   };
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    setStatus({ state: "sending" });
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ inquiryType, ...fields }),
+      });
+      const result = await response.json().catch(() => ({ ok: false }));
+
+      if (response.ok && result.ok) {
+        setStatus({ state: "sent" });
+        setFields(EMPTY);
+        return;
+      }
+      setStatus({ state: "error", message: result.error || "Your enquiry could not be sent. Please try again." });
+    } catch {
+      setStatus({ state: "error", message: "Your enquiry could not be sent. Check your connection and try again." });
+    }
+  };
+
+  const current = INQUIRY_TYPES.find((type) => type.id === inquiryType)!;
+  const sending = status.state === "sending";
 
   return (
     <section className="py-20 bg-white relative -mt-8 z-20">
       <div className="container mx-auto px-4 md:px-6">
         <div className="max-w-5xl mx-auto">
-          
           <div className="bg-white rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-gray-100 overflow-hidden flex flex-col lg:flex-row">
-            
             {/* Sidebar Routes */}
             <div className="lg:w-1/3 bg-ncit-cloud p-6 md:p-8 border-r border-gray-100">
-              <h2 className="text-lg font-bold text-ncit-ink mb-6">Select Inquiry Type</h2>
-              <div className="flex flex-col gap-2">
-                {routes.map((route) => (
-                  <button
-                    key={route.id}
-                    onClick={() => setSelectedRoute(route.id as ContactRoute)}
-                    className={`flex items-center gap-3 w-full p-4 rounded-xl text-left transition-all duration-300 ${
-                      selectedRoute === route.id
-                        ? "bg-ncit-blue text-white shadow-md shadow-ncit-blue/20"
-                        : "bg-white text-ncit-ink/70 hover:bg-white hover:text-ncit-ink border border-gray-100"
-                    }`}
-                  >
-                    {route.icon}
-                    <span className="font-medium text-sm">{route.label}</span>
-                  </button>
-                ))}
+              <h2 id="inquiry-type-heading" className="text-lg font-bold text-ncit-ink mb-6">
+                Select Inquiry Type
+              </h2>
+              <div role="group" aria-labelledby="inquiry-type-heading" className="flex flex-col gap-2">
+                {INQUIRY_TYPES.map((type) => {
+                  const selected = inquiryType === type.id;
+                  return (
+                    <button
+                      key={type.id}
+                      type="button"
+                      aria-pressed={selected}
+                      onClick={() => setInquiryType(type.id)}
+                      className={`flex items-center gap-3 w-full p-4 rounded-xl text-left transition-all duration-300 ${
+                        selected
+                          ? "bg-ncit-blue text-white shadow-md shadow-ncit-blue/20"
+                          : "bg-white text-ncit-ink/70 hover:text-ncit-ink border border-gray-100"
+                      }`}
+                    >
+                      {ICONS[type.id]}
+                      <span className="font-medium text-sm">{type.label}</span>
+                    </button>
+                  );
+                })}
               </div>
             </div>
 
-            {/* Dynamic Form Area */}
+            {/* Form Area */}
             <div className="lg:w-2/3 p-6 md:p-10 lg:p-12">
               <AnimatePresence mode="wait">
                 <motion.div
-                  key={selectedRoute}
+                  key={inquiryType}
                   initial={{ opacity: 0, x: 10 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -10 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <h2 className="text-2xl md:text-3xl font-bold text-ncit-ink mb-2">
-                    {routes.find(r => r.id === selectedRoute)?.label}
-                  </h2>
-                  <p className="text-ncit-ink/60 text-sm mb-8">
-                    {selectedRoute === "Support" && "Please provide your member ID or registered email for faster resolution."}
-                    {selectedRoute === "Membership" && "Interested in joining? Tell us a bit about your organization."}
-                    {selectedRoute === "Investment" && "Our partnerships team typically responds to investment inquiries within 24 hours."}
-                    {selectedRoute === "General" && "Have a question? We're here to help."}
-                    {selectedRoute === "Government" && "For official communications and policy matters."}
-                    {selectedRoute === "Media" && "For press inquiries, interview requests, and media assets."}
-                  </p>
-
-                  <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div className="space-y-2">
-                        <label className="text-sm font-medium text-ncit-ink">First Name</label>
-                        <input type="text" required className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-ncit-ink focus:outline-none focus:ring-2 focus:ring-ncit-blue/50 focus:border-ncit-blue transition-all" />
-                      </div>
-                      <div className="space-y-2">
-                        <label className="text-sm font-medium text-ncit-ink">Last Name</label>
-                        <input type="text" required className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-ncit-ink focus:outline-none focus:ring-2 focus:ring-ncit-blue/50 focus:border-ncit-blue transition-all" />
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div className="space-y-2">
-                        <label className="text-sm font-medium text-ncit-ink">Work Email</label>
-                        <input type="email" required className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-ncit-ink focus:outline-none focus:ring-2 focus:ring-ncit-blue/50 focus:border-ncit-blue transition-all" />
-                      </div>
-                      <div className="space-y-2">
-                        <label className="text-sm font-medium text-ncit-ink">Phone Number (Optional)</label>
-                        <input type="tel" className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-ncit-ink focus:outline-none focus:ring-2 focus:ring-ncit-blue/50 focus:border-ncit-blue transition-all" />
-                      </div>
-                    </div>
-
-                    <div className="space-y-2">
-                      <label className="text-sm font-medium text-ncit-ink">Organization / Company</label>
-                      <input type="text" required className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-ncit-ink focus:outline-none focus:ring-2 focus:ring-ncit-blue/50 focus:border-ncit-blue transition-all" />
-                    </div>
-
-                    {selectedRoute === "Support" && (
-                      <div className="space-y-2">
-                        <label className="text-sm font-medium text-ncit-ink">Member ID (Optional)</label>
-                        <input type="text" className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-ncit-ink focus:outline-none focus:ring-2 focus:ring-ncit-blue/50 focus:border-ncit-blue transition-all" />
-                      </div>
-                    )}
-
-                    <div className="space-y-2">
-                      <label className="text-sm font-medium text-ncit-ink">Subject</label>
-                      <input type="text" required className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-ncit-ink focus:outline-none focus:ring-2 focus:ring-ncit-blue/50 focus:border-ncit-blue transition-all" />
-                    </div>
-
-                    <div className="space-y-2">
-                      <label className="text-sm font-medium text-ncit-ink">Message</label>
-                      <textarea required rows={5} className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-ncit-ink focus:outline-none focus:ring-2 focus:ring-ncit-blue/50 focus:border-ncit-blue transition-all resize-none"></textarea>
-                    </div>
-
-                    <div className="flex items-start gap-3">
-                      <input type="checkbox" id="consent" required className="mt-0.5 h-6 w-6 rounded border-gray-300 text-ncit-blue focus:ring-ncit-blue" />
-                      <label htmlFor="consent" className="text-xs text-ncit-ink/60 leading-relaxed">
-                        By submitting this form, I consent to the Northern Chamber of Information Technology processing my data in accordance with the Privacy Policy to handle my inquiry. Protected by reCAPTCHA.
-                      </label>
-                    </div>
-
-                    <button 
-                      type="submit" 
-                      disabled={isSubmitting}
-                      className="w-full sm:w-auto inline-flex items-center justify-center bg-ncit-blue text-white hover:bg-blue-600 h-12 px-8 text-sm font-medium rounded-xl shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
-                    >
-                      {isSubmitting ? "Sending..." : "Send Inquiry"}
-                      {!isSubmitting && <Send className="w-4 h-4 ml-2" />}
-                    </button>
-                  </form>
-
+                  <h2 className="text-2xl md:text-3xl font-bold text-ncit-ink mb-2">{current.label}</h2>
+                  <p className="text-ncit-ink/60 text-sm mb-8">{INTROS[inquiryType]}</p>
                 </motion.div>
               </AnimatePresence>
-            </div>
 
+              {status.state === "sent" ? (
+                <div role="status" className="rounded-2xl border border-emerald-200 bg-emerald-50 p-6">
+                  <div className="flex items-start gap-3">
+                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-emerald-700" aria-hidden="true" />
+                    <div>
+                      <p className="font-semibold text-emerald-900">Your enquiry has been sent.</p>
+                      <p className="mt-1 text-sm text-emerald-800">
+                        The secretariat will reply to the email address you gave.
+                      </p>
+                      <button
+                        type="button"
+                        onClick={() => setStatus({ state: "idle" })}
+                        className="mt-4 inline-block py-1 text-sm font-medium text-emerald-900 underline underline-offset-4 hover:no-underline"
+                      >
+                        Send another enquiry
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-6" noValidate={false}>
+                  {/* Honeypot. Off screen and out of the tab order, so a person
+                      never meets it. A bot that fills every field fills this
+                      one too, and the server drops the submission. */}
+                  <div aria-hidden="true" className="absolute -left-[9999px] h-px w-px overflow-hidden">
+                    <label htmlFor="contact-website">Website</label>
+                    <input
+                      id="contact-website"
+                      name="website"
+                      type="text"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      value={fields.website}
+                      onChange={set("website")}
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <label htmlFor="contact-first-name" className="text-sm font-medium text-ncit-ink">
+                        First Name
+                      </label>
+                      <input id="contact-first-name" name="firstName" type="text" required autoComplete="given-name"
+                        maxLength={FIELD_LIMITS.firstName} value={fields.firstName} onChange={set("firstName")} className={INPUT} />
+                    </div>
+                    <div className="space-y-2">
+                      <label htmlFor="contact-last-name" className="text-sm font-medium text-ncit-ink">
+                        Last Name
+                      </label>
+                      <input id="contact-last-name" name="lastName" type="text" required autoComplete="family-name"
+                        maxLength={FIELD_LIMITS.lastName} value={fields.lastName} onChange={set("lastName")} className={INPUT} />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <label htmlFor="contact-email" className="text-sm font-medium text-ncit-ink">
+                        Work Email
+                      </label>
+                      <input id="contact-email" name="email" type="email" required autoComplete="email"
+                        maxLength={FIELD_LIMITS.email} value={fields.email} onChange={set("email")} className={INPUT} />
+                    </div>
+                    <div className="space-y-2">
+                      <label htmlFor="contact-phone" className="text-sm font-medium text-ncit-ink">
+                        Phone Number (Optional)
+                      </label>
+                      <input id="contact-phone" name="phone" type="tel" autoComplete="tel"
+                        maxLength={FIELD_LIMITS.phone} value={fields.phone} onChange={set("phone")} className={INPUT} />
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <label htmlFor="contact-organisation" className="text-sm font-medium text-ncit-ink">
+                      Organization / Company
+                    </label>
+                    <input id="contact-organisation" name="organisation" type="text" required autoComplete="organization"
+                      maxLength={FIELD_LIMITS.organisation} value={fields.organisation} onChange={set("organisation")} className={INPUT} />
+                  </div>
+
+                  {inquiryType === "Support" && (
+                    <div className="space-y-2">
+                      <label htmlFor="contact-member-id" className="text-sm font-medium text-ncit-ink">
+                        Member ID (Optional)
+                      </label>
+                      <input id="contact-member-id" name="memberId" type="text"
+                        maxLength={FIELD_LIMITS.memberId} value={fields.memberId} onChange={set("memberId")} className={INPUT} />
+                    </div>
+                  )}
+
+                  <div className="space-y-2">
+                    <label htmlFor="contact-subject" className="text-sm font-medium text-ncit-ink">
+                      Subject
+                    </label>
+                    <input id="contact-subject" name="subject" type="text" required
+                      maxLength={FIELD_LIMITS.subject} value={fields.subject} onChange={set("subject")} className={INPUT} />
+                  </div>
+
+                  <div className="space-y-2">
+                    <label htmlFor="contact-message" className="text-sm font-medium text-ncit-ink">
+                      Message
+                    </label>
+                    <textarea id="contact-message" name="message" required rows={5}
+                      maxLength={FIELD_LIMITS.message} value={fields.message} onChange={set("message")}
+                      className={`${INPUT} resize-none`} />
+                  </div>
+
+                  <div className="flex items-start gap-3">
+                    <input id="consent" name="consent" type="checkbox" required checked={fields.consent} onChange={set("consent")}
+                      className="mt-0.5 h-6 w-6 rounded border-gray-300 text-ncit-blue focus:ring-ncit-blue" />
+                    <label htmlFor="consent" className="text-xs text-ncit-ink/60 leading-relaxed">
+                      I consent to the Northern Chamber of Information Technology using these details to answer my
+                      enquiry, as described in the{" "}
+                      <Link href="/privacy" className="text-ncit-blue underline underline-offset-4 hover:no-underline">
+                        Privacy Notice
+                      </Link>
+                      .
+                    </label>
+                  </div>
+
+                  {status.state === "error" ? (
+                    <div role="alert" className="flex items-start gap-3 rounded-xl border border-rose-200 bg-rose-50 p-4">
+                      <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-rose-700" aria-hidden="true" />
+                      <p className="text-sm text-rose-900">{status.message}</p>
+                    </div>
+                  ) : null}
+
+                  <button
+                    type="submit"
+                    disabled={sending}
+                    className="w-full sm:w-auto inline-flex items-center justify-center bg-ncit-blue text-white hover:bg-ncit-blue-hover h-12 px-8 text-sm font-medium rounded-xl shadow-md hover:shadow-lg transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
+                  >
+                    {sending ? "Sending..." : "Send Inquiry"}
+                    {!sending && <Send className="w-4 h-4 ml-2" aria-hidden="true" />}
+                  </button>
+                </form>
+              )}
+            </div>
           </div>
         </div>
       </div>
