@@ -117,8 +117,8 @@ export default function PrivacyPage() {
                             your organisation, the kind of enquiry, a subject or area of interest, and your message,
                             and on the contact page optionally a telephone number and member ID. It is sent by email to the chairman&rsquo;s office at{" "}
                             <a href={`mailto:${SITE.enquiriesEmail}`}>{SITE.enquiriesEmail}</a>, addressed so that a
-                            reply comes back to you, and a copy of what you sent is emailed back to the address you
-                            gave as confirmation. The website itself stores none of it: the two emails are the only
+                            reply comes back to you, and a confirmation listing your enquiry details, though not your
+                            message, is emailed back to the address you gave. The website itself stores none of it: the two emails are the only
                             copies.
                         </p>
                         <p>

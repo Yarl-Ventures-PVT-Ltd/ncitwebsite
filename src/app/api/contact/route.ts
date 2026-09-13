@@ -176,6 +176,13 @@ ${detailRows(rows)}
 
     // 2. The confirmation, to the visitor. A failure here does not undo the
     //    enquiry, which has already arrived, so it is logged and not surfaced.
+    //
+    //    It deliberately does not repeat the message. The address it goes to is
+    //    whatever the visitor typed, so echoing their free text back would let
+    //    anyone send a paragraph and a link of their choosing, from ncit.lk, to
+    //    someone else's inbox, and complaints about that can suspend the SES
+    //    account. The short structured fields stay so the visitor can still
+    //    recognise which enquiry this confirms.
     let confirmationSent = false;
     const telLink = `tel:${SITE.telephone}`;
     const whatsappLink = `https://wa.me/${SITE.telephone.replace("+", "")}`;
@@ -198,9 +205,6 @@ ${detailRows(rows)}
                 "",
                 "Your enquiry",
                 ...rows.map(([key, value]) => `${key}: ${value}`),
-                "",
-                "Message:",
-                message,
                 "",
                 `PLEASE DO NOT REPLY TO THIS EMAIL. This mailbox is not monitored. To reply, write to ${SITE.email}.`,
                 "",
@@ -233,8 +237,6 @@ ${detailRows(rows)}
 <table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:collapse;font-size:14px">
 ${detailRows(rows)}
 </table>
-<p style="margin:16px 0 6px;color:#667085;font-size:14px">Message</p>
-<div style="white-space:pre-wrap;font-size:14px;background:#f7f8fa;border:1px solid #e3e7ee;border-radius:4px;padding:12px">${escapeHtml(message)}</div>
 </td></tr>
 
 <tr><td style="padding:20px 28px 8px">
