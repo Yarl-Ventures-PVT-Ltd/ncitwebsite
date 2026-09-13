@@ -5,7 +5,7 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Send, Users, Briefcase, Landmark, Megaphone, HelpCircle, MessageSquare, CheckCircle2, AlertCircle } from "lucide-react";
 
-import { FIELD_LIMITS, INQUIRY_TYPES, type InquiryType } from "@/lib/contact";
+import { FIELD_LIMITS, INQUIRY_TYPES, submitEnquiry, type InquiryType } from "@/lib/contact";
 import { SITE } from "@/lib/seo";
 
 const ICONS: Record<InquiryType, React.ReactNode> = {
@@ -52,7 +52,11 @@ const EMPTY = {
   website: "",
 };
 
-type Status = { state: "idle" } | { state: "sending" } | { state: "sent" } | { state: "error"; message: string };
+type Status =
+  | { state: "idle" }
+  | { state: "sending" }
+  | { state: "sent"; confirmationSent: boolean }
+  | { state: "error"; message: string };
 
 const INPUT =
   "w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-ncit-ink focus:outline-none focus:ring-2 focus:ring-ncit-blue/50 focus:border-ncit-blue transition-all";
@@ -83,23 +87,13 @@ export default function ContactForm() {
     event.preventDefault();
     setStatus({ state: "sending" });
 
-    try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ inquiryType, ...fields }),
-      });
-      const result = await response.json().catch(() => ({ ok: false }));
-
-      if (response.ok && result.ok) {
-        setStatus({ state: "sent" });
-        setFields(EMPTY);
-        return;
-      }
-      setStatus({ state: "error", message: result.error || "Your enquiry could not be sent. Please try again." });
-    } catch {
-      setStatus({ state: "error", message: "Your enquiry could not be sent. Check your connection and try again." });
+    const result = await submitEnquiry({ inquiryType, ...fields });
+    if (result.ok) {
+      setStatus({ state: "sent", confirmationSent: result.confirmationSent });
+      setFields(EMPTY);
+      return;
     }
+    setStatus({ state: "error", message: result.error });
   };
 
   const current = INQUIRY_TYPES.find((type) => type.id === inquiryType)!;
@@ -160,8 +154,10 @@ export default function ContactForm() {
                     <div>
                       <p className="font-semibold text-emerald-900">Thank you. Your enquiry has been received.</p>
                       <p className="mt-1 text-sm text-emerald-800">
-                        We have emailed a copy to the address you gave. We will contact you or provide a solution as
-                        soon as we can, so please be patient.
+                        {status.confirmationSent
+                          ? "We have emailed a copy to the address you gave. "
+                          : "We could not email you a copy, but your enquiry reached us. "}
+                        We will contact you or provide a solution as soon as we can, so please be patient.
                       </p>
                       <p className="mt-3 text-sm text-emerald-900">
                         Urgent? Call or WhatsApp us now on{" "}

@@ -28,7 +28,12 @@ export const runtime = "nodejs";
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
-type Result = { ok: true } | { ok: false; error: string };
+/**
+ * confirmationSent is returned so the page never claims a copy was emailed when
+ * it was not. The enquiry succeeding and the confirmation succeeding are
+ * separate facts, and the visitor is told each one truthfully.
+ */
+type Result = { ok: true; confirmationSent: boolean } | { ok: false; error: string };
 
 function json(body: Result, status: number) {
     return Response.json(body, { status });
@@ -77,7 +82,7 @@ export async function POST(request: Request) {
     // and does not retry with a different strategy.
     if (typeof body.website === "string" && body.website.trim() !== "") {
         console.info("contact.rejected", { reason: "honeypot" });
-        return json({ ok: true }, 200);
+        return json({ ok: true, confirmationSent: true }, 200);
     }
 
     const inquiryType = body.inquiryType;
@@ -171,6 +176,7 @@ ${detailRows(rows)}
 
     // 2. The confirmation, to the visitor. A failure here does not undo the
     //    enquiry, which has already arrived, so it is logged and not surfaced.
+    let confirmationSent = false;
     const telLink = `tel:${SITE.telephone}`;
     const whatsappLink = `https://wa.me/${SITE.telephone.replace("+", "")}`;
     try {
@@ -246,11 +252,12 @@ ${escapeHtml(SITE.legalName)}<br>${escapeHtml(SITE.address.street)}, ${escapeHtm
 </table>
 </body></html>`,
         });
+        confirmationSent = true;
         console.info("contact.confirmation_sent", { inquiryType, messageId: info.messageId });
     } catch (error) {
         const err = error as { code?: string; responseCode?: number };
         console.error("contact.confirmation_failed", { inquiryType, code: err.code, responseCode: err.responseCode });
     }
 
-    return json({ ok: true }, 200);
+    return json({ ok: true, confirmationSent }, 200);
 }

@@ -111,10 +111,11 @@ export default function PrivacyPage() {
                             address, and anything you attach. Nothing more is gathered from you in the background.
                         </p>
                         <p>
-                            <strong>The contact form.</strong> When you send an enquiry through the{" "}
-                            <Link href="/contact">contact page</Link>, the form collects your name, your email address,
-                            your organisation, the inquiry type, a subject and your message, and optionally a telephone
-                            number and member ID. It is sent by email to the chairman&rsquo;s office at{" "}
+                            <strong>The enquiry forms.</strong> When you send an enquiry through the{" "}
+                            <Link href="/contact">contact page</Link> or the investor form on the{" "}
+                            <Link href="/invest">invest page</Link>, the form collects your name, your email address,
+                            your organisation, the kind of enquiry, a subject or area of interest, and your message,
+                            and on the contact page optionally a telephone number and member ID. It is sent by email to the chairman&rsquo;s office at{" "}
                             <a href={`mailto:${SITE.enquiriesEmail}`}>{SITE.enquiriesEmail}</a>, addressed so that a
                             reply comes back to you, and a copy of what you sent is emailed back to the address you
                             gave as confirmation. The website itself stores none of it: the two emails are the only
@@ -276,7 +277,7 @@ export default function PrivacyPage() {
                             This website is aimed at businesses, professionals and institutions, and it is not
                             directed at children. Beyond the analytics and server logs described in section 3, which
                             apply to every visitor alike, the only personal details it receives are the ones a person
-                            types into the contact form and chooses to send.
+                            types into an enquiry form and chooses to send.
                             Where a membership category involves a student, the application is made by the applicant or
                             their institution to the secretariat by email.
                         </p>

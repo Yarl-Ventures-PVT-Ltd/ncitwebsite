@@ -57,3 +57,28 @@ export type ContactPayload = {
     /** Honeypot. Hidden from people, filled in by naive bots. */
     website: string;
 };
+
+export type SubmitResult = { ok: true; confirmationSent: boolean } | { ok: false; error: string };
+
+/**
+ * Posts an enquiry to /api/contact. Shared by the contact form and the invest
+ * form, so the request shape and the error handling are written once and the
+ * two forms cannot drift apart.
+ */
+export async function submitEnquiry(payload: ContactPayload): Promise<SubmitResult> {
+    try {
+        const response = await fetch("/api/contact", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+        });
+        const result = await response.json().catch(() => null);
+
+        if (response.ok && result?.ok) {
+            return { ok: true, confirmationSent: result.confirmationSent === true };
+        }
+        return { ok: false, error: result?.error || "Your enquiry could not be sent. Please try again." };
+    } catch {
+        return { ok: false, error: "Your enquiry could not be sent. Check your connection and try again." };
+    }
+}
