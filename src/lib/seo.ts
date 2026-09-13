@@ -47,6 +47,9 @@ export const SITE = {
   // A completed form and a payment receipt landing in the support queue is
   // how an application waits a fortnight behind a password reset.
   applicationsEmail: "hello@ncit.lk",
+  // Where contact form enquiries land. Already published on the contact page
+  // as the chairman's office, so routing enquiries here reveals nothing new.
+  enquiriesEmail: "chairman@ncit.lk",
   telephone: "+94770869328",
   // The same number written for a person to read. tel: and wa.me need the
   // compact form; a visitor reading it off the screen needs the grouping.

@@ -114,9 +114,11 @@ export default function PrivacyPage() {
                             <strong>The contact form.</strong> When you send an enquiry through the{" "}
                             <Link href="/contact">contact page</Link>, the form collects your name, your email address,
                             your organisation, the inquiry type, a subject and your message, and optionally a telephone
-                            number and member ID. It is sent as a single email to the secretariat at{" "}
-                            <a href={`mailto:${SITE.email}`}>{SITE.email}</a>, addressed so that a reply comes back to
-                            you. The website itself stores none of it: the email is the only copy.
+                            number and member ID. It is sent by email to the chairman&rsquo;s office at{" "}
+                            <a href={`mailto:${SITE.enquiriesEmail}`}>{SITE.enquiriesEmail}</a>, addressed so that a
+                            reply comes back to you, and a copy of what you sent is emailed back to the address you
+                            gave as confirmation. The website itself stores none of it: the two emails are the only
+                            copies.
                         </p>
                         <p>
                             A membership application is the main case. Applicants download a form, complete it, and

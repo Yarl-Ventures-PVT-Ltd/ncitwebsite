@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Send, Users, Briefcase, Landmark, Megaphone, HelpCircle, MessageSquare, CheckCircle2, AlertCircle } from "lucide-react";
 
 import { FIELD_LIMITS, INQUIRY_TYPES, type InquiryType } from "@/lib/contact";
+import { SITE } from "@/lib/seo";
 
 const ICONS: Record<InquiryType, React.ReactNode> = {
   General: <MessageSquare className="w-5 h-5" />,
@@ -157,9 +158,17 @@ export default function ContactForm() {
                   <div className="flex items-start gap-3">
                     <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-emerald-700" aria-hidden="true" />
                     <div>
-                      <p className="font-semibold text-emerald-900">Your enquiry has been sent.</p>
+                      <p className="font-semibold text-emerald-900">Thank you. Your enquiry has been received.</p>
                       <p className="mt-1 text-sm text-emerald-800">
-                        The secretariat will reply to the email address you gave.
+                        We have emailed a copy to the address you gave. We will contact you or provide a solution as
+                        soon as we can, so please be patient.
+                      </p>
+                      <p className="mt-3 text-sm text-emerald-900">
+                        Urgent? Call or WhatsApp us now on{" "}
+                        <a href={`tel:${SITE.telephone}`} className="font-semibold underline underline-offset-4 hover:no-underline">
+                          {SITE.telephoneDisplay}
+                        </a>
+                        .
                       </p>
                       <button
                         type="button"
