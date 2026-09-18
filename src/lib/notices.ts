@@ -8,7 +8,9 @@ import { ALL_ARTICLES, type InsightArticle } from "@/lib/content";
  * not line up with how a reader uses these two pages.
  *
  *   Notice board  things a member or supplier may need to act on: calls for
- *                 bids, vacancies, calls for applications, selection results.
+ *                 bids, vacancies, calls for applications, selection results,
+ *                 and compliance deadlines the chamber passes on, such as the
+ *                 Beneficial Ownership filing.
  *   Press         the chamber speaking officially: AGM outcomes, board
  *                 decisions, partnership announcements.
  *
@@ -21,6 +23,7 @@ import { ALL_ARTICLES, type InsightArticle } from "@/lib/content";
  * and would do the same here.
  */
 const NOTICE_SLUGS: string[] = [
+    "beneficial-ownership-information-deadline-30-september-2026",
     "call-for-tender25052018",
     "vacancy-for-administrative-officer",
     "selected-vt-institutions-for-the-employment-based-skill-training-programe-2018",

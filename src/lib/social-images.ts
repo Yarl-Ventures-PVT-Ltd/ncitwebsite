@@ -23,6 +23,7 @@ export const ARTICLE_IMAGE_SIZE: Record<string, { width: number; height: number 
     "application-called-for-employment-based-skill-training-programme-2018": { width: 1024, height: 683 },
     "applications-for-infotel2017-exhibition-from-north-region-it-smes": { width: 1200, height: 900 },
     "awareness-program-on-5g-technology": { width: 1280, height: 960 },
+    "beneficial-ownership-information-deadline-30-september-2026": { width: 1200, height: 630 },
     "boost-your-business-through-ict-event-in-kilinochchi-and-mullaitivu": { width: 1600, height: 1132 },
     "business-digitalization-seminar-in-mannar": { width: 960, height: 540 },
     "call-for-tender25052018": { width: 180, height: 300 },

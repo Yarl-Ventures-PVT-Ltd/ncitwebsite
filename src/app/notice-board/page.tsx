@@ -11,7 +11,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata: Metadata = pageMetadata({
   title: "Notice Board",
   socialTitle: "Notice Board",
-  description: "Calls for bids, vacancies, calls for applications and selection results issued by the Northern Chamber of Information Technology.",
+  description: "Calls for bids, vacancies, calls for applications and selection results from the Northern Chamber of Information Technology, and compliance notices members need to act on.",
   path: "/notice-board",
 });
 
@@ -30,7 +30,7 @@ export default function NoticeBoardPage() {
         <>
             <PageHeader
                 title="Notice Board"
-                lede="Calls for bids, vacancies, calls for applications and selection results issued by the chamber."
+                lede="Calls for bids, vacancies, calls for applications and selection results from the chamber, and compliance notices members need to act on."
                 crumbs={[{ name: "Notice Board", path: "/notice-board" }]}
                 meta={`${notices.length} notices on record`}
             />

@@ -24,6 +24,23 @@ export interface InsightArticle {
 
 export const mockInsights: InsightArticle[] = [
   {
+    id: "60",
+    slug: "beneficial-ownership-information-deadline-30-september-2026",
+    title: "Important Notice to Directors and Secretaries: Submission of Beneficial Ownership Information",
+    seoTitle: "Beneficial Ownership Information Due 30 September 2026",
+    excerpt: "Every company that had Beneficial Owners when the Companies (Amendment) Act, No. 12 of 2025 came into operation must submit their details to the Registrar of Companies by 30 September 2026.",
+    content: "<p>The Department of the Registrar of Companies has issued a notice to all company directors and secretaries. NCIT is sharing it with members.</p>\n<p><strong>Every company that had Beneficial Owners on the date the Companies (Amendment) Act, No. 12 of 2025 came into operation must submit the details of its Beneficial Owners to the Registrar within six months.</strong> This is required by Section 130H(1) of that Act.</p>\n<p>The deadline is <strong>30 September 2026</strong>.</p>\n<p>All directors and secretaries of companies that have not yet complied are strongly urged to submit the required Beneficial Ownership information on or before 30 September 2026.</p>\n<p>Submit through the Beneficial Ownership System: <a href=\"https://bo.drc.gov.lk/login\">https://bo.drc.gov.lk/login</a></p>\n<p>User guides and video tutorials: <a href=\"https://drc.gov.lk/en/?page_id=4607\">https://drc.gov.lk/en/?page_id=4607</a></p>\n<p>The full notice from the Department of the Registrar of Companies: <a href=\"https://drc.gov.lk/en/?p=4944\">https://drc.gov.lk/en/?p=4944</a></p>",
+    category: "Policy",
+    date: "2026-09-18",
+    updatedAt: "2026-09-18T09:30:00+05:30",
+    author: "NCIT Team",
+    organization: "Northern Chamber of Information Technology",
+    imageUrl: "/og/ncit-share.png",
+    imageAlt: "Notice to directors and secretaries on submitting Beneficial Ownership information to the Registrar of Companies by 30 September 2026",
+    keywords: ["NCIT", "Northern Chamber of Information Technology", "Jaffna", "Northern Province", "Beneficial Ownership", "Registrar of Companies", "Companies Amendment Act No 12 of 2025", "company compliance Sri Lanka"],
+    language: "English",
+  },
+  {
     id: "1",
     slug: "a-new-chapter-begins-for-the-northern-ict-industry",
     title: "A New Chapter Begins for the Northern ICT Industry.!",
