@@ -79,9 +79,11 @@ all read it. Add a new post at the top of the array with the next `id`.
   `scripts/check-article-html.mjs` first and refuses tags that belong to the
   page, such as `<main>`, and any unbalanced tag.
 - Internal links carry `class="text-ncit-blue underline underline-offset-2 hover:no-underline"`.
-- A post with no photograph uses `/og/ncit-share.png`. After adding it, run
-  `node scripts/build-social-images.mjs` so its size is recorded for the social
-  card.
+- Images go in `public/wp-content/uploads/<year>/<month>/`, named after the
+  post. Resize to 1600 wide at most, and 16:9 matches the shape the hero and
+  the cards crop to. A post with no photograph uses `/og/ncit-share.png`.
+  After adding a post, run `node scripts/build-social-images.mjs` so its image
+  size is recorded for the social card.
 - To put the post on `/notice-board` or `/press`, add its slug to the matching
   list in `src/lib/notices.ts`. Those lists are explicit on purpose, so a
   keyword never files a post onto the wrong page.
