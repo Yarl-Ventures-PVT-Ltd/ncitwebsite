@@ -68,6 +68,30 @@ src/
 
 ---
 
+## Publishing a news post or notice
+
+Posts live in `src/lib/mock-data/insights.ts`, in the `mockInsights` array. The
+migrated archive and anything written since share that one file, because the
+article page, the sitemap, `llms.txt`, the gallery and the two build scripts
+all read it. Add a new post at the top of the array with the next `id`.
+
+- `content` is HTML, not markdown. `npm run build` runs
+  `scripts/check-article-html.mjs` first and refuses tags that belong to the
+  page, such as `<main>`, and any unbalanced tag.
+- Internal links carry `class="text-ncit-blue underline underline-offset-2 hover:no-underline"`.
+- A post with no photograph uses `/og/ncit-share.png`. After adding it, run
+  `node scripts/build-social-images.mjs` so its size is recorded for the social
+  card.
+- To put the post on `/notice-board` or `/press`, add its slug to the matching
+  list in `src/lib/notices.ts`. Those lists are explicit on purpose, so a
+  keyword never files a post onto the wrong page.
+- `/whats-new`, `/insights` and the sitemap pick it up automatically.
+
+Then run the full gate: `npx tsc --noEmit`, `npx eslint <changed files>`,
+`npm run build`, and `npm run check:links` against a running `npm start`.
+
+---
+
 ## 🤝 Development & Contribution
 
 Developed with ❤️ for the **Northern Chamber of Information Technology**.
