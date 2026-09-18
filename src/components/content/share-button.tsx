@@ -1,7 +1,33 @@
 "use client";
 
 import { useState } from "react";
-import { Check, Share2 } from "lucide-react";
+import { Check, Share2, TriangleAlert } from "lucide-react";
+
+/**
+ * Copies text without the Clipboard API, by selecting it in a field the reader
+ * never sees. Older than the API and still the only thing that works when the
+ * page is served over plain http, or when the browser refuses clipboard access.
+ */
+function copyBySelection(text: string): boolean {
+    const field = document.createElement("textarea");
+    field.value = text;
+    field.setAttribute("readonly", "");
+    field.style.position = "fixed";
+    field.style.top = "0";
+    field.style.opacity = "0";
+    document.body.appendChild(field);
+    field.select();
+
+    let copied = false;
+    try {
+        copied = document.execCommand("copy");
+    } catch {
+        copied = false;
+    }
+
+    document.body.removeChild(field);
+    return copied;
+}
 
 /**
  * Share control for an article.
@@ -18,9 +44,15 @@ import { Check, Share2 } from "lucide-react";
  * to read navigator after mount, and reading navigator during render instead
  * made the server and client draw different icons, which is a hydration
  * mismatch. The label says Share in both cases, so the icon can be constant.
+ *
+ * Every outcome says something. A clipboard write can be refused (an unfocused
+ * page, plain http, or browser policy) and the first version of this swallowed
+ * that silently, so a refused copy looked exactly like a button that does
+ * nothing. Now a refusal tries the older selection copy, and if that fails too
+ * the button says so and the address stays on screen to copy by hand.
  */
 export function ShareButton({ title }: { title: string }) {
-    const [copied, setCopied] = useState(false);
+    const [result, setResult] = useState<"idle" | "copied" | "failed">("idle");
 
     const onShare = async () => {
         const url = window.location.href;
@@ -35,15 +67,34 @@ export function ShareButton({ title }: { title: string }) {
             }
         }
 
+        let copied = false;
+
         try {
             await navigator.clipboard.writeText(url);
-            setCopied(true);
-            window.setTimeout(() => setCopied(false), 2400);
+            copied = true;
         } catch {
-            // Clipboard access can be refused, over http or by policy. Nothing
-            // useful to say beyond leaving the address in the bar.
+            copied = copyBySelection(url);
         }
+
+        setResult(copied ? "copied" : "failed");
+        window.setTimeout(() => setResult("idle"), 2400);
     };
+
+    let label = "Share";
+    let Icon = Share2;
+    let spoken = "";
+
+    if (result === "copied") {
+        label = "Link copied";
+        Icon = Check;
+        spoken = "Link copied to clipboard";
+    }
+
+    if (result === "failed") {
+        label = "Copy failed";
+        Icon = TriangleAlert;
+        spoken = "The link could not be copied. Copy it from the address bar.";
+    }
 
     return (
         <button
@@ -51,14 +102,10 @@ export function ShareButton({ title }: { title: string }) {
             onClick={onShare}
             className="inline-flex min-h-[44px] items-center gap-2 rounded-md border border-ncit-line-strong bg-ncit-paper px-4 text-sm font-medium text-ncit-ink transition-colors hover:bg-ncit-surface"
         >
-            {copied ? (
-                <Check className="h-4 w-4 text-ncit-blue" aria-hidden="true" />
-            ) : (
-                <Share2 className="h-4 w-4" aria-hidden="true" />
-            )}
-            {copied ? "Link copied" : "Share"}
+            <Icon className={result === "idle" ? "h-4 w-4" : "h-4 w-4 text-ncit-blue"} aria-hidden="true" />
+            {label}
             <span aria-live="polite" className="sr-only">
-                {copied ? "Link copied to clipboard" : ""}
+                {spoken}
             </span>
         </button>
     );
