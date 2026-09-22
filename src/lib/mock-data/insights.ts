@@ -35,7 +35,7 @@ export const mockInsights: InsightArticle[] = [
     updatedAt: "2026-09-18T11:20:00+05:30",
     author: "NCIT Team",
     organization: "Northern Chamber of Information Technology",
-    imageUrl: "/wp-content/uploads/2026/09/ncit-beneficial-ownership-notice-2026-09.png",
+    imageUrl: "/wp-content/uploads/2026/09/ncit-beneficial-ownership-deadline-30-september-2026.png",
     imageAlt: "Notice to directors and secretaries: submit Beneficial Ownership information to the Registrar of Companies by the deadline of 30 September 2026",
     keywords: ["Beneficial Ownership Sri Lanka", "Section 130H(1)", "Companies (Amendment) Act No. 12 of 2025", "Registrar of Companies", "beneficial ownership deadline 30 September 2026", "company compliance Sri Lanka", "NCIT", "Northern Chamber of Information Technology"],
     language: "English",
